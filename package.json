@@ -1,0 +1,19 @@
+{
+  "name": "final-project-tiketku",
+  "version": "1.0.0",
+  "description": "a service/API to purchase and book flight tickets online",
+  "main": "app.js",
+  "scripts": {
+    "start:dev": "nodemon app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.5",
+    "nodemon": "^3.1.7"
+  }
+}

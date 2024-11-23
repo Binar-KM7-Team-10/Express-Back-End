@@ -1,0 +1,134 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Airport {
+  id Int @id @default(autoincrement())
+  name String
+  city String
+  country String
+  iataCode String
+  flightsDeparture Flight[] @relation("departureAirport")
+  flightsArrival Flight[] @relation("arrivalAirport")
+}
+
+model Airline {
+  id Int @id @default(autoincrement())
+  name String
+  country String
+  iataCode String
+  flights Flight[]
+}
+
+model Flight {
+  id Int @id @default(autoincrement())
+  departureAirportId Int
+  arrivalAirportId Int
+  airlineId Int
+  journeyType String
+  departureDate DateTime
+  returnDate DateTime?
+  passengerCount Int
+  departureAirport Airport @relation("departureAirport", fields: [departureAirportId], references: [id])
+  arrivalAirport Airport @relation("arrivalAirport", fields: [arrivalAirportId], references: [id])
+  airline Airline @relation(fields: [airlineId], references: [id])
+  Schedule Schedule[]
+}
+
+model Schedule {
+  id Int @id @default(autoincrement())
+  flightId Int
+  departureTime DateTime
+  arrivalTime DateTime
+  duration Int
+  ticketPrice Int
+  seatAvailability Int
+  seatClass String
+  terminalGate String
+  flight Flight @relation(fields: [flightId], references: [id])
+  Seat Seat[]
+  Booking Booking[]
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  email String @unique
+  phoneNumber String @unique
+  password String
+  fullName String
+  role String
+  passwordResetToken String?
+  passwordResetTokenExpirationTime DateTime?
+  Booking Booking[]
+  Notification Notification[]
+}
+
+model Notification {
+  id Int @id @default(autoincrement())
+  userId Int
+  title String
+  message String
+  createdAt DateTime @default(now())
+  readStatus Boolean @default(false)
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Booking {
+  id Int @id @default(autoincrement())
+  userId Int
+  scheduleId Int
+  date DateTime
+  totalPrice Int
+  status String
+  user User @relation(fields: [userId], references: [id])
+  schedule Schedule @relation(fields: [scheduleId], references: [id])
+  Seat Seat[]
+  Payment Payment?
+  Passenger Passenger[]
+}
+
+model Seat {
+  id Int @id @default(autoincrement())
+  scheduleId Int
+  bookingId Int?
+  seatNumber String
+  isAvailable Boolean @default(true)
+  schedule Schedule @relation(fields: [scheduleId], references: [id])
+  booking Booking? @relation(fields: [bookingId], references: [id])
+}
+
+model Payment {
+  id Int @id @default(autoincrement())
+  bookingId Int @unique
+  method String
+  status String
+  amountPaid Int
+  date DateTime?
+  booking Booking @relation(fields: [bookingId], references: [id])
+}
+
+model Passenger {
+  id Int @id @default(autoincrement())
+  bookingId Int
+  type String
+  title String
+  fullName String
+  familyName String?
+  birthDate DateTime
+  citizenship String
+  identityNumber String
+  issuingCountry String?
+  dateOfExpiry DateTime?
+  booking Booking @relation(fields: [bookingId], references: [id])
+}
