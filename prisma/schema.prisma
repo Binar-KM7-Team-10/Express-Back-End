@@ -28,6 +28,7 @@ model Airline {
   name String
   country String
   iataCode String
+  logoUrl String?
   flights Flight[]
 }
 
@@ -36,21 +37,36 @@ model Flight {
   departureAirportId Int
   arrivalAirportId Int
   airlineId Int
-  journeyType String
-  departureDate DateTime
-  returnDate DateTime?
-  passengerCount Int
+  flightNumber String
+  flightType String
   departureAirport Airport @relation("departureAirport", fields: [departureAirportId], references: [id])
   arrivalAirport Airport @relation("arrivalAirport", fields: [arrivalAirportId], references: [id])
   airline Airline @relation(fields: [airlineId], references: [id])
   Schedule Schedule[]
+  Baggage Baggage?
+  Service Service[]
+}
+
+model Baggage {
+  id Int @id @default(autoincrement())
+  flightId Int @unique
+  maxBaggageWeight Int?
+  maxCabinBaggageWeight Int
+  flight Flight @relation(fields: [flightId], references: [id])
+}
+
+model Service {
+  id Int @id @default(autoincrement())
+  flightId Int
+  title String
+  flight Flight @relation(fields: [flightId], references: [id])
 }
 
 model Schedule {
   id Int @id @default(autoincrement())
   flightId Int
-  departureTime DateTime
-  arrivalTime DateTime
+  departureDateTime DateTime
+  arrivalDateTime DateTime
   duration Int
   ticketPrice Int
   seatAvailability Int
@@ -58,18 +74,104 @@ model Schedule {
   terminalGate String
   flight Flight @relation(fields: [flightId], references: [id])
   Seat Seat[]
-  Booking Booking[]
+  ItinerarySchedule ItinerarySchedule[]
+  Notification Notification[]
+}
+
+model ItinerarySchedule {
+  id Int @id @default(autoincrement())
+  itineraryId Int
+  scheduleId Int
+  tripDirection String @default("Outbound")
+  itinerary Itinerary @relation(fields: [itineraryId], references: [id])
+  schedule Schedule @relation(fields: [scheduleId], references: [id])
+}
+
+model Itinerary {
+  id Int @id @default(autoincrement())
+  bookingId Int @unique
+  journeyType String
+  booking Booking @relation(fields: [bookingId], references: [id])
+  ItinerarySchedule ItinerarySchedule[]
+}
+
+model Booking {
+  id Int @id @default(autoincrement())
+  userId Int
+  bookingCode String @unique
+  date DateTime
+  status String @default("Unpaid")
+  user User @relation(fields: [userId], references: [id])
+  Passenger Passenger[]
+  Itinerary Itinerary?
+  BookedSeat BookedSeat[]
+  Invoice Invoice?
+  Notification Notification[]
+}
+
+model Seat {
+  id Int @id @default(autoincrement())
+  scheduleId Int
+  seatNumber String
+  schedule Schedule @relation(fields: [scheduleId], references: [id])
+  BookedSeat BookedSeat?
+}
+
+model BookedSeat {
+  id Int @id @default(autoincrement())
+  seatId Int @unique
+  bookingId Int
+  seat Seat @relation(fields: [seatId], references: [id])
+  booking Booking @relation(fields: [bookingId], references: [id])
+  Passenger Passenger?
+}
+
+model Passenger {
+  id Int @id @default(autoincrement())
+  bookingId Int
+  bookedSeatId Int @unique
+  ageGroup String
+  title String
+  fullName String
+  familyName String?
+  birthDate DateTime
+  nationality String
+  identityNumber String
+  issuingCountry String?
+  expiryDate DateTime?
+  booking Booking @relation(fields: [bookingId], references: [id])
+  bookedSeat BookedSeat @relation(fields: [bookedSeatId], references: [id])
+}
+
+model Invoice {
+  id Int @id @default(autoincrement())
+  bookingId Int @unique
+  subtotal Int
+  taxAmount Int
+  totalAmount Int
+  booking Booking @relation(fields: [bookingId], references: [id])
+  Payment Payment?
+}
+
+model Payment {
+  id Int @id @default(autoincrement())
+  invoiceId Int @unique
+  method String
+  date DateTime
+  invoice Invoice @relation(fields: [invoiceId], references: [id])
+  Notification Notification[]
 }
 
 model User {
   id Int @id @default(autoincrement())
   email String @unique
   phoneNumber String @unique
-  password String
+  googleId String?
+  password String?
   fullName String
-  role String
   passwordResetToken String?
   passwordResetTokenExpirationTime DateTime?
+  role String @default("Buyer")
   Booking Booking[]
   Notification Notification[]
 }
@@ -77,58 +179,15 @@ model User {
 model Notification {
   id Int @id @default(autoincrement())
   userId Int
+  bookingId Int?
+  scheduleId Int?
+  paymentId Int?
   title String
   message String
   createdAt DateTime @default(now())
   readStatus Boolean @default(false)
   user User @relation(fields: [userId], references: [id])
-}
-
-model Booking {
-  id Int @id @default(autoincrement())
-  userId Int
-  scheduleId Int
-  date DateTime
-  totalPrice Int
-  status String
-  user User @relation(fields: [userId], references: [id])
-  schedule Schedule @relation(fields: [scheduleId], references: [id])
-  Seat Seat[]
-  Payment Payment?
-  Passenger Passenger[]
-}
-
-model Seat {
-  id Int @id @default(autoincrement())
-  scheduleId Int
-  bookingId Int?
-  seatNumber String
-  isAvailable Boolean @default(true)
-  schedule Schedule @relation(fields: [scheduleId], references: [id])
   booking Booking? @relation(fields: [bookingId], references: [id])
-}
-
-model Payment {
-  id Int @id @default(autoincrement())
-  bookingId Int @unique
-  method String
-  status String
-  amountPaid Int
-  date DateTime?
-  booking Booking @relation(fields: [bookingId], references: [id])
-}
-
-model Passenger {
-  id Int @id @default(autoincrement())
-  bookingId Int
-  type String
-  title String
-  fullName String
-  familyName String?
-  birthDate DateTime
-  citizenship String
-  identityNumber String
-  issuingCountry String?
-  dateOfExpiry DateTime?
-  booking Booking @relation(fields: [bookingId], references: [id])
+  schedule Schedule? @relation(fields: [scheduleId], references: [id])
+  payment Payment? @relation(fields: [paymentId], references: [id])
 }
