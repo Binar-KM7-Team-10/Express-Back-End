@@ -149,6 +149,7 @@ model Invoice {
   subtotal Int
   taxAmount Int
   totalAmount Int
+  paymentDueDateTime DateTime
   booking Booking @relation(fields: [bookingId], references: [id])
   Payment Payment?
 }
