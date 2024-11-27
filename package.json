@@ -4,7 +4,10 @@
   "description": "a service/API to purchase and book flight tickets online",
   "main": "app.js",
   "scripts": {
-    "start:dev": "nodemon app.js"
+    "start:dev": "nodemon app.js",
+    "dbpush": "npx prisma db push",
+    "seed:airport": "node ./database/seedAirport.js",
+    "seed:airline": "node ./database/seedAirline.js"
   },
   "author": "",
   "license": "ISC",
