@@ -40,7 +40,7 @@ model Flight {
   arrivalAirportId Int
   airlineId Int
   flightNumber String
-  flightType String
+  flightType String?
   departureAirport Airport @relation("departureAirport", fields: [departureAirportId], references: [id])
   arrivalAirport Airport @relation("arrivalAirport", fields: [arrivalAirportId], references: [id])
   airline Airline @relation(fields: [airlineId], references: [id])
