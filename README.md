@@ -109,7 +109,7 @@ Endpoints for listing flight schedules
 				{
 					"id": 1,
 					"flightId": 1,
-					"flightNumber": "JT-203",
+					"flightNumber": "JT203",
 					"departureDateTime": "2024-11-25T07:00:00.000Z",
 					"arrivalDateTime": "2024-11-25T11:00:00.000Z",
 					"duration": 240,
@@ -133,7 +133,7 @@ Endpoints for listing flight schedules
 				{
 					"id": 4,
 					"flightId": 2,
-					"flightNumber": "GA-513",
+					"flightNumber": "GA513",
 					"departureDateTime": "2024-11-27T13:55:00.000Z",
 					"arrivalDateTime": "2024-11-27T15:30:00.000Z",
 					"duration": 95,
