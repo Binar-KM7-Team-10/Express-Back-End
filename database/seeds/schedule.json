@@ -1,0 +1,2802 @@
+[
+    {
+        "departureDateTime": "2024-12-06T18:23:24Z",
+        "ticketPrice": 7060000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-20T18:14:32Z",
+        "ticketPrice": 9030000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-19T13:00:02Z",
+        "ticketPrice": 1430000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-12-01T15:29:53Z",
+        "ticketPrice": 4140000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-18T05:09:24Z",
+        "ticketPrice": 2570000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-12-03T14:13:16Z",
+        "ticketPrice": 8780000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3A"
+    },
+    {
+        "departureDateTime": "2024-12-11T20:18:05Z",
+        "ticketPrice": 8240000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-12-17T00:08:28Z",
+        "ticketPrice": 9250000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-09T17:56:55Z",
+        "ticketPrice": 9510000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-12-17T13:11:16Z",
+        "ticketPrice": 1580000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3A"
+    },
+    {
+        "departureDateTime": "2024-12-06T01:27:05Z",
+        "ticketPrice": 7240000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-12-24T01:50:21Z",
+        "ticketPrice": 8490000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-12-03T14:43:29Z",
+        "ticketPrice": 2910000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-12-17T09:25:11Z",
+        "ticketPrice": 6030000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-10T03:31:32Z",
+        "ticketPrice": 7240000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-25T15:42:38Z",
+        "ticketPrice": 8020000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-12-06T20:37:36Z",
+        "ticketPrice": 1290000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-19T18:52:19Z",
+        "ticketPrice": 3220000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-12-01T06:33:51Z",
+        "ticketPrice": 9800000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3A"
+    },
+    {
+        "departureDateTime": "2024-12-29T17:10:46Z",
+        "ticketPrice": 1130000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-11-27T07:23:21Z",
+        "ticketPrice": 4270000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-19T12:35:40Z",
+        "ticketPrice": 1240000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-12-07T23:44:47Z",
+        "ticketPrice": 3650000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-12-22T13:12:53Z",
+        "ticketPrice": 9160000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2A"
+    },
+    {
+        "departureDateTime": "2024-12-06T02:57:28Z",
+        "ticketPrice": 8240000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-12-20T11:55:26Z",
+        "ticketPrice": 4800000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-12-05T20:01:27Z",
+        "ticketPrice": 3440000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-12-19T15:42:38Z",
+        "ticketPrice": 6030000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2A"
+    },
+    {
+        "departureDateTime": "2024-12-19T04:08:54Z",
+        "ticketPrice": 7070000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-02T02:38:18Z",
+        "ticketPrice": 6450000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2A"
+    },
+    {
+        "departureDateTime": "2024-12-26T00:01:22Z",
+        "ticketPrice": 8460000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-12-21T11:59:33Z",
+        "ticketPrice": 8780000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-12-04T15:11:45Z",
+        "ticketPrice": 4910000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-27T00:46:04Z",
+        "ticketPrice": 2300000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-11-30T06:48:57Z",
+        "ticketPrice": 2870000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-11-29T22:29:29Z",
+        "ticketPrice": 7630000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "3C"
+    },
+    {
+        "departureDateTime": "2024-12-15T13:42:39Z",
+        "ticketPrice": 4410000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-12-21T19:27:59Z",
+        "ticketPrice": 2790000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-15T18:44:19Z",
+        "ticketPrice": 4760000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-12-30T02:28:38Z",
+        "ticketPrice": 7490000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-12-26T23:20:43Z",
+        "ticketPrice": 1640000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-12-20T14:58:52Z",
+        "ticketPrice": 6990000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-08T01:47:17Z",
+        "ticketPrice": 6960000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-24T06:54:13Z",
+        "ticketPrice": 4670000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-12-21T19:30:43Z",
+        "ticketPrice": 4500000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-12-09T02:54:10Z",
+        "ticketPrice": 5440000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-18T02:37:43Z",
+        "ticketPrice": 8760000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-12-19T19:46:38Z",
+        "ticketPrice": 3100000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-18T05:08:29Z",
+        "ticketPrice": 9650000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-26T12:30:18Z",
+        "ticketPrice": 9860000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-11-27T03:31:16Z",
+        "ticketPrice": 6550000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-11-27T07:21:55Z",
+        "ticketPrice": 4400000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3C"
+    },
+    {
+        "departureDateTime": "2024-12-21T04:18:46Z",
+        "ticketPrice": 8420000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-12T21:48:44Z",
+        "ticketPrice": 9980000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "3C"
+    },
+    {
+        "departureDateTime": "2024-12-25T17:54:56Z",
+        "ticketPrice": 5890000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-12T01:34:19Z",
+        "ticketPrice": 3300000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-11-29T05:26:59Z",
+        "ticketPrice": 9170000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-12-30T15:33:05Z",
+        "ticketPrice": 9330000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-01T14:18:55Z",
+        "ticketPrice": 2150000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-12-03T11:31:11Z",
+        "ticketPrice": 1040000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-12-01T07:09:53Z",
+        "ticketPrice": 9290000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-28T22:15:21Z",
+        "ticketPrice": 6540000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-25T23:25:02Z",
+        "ticketPrice": 2300000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-12-27T14:04:54Z",
+        "ticketPrice": 2960000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-26T14:28:29Z",
+        "ticketPrice": 1960000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2A"
+    },
+    {
+        "departureDateTime": "2024-11-27T12:39:45Z",
+        "ticketPrice": 8020000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-06T01:01:37Z",
+        "ticketPrice": 1330000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-13T15:04:22Z",
+        "ticketPrice": 3450000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-12-29T12:10:05Z",
+        "ticketPrice": 1620000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-26T06:42:59Z",
+        "ticketPrice": 6080000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-11-29T21:55:03Z",
+        "ticketPrice": 1650000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-29T03:25:07Z",
+        "ticketPrice": 2800000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-12-15T09:07:20Z",
+        "ticketPrice": 1100000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-11-28T21:45:39Z",
+        "ticketPrice": 1280000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "1C"
+    },
+    {
+        "departureDateTime": "2024-12-03T11:23:44Z",
+        "ticketPrice": 5660000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-12-03T08:50:12Z",
+        "ticketPrice": 4180000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-09T20:42:38Z",
+        "ticketPrice": 2600000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "3C"
+    },
+    {
+        "departureDateTime": "2024-12-20T05:25:59Z",
+        "ticketPrice": 3130000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-11-28T00:43:43Z",
+        "ticketPrice": 6840000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-12-09T08:32:59Z",
+        "ticketPrice": 3750000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-21T12:50:34Z",
+        "ticketPrice": 1040000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-27T12:56:19Z",
+        "ticketPrice": 3980000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2A"
+    },
+    {
+        "departureDateTime": "2024-12-17T22:05:24Z",
+        "ticketPrice": 6910000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "3C"
+    },
+    {
+        "departureDateTime": "2024-12-01T23:16:53Z",
+        "ticketPrice": 5550000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-11-28T08:51:14Z",
+        "ticketPrice": 5490000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-12-17T21:18:33Z",
+        "ticketPrice": 9970000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-12-30T02:58:26Z",
+        "ticketPrice": 6710000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-22T23:37:41Z",
+        "ticketPrice": 2150000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "2A"
+    },
+    {
+        "departureDateTime": "2024-11-28T23:12:16Z",
+        "ticketPrice": 9400000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3A"
+    },
+    {
+        "departureDateTime": "2024-12-04T10:27:06Z",
+        "ticketPrice": 4970000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-12-26T08:03:15Z",
+        "ticketPrice": 6150000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1C"
+    },
+    {
+        "departureDateTime": "2024-11-29T17:36:04Z",
+        "ticketPrice": 7940000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-23T15:49:49Z",
+        "ticketPrice": 4070000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-24T15:39:20Z",
+        "ticketPrice": 3570000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "2A"
+    },
+    {
+        "departureDateTime": "2024-12-06T03:17:05Z",
+        "ticketPrice": 7010000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-11-29T11:31:34Z",
+        "ticketPrice": 3990000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-11-29T13:15:23Z",
+        "ticketPrice": 5690000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "3A"
+    },
+    {
+        "departureDateTime": "2024-12-03T07:42:46Z",
+        "ticketPrice": 8050000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-12-03T14:23:33Z",
+        "ticketPrice": 3110000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-01T14:59:40Z",
+        "ticketPrice": 3370000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-11-29T12:25:28Z",
+        "ticketPrice": 9950000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-16T13:28:17Z",
+        "ticketPrice": 7920000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-23T15:42:15Z",
+        "ticketPrice": 7910000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-11-29T17:13:11Z",
+        "ticketPrice": 8760000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3C"
+    },
+    {
+        "departureDateTime": "2024-12-29T23:21:25Z",
+        "ticketPrice": 9520000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2A"
+    },
+    {
+        "departureDateTime": "2024-12-28T12:40:37Z",
+        "ticketPrice": 7340000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "3C"
+    },
+    {
+        "departureDateTime": "2024-12-15T18:03:42Z",
+        "ticketPrice": 5200000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-12-08T00:14:44Z",
+        "ticketPrice": 4940000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-12-04T21:26:30Z",
+        "ticketPrice": 9600000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3C"
+    },
+    {
+        "departureDateTime": "2024-12-04T20:30:10Z",
+        "ticketPrice": 3000000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-15T13:01:34Z",
+        "ticketPrice": 1980000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-25T22:02:26Z",
+        "ticketPrice": 9940000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-12-12T08:06:57Z",
+        "ticketPrice": 3440000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-12-06T13:08:10Z",
+        "ticketPrice": 4600000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-12-14T21:33:03Z",
+        "ticketPrice": 4650000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-19T05:33:03Z",
+        "ticketPrice": 3400000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-08T07:47:46Z",
+        "ticketPrice": 5000000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2A"
+    },
+    {
+        "departureDateTime": "2024-12-30T05:24:10Z",
+        "ticketPrice": 9760000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-12-21T23:56:19Z",
+        "ticketPrice": 2840000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-12-16T21:29:45Z",
+        "ticketPrice": 6740000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-12-17T11:54:44Z",
+        "ticketPrice": 5700000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-18T15:02:06Z",
+        "ticketPrice": 7820000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "3A"
+    },
+    {
+        "departureDateTime": "2024-12-23T19:25:51Z",
+        "ticketPrice": 7910000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1C"
+    },
+    {
+        "departureDateTime": "2024-12-18T22:54:01Z",
+        "ticketPrice": 8720000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "3C"
+    },
+    {
+        "departureDateTime": "2024-12-05T08:02:49Z",
+        "ticketPrice": 2580000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-12-30T12:41:51Z",
+        "ticketPrice": 1010000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-11-28T00:54:54Z",
+        "ticketPrice": 7490000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-14T01:26:01Z",
+        "ticketPrice": 8840000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-12-19T10:22:56Z",
+        "ticketPrice": 3890000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-12-02T17:27:26Z",
+        "ticketPrice": 3640000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-01T17:45:42Z",
+        "ticketPrice": 4780000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-27T01:59:33Z",
+        "ticketPrice": 8190000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-17T11:37:18Z",
+        "ticketPrice": 3730000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "3C"
+    },
+    {
+        "departureDateTime": "2024-12-11T07:52:45Z",
+        "ticketPrice": 2330000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1C"
+    },
+    {
+        "departureDateTime": "2024-12-20T13:41:23Z",
+        "ticketPrice": 5020000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-29T20:51:08Z",
+        "ticketPrice": 6120000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-11-28T17:37:57Z",
+        "ticketPrice": 6660000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-13T08:18:26Z",
+        "ticketPrice": 6650000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-16T23:22:03Z",
+        "ticketPrice": 6950000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-05T01:50:20Z",
+        "ticketPrice": 1490000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-11-28T17:15:44Z",
+        "ticketPrice": 9380000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-17T12:28:53Z",
+        "ticketPrice": 8770000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-11-28T19:48:15Z",
+        "ticketPrice": 3890000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "1C"
+    },
+    {
+        "departureDateTime": "2024-12-08T04:20:24Z",
+        "ticketPrice": 1540000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-20T09:53:24Z",
+        "ticketPrice": 4680000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-11T15:24:11Z",
+        "ticketPrice": 8800000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-12-15T18:13:52Z",
+        "ticketPrice": 2310000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-12-08T11:41:51Z",
+        "ticketPrice": 6920000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-11-28T22:08:43Z",
+        "ticketPrice": 1100000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "3A"
+    },
+    {
+        "departureDateTime": "2024-12-07T16:42:53Z",
+        "ticketPrice": 8130000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-05T21:26:17Z",
+        "ticketPrice": 2810000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-12-17T00:25:01Z",
+        "ticketPrice": 1750000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-12-15T23:08:28Z",
+        "ticketPrice": 1720000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1C"
+    },
+    {
+        "departureDateTime": "2024-12-22T16:10:36Z",
+        "ticketPrice": 2160000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-29T06:02:18Z",
+        "ticketPrice": 6950000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "3C"
+    },
+    {
+        "departureDateTime": "2024-12-03T08:44:17Z",
+        "ticketPrice": 2650000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-12-16T07:07:07Z",
+        "ticketPrice": 9240000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-11-30T20:15:44Z",
+        "ticketPrice": 7310000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-11-28T07:46:22Z",
+        "ticketPrice": 6090000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-21T15:00:38Z",
+        "ticketPrice": 3200000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-06T11:51:09Z",
+        "ticketPrice": 7820000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-17T10:45:18Z",
+        "ticketPrice": 2440000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1C"
+    },
+    {
+        "departureDateTime": "2024-12-10T12:16:13Z",
+        "ticketPrice": 7230000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-12-21T07:44:08Z",
+        "ticketPrice": 5490000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-20T09:36:00Z",
+        "ticketPrice": 2850000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-17T16:28:54Z",
+        "ticketPrice": 2380000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-12T07:57:38Z",
+        "ticketPrice": 3550000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3A"
+    },
+    {
+        "departureDateTime": "2024-11-27T07:00:49Z",
+        "ticketPrice": 8130000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-20T08:11:40Z",
+        "ticketPrice": 3200000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-27T10:19:43Z",
+        "ticketPrice": 8380000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-12-09T08:14:59Z",
+        "ticketPrice": 7260000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-19T20:39:16Z",
+        "ticketPrice": 2370000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-12-12T13:47:16Z",
+        "ticketPrice": 3770000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-12-04T08:44:43Z",
+        "ticketPrice": 6920000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-02T14:51:50Z",
+        "ticketPrice": 4320000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-11-28T13:08:01Z",
+        "ticketPrice": 5210000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-12-26T15:24:40Z",
+        "ticketPrice": 1050000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-12-07T09:31:07Z",
+        "ticketPrice": 4900000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1C"
+    },
+    {
+        "departureDateTime": "2024-12-01T03:02:28Z",
+        "ticketPrice": 5410000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-11-30T03:42:12Z",
+        "ticketPrice": 8730000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-11-27T04:53:39Z",
+        "ticketPrice": 6890000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1C"
+    },
+    {
+        "departureDateTime": "2024-12-14T06:50:42Z",
+        "ticketPrice": 1340000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3C"
+    },
+    {
+        "departureDateTime": "2024-12-08T02:09:47Z",
+        "ticketPrice": 3080000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-12-24T09:09:09Z",
+        "ticketPrice": 1030000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-05T19:55:11Z",
+        "ticketPrice": 8190000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-11-29T00:07:02Z",
+        "ticketPrice": 8140000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-07T00:28:09Z",
+        "ticketPrice": 1330000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1C"
+    },
+    {
+        "departureDateTime": "2024-12-26T21:50:04Z",
+        "ticketPrice": 3280000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-01T01:32:41Z",
+        "ticketPrice": 2510000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3A"
+    },
+    {
+        "departureDateTime": "2024-12-21T09:01:15Z",
+        "ticketPrice": 3970000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-12-04T20:03:12Z",
+        "ticketPrice": 4530000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-05T10:47:19Z",
+        "ticketPrice": 1680000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-12-11T04:40:31Z",
+        "ticketPrice": 1800000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-25T22:36:04Z",
+        "ticketPrice": 7330000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-13T17:26:43Z",
+        "ticketPrice": 3750000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1C"
+    },
+    {
+        "departureDateTime": "2024-12-01T22:42:36Z",
+        "ticketPrice": 3320000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-14T03:39:07Z",
+        "ticketPrice": 6230000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1C"
+    },
+    {
+        "departureDateTime": "2024-11-29T03:44:33Z",
+        "ticketPrice": 9450000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3A"
+    },
+    {
+        "departureDateTime": "2024-12-27T03:38:36Z",
+        "ticketPrice": 7110000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1C"
+    },
+    {
+        "departureDateTime": "2024-12-21T03:32:10Z",
+        "ticketPrice": 4740000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-13T19:52:36Z",
+        "ticketPrice": 5520000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-16T07:32:16Z",
+        "ticketPrice": 4770000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-07T18:15:36Z",
+        "ticketPrice": 2220000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-12-04T05:18:10Z",
+        "ticketPrice": 5970000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-18T12:02:55Z",
+        "ticketPrice": 2480000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-15T11:07:15Z",
+        "ticketPrice": 1770000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-12-19T11:09:29Z",
+        "ticketPrice": 4300000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-11-30T06:58:46Z",
+        "ticketPrice": 1020000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "3C"
+    },
+    {
+        "departureDateTime": "2024-12-07T10:25:10Z",
+        "ticketPrice": 1920000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1C"
+    },
+    {
+        "departureDateTime": "2024-12-02T17:02:04Z",
+        "ticketPrice": 9310000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3A"
+    },
+    {
+        "departureDateTime": "2024-12-15T08:06:58Z",
+        "ticketPrice": 7380000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2A"
+    },
+    {
+        "departureDateTime": "2024-12-21T02:57:23Z",
+        "ticketPrice": 9640000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-11-28T18:01:23Z",
+        "ticketPrice": 3800000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3A"
+    },
+    {
+        "departureDateTime": "2024-12-02T21:41:38Z",
+        "ticketPrice": 4240000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3A"
+    },
+    {
+        "departureDateTime": "2024-11-30T02:08:58Z",
+        "ticketPrice": 4650000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-10T22:47:37Z",
+        "ticketPrice": 8140000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-12-13T04:01:43Z",
+        "ticketPrice": 3080000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-12-04T01:01:15Z",
+        "ticketPrice": 3570000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-30T01:29:41Z",
+        "ticketPrice": 2570000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1C"
+    },
+    {
+        "departureDateTime": "2024-12-14T15:33:03Z",
+        "ticketPrice": 5330000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-02T07:56:06Z",
+        "ticketPrice": 2740000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "2A"
+    },
+    {
+        "departureDateTime": "2024-11-28T01:28:44Z",
+        "ticketPrice": 3020000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-11-27T17:17:37Z",
+        "ticketPrice": 5740000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-12-15T04:20:58Z",
+        "ticketPrice": 3120000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-12-13T22:07:15Z",
+        "ticketPrice": 8170000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-23T05:17:53Z",
+        "ticketPrice": 3340000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "2A"
+    },
+    {
+        "departureDateTime": "2024-12-18T14:00:38Z",
+        "ticketPrice": 3920000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3C"
+    },
+    {
+        "departureDateTime": "2024-12-26T12:58:45Z",
+        "ticketPrice": 6850000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "3A"
+    },
+    {
+        "departureDateTime": "2024-12-08T23:29:45Z",
+        "ticketPrice": 8200000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-20T04:02:04Z",
+        "ticketPrice": 1620000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-19T06:11:27Z",
+        "ticketPrice": 3320000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "2A"
+    },
+    {
+        "departureDateTime": "2024-12-26T17:26:06Z",
+        "ticketPrice": 9020000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-11-28T21:59:55Z",
+        "ticketPrice": 2210000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-12-09T19:49:32Z",
+        "ticketPrice": 8670000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-12-06T18:34:57Z",
+        "ticketPrice": 7610000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-10T06:35:34Z",
+        "ticketPrice": 5210000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-12-11T00:12:16Z",
+        "ticketPrice": 7190000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-18T15:39:38Z",
+        "ticketPrice": 4190000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-12-27T11:15:32Z",
+        "ticketPrice": 7410000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-11-28T22:44:03Z",
+        "ticketPrice": 2180000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-07T17:50:22Z",
+        "ticketPrice": 3990000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "3C"
+    },
+    {
+        "departureDateTime": "2024-12-24T16:04:22Z",
+        "ticketPrice": 1700000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-23T18:28:20Z",
+        "ticketPrice": 7920000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-12-22T06:17:54Z",
+        "ticketPrice": 6560000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-12-05T11:10:09Z",
+        "ticketPrice": 4550000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-22T14:37:00Z",
+        "ticketPrice": 1840000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-12-25T04:16:57Z",
+        "ticketPrice": 9420000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-25T22:32:46Z",
+        "ticketPrice": 3380000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-12-10T14:56:58Z",
+        "ticketPrice": 5420000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-25T01:30:39Z",
+        "ticketPrice": 5830000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3A"
+    },
+    {
+        "departureDateTime": "2024-12-05T15:47:21Z",
+        "ticketPrice": 9360000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1C"
+    },
+    {
+        "departureDateTime": "2024-12-23T13:18:49Z",
+        "ticketPrice": 2980000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-18T05:35:42Z",
+        "ticketPrice": 9470000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "2A"
+    },
+    {
+        "departureDateTime": "2024-12-04T12:44:34Z",
+        "ticketPrice": 2740000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-12-17T03:32:56Z",
+        "ticketPrice": 7440000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-11-27T09:27:34Z",
+        "ticketPrice": 7860000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-02T15:44:38Z",
+        "ticketPrice": 6060000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-12-04T23:01:50Z",
+        "ticketPrice": 3280000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "3A"
+    },
+    {
+        "departureDateTime": "2024-12-27T11:03:31Z",
+        "ticketPrice": 5980000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-08T12:04:07Z",
+        "ticketPrice": 4270000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-02T06:21:36Z",
+        "ticketPrice": 6810000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-22T17:16:28Z",
+        "ticketPrice": 1610000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-11-28T15:52:14Z",
+        "ticketPrice": 1680000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-11-27T22:02:26Z",
+        "ticketPrice": 9600000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-30T20:23:05Z",
+        "ticketPrice": 7030000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3C"
+    },
+    {
+        "departureDateTime": "2024-11-27T10:16:52Z",
+        "ticketPrice": 9430000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-19T04:23:46Z",
+        "ticketPrice": 4640000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1C"
+    },
+    {
+        "departureDateTime": "2024-12-23T10:01:11Z",
+        "ticketPrice": 7590000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-25T08:14:28Z",
+        "ticketPrice": 3370000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-22T12:18:02Z",
+        "ticketPrice": 9250000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3A"
+    },
+    {
+        "departureDateTime": "2024-12-25T20:58:25Z",
+        "ticketPrice": 9500000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-12-16T16:29:51Z",
+        "ticketPrice": 4640000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-11-27T02:33:55Z",
+        "ticketPrice": 4120000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3A"
+    },
+    {
+        "departureDateTime": "2024-12-07T12:46:47Z",
+        "ticketPrice": 8150000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-12-18T01:54:40Z",
+        "ticketPrice": 4270000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-05T14:23:10Z",
+        "ticketPrice": 7770000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "2A"
+    },
+    {
+        "departureDateTime": "2024-12-24T16:56:23Z",
+        "ticketPrice": 4790000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-12-09T19:13:14Z",
+        "ticketPrice": 3820000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-12-03T08:03:33Z",
+        "ticketPrice": 4270000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1C"
+    },
+    {
+        "departureDateTime": "2024-12-18T09:03:04Z",
+        "ticketPrice": 3090000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-22T14:02:31Z",
+        "ticketPrice": 9150000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "2A"
+    },
+    {
+        "departureDateTime": "2024-12-09T16:09:05Z",
+        "ticketPrice": 9030000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1C"
+    },
+    {
+        "departureDateTime": "2024-12-06T23:38:54Z",
+        "ticketPrice": 2620000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-12-24T04:54:07Z",
+        "ticketPrice": 5410000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-15T10:57:41Z",
+        "ticketPrice": 4530000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-12-29T23:25:30Z",
+        "ticketPrice": 1250000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-13T14:52:32Z",
+        "ticketPrice": 6400000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-07T20:25:36Z",
+        "ticketPrice": 7030000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-12-15T14:38:15Z",
+        "ticketPrice": 8460000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1C"
+    },
+    {
+        "departureDateTime": "2024-12-29T09:07:24Z",
+        "ticketPrice": 8170000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-28T21:56:53Z",
+        "ticketPrice": 8880000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3C"
+    },
+    {
+        "departureDateTime": "2024-12-11T20:58:05Z",
+        "ticketPrice": 6870000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-12-15T23:53:15Z",
+        "ticketPrice": 7010000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-12-30T00:14:38Z",
+        "ticketPrice": 4580000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3A"
+    },
+    {
+        "departureDateTime": "2024-12-15T12:32:43Z",
+        "ticketPrice": 8220000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-11-30T00:10:47Z",
+        "ticketPrice": 6990000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3C"
+    },
+    {
+        "departureDateTime": "2024-12-23T06:54:40Z",
+        "ticketPrice": 4610000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-11-28T04:58:23Z",
+        "ticketPrice": 9420000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-12-18T12:40:06Z",
+        "ticketPrice": 8390000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-12-26T10:42:32Z",
+        "ticketPrice": 5710000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-11-30T12:47:47Z",
+        "ticketPrice": 1180000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1C"
+    },
+    {
+        "departureDateTime": "2024-12-09T03:08:20Z",
+        "ticketPrice": 8880000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-12-18T02:13:14Z",
+        "ticketPrice": 6180000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-12-21T20:09:55Z",
+        "ticketPrice": 7510000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "3A"
+    },
+    {
+        "departureDateTime": "2024-12-10T09:53:43Z",
+        "ticketPrice": 6150000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-12-21T16:23:43Z",
+        "ticketPrice": 4790000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-16T19:09:48Z",
+        "ticketPrice": 3520000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "3C"
+    },
+    {
+        "departureDateTime": "2024-12-03T00:35:21Z",
+        "ticketPrice": 8910000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-12-11T01:39:19Z",
+        "ticketPrice": 6760000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-22T05:44:36Z",
+        "ticketPrice": 9790000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "3A"
+    },
+    {
+        "departureDateTime": "2024-12-22T11:45:35Z",
+        "ticketPrice": 1520000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-11-27T14:22:45Z",
+        "ticketPrice": 8900000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-11-30T14:29:43Z",
+        "ticketPrice": 7910000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-11-29T06:11:16Z",
+        "ticketPrice": 1610000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-11T11:57:26Z",
+        "ticketPrice": 3190000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-22T14:01:15Z",
+        "ticketPrice": 3050000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3C"
+    },
+    {
+        "departureDateTime": "2024-12-25T21:29:43Z",
+        "ticketPrice": 4200000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-12-04T07:54:40Z",
+        "ticketPrice": 9240000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-26T05:25:28Z",
+        "ticketPrice": 4680000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-12-24T02:07:31Z",
+        "ticketPrice": 2960000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-21T11:10:28Z",
+        "ticketPrice": 7700000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1C"
+    },
+    {
+        "departureDateTime": "2024-12-24T09:07:03Z",
+        "ticketPrice": 9760000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "2A"
+    },
+    {
+        "departureDateTime": "2024-12-11T01:27:32Z",
+        "ticketPrice": 8260000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-23T06:20:41Z",
+        "ticketPrice": 3190000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-15T02:15:00Z",
+        "ticketPrice": 2700000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3C"
+    },
+    {
+        "departureDateTime": "2024-12-04T21:25:20Z",
+        "ticketPrice": 7860000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3C"
+    },
+    {
+        "departureDateTime": "2024-12-21T13:40:36Z",
+        "ticketPrice": 8740000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-11-29T17:22:31Z",
+        "ticketPrice": 4950000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3A"
+    },
+    {
+        "departureDateTime": "2024-12-03T00:36:16Z",
+        "ticketPrice": 5530000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-12-05T11:11:56Z",
+        "ticketPrice": 1590000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-14T16:51:58Z",
+        "ticketPrice": 3920000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "3A"
+    },
+    {
+        "departureDateTime": "2024-12-30T10:32:09Z",
+        "ticketPrice": 3460000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-12T11:09:26Z",
+        "ticketPrice": 7390000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-22T08:21:00Z",
+        "ticketPrice": 3200000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-12-03T22:25:50Z",
+        "ticketPrice": 9230000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "3A"
+    },
+    {
+        "departureDateTime": "2024-12-12T03:26:44Z",
+        "ticketPrice": 7640000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-28T03:29:00Z",
+        "ticketPrice": 2590000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-12-29T05:35:31Z",
+        "ticketPrice": 2710000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "2A"
+    },
+    {
+        "departureDateTime": "2024-12-10T18:59:57Z",
+        "ticketPrice": 7820000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-12-05T05:37:38Z",
+        "ticketPrice": 9970000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-05T14:50:42Z",
+        "ticketPrice": 2620000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3A"
+    },
+    {
+        "departureDateTime": "2024-11-27T03:33:05Z",
+        "ticketPrice": 8060000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-12-01T12:43:05Z",
+        "ticketPrice": 6440000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "3C"
+    },
+    {
+        "departureDateTime": "2024-12-28T01:15:22Z",
+        "ticketPrice": 3220000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-13T09:07:53Z",
+        "ticketPrice": 3110000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3C"
+    },
+    {
+        "departureDateTime": "2024-12-23T19:58:51Z",
+        "ticketPrice": 7250000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-12T13:26:04Z",
+        "ticketPrice": 8080000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-12-11T06:45:29Z",
+        "ticketPrice": 8640000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3C"
+    },
+    {
+        "departureDateTime": "2024-12-19T22:23:16Z",
+        "ticketPrice": 1840000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-15T06:33:28Z",
+        "ticketPrice": 3850000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-29T18:06:48Z",
+        "ticketPrice": 4660000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3A"
+    },
+    {
+        "departureDateTime": "2024-12-19T08:36:25Z",
+        "ticketPrice": 3270000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-22T01:45:49Z",
+        "ticketPrice": 4960000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-11-28T16:14:15Z",
+        "ticketPrice": 8420000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-11-27T13:03:22Z",
+        "ticketPrice": 9080000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-12-06T13:59:34Z",
+        "ticketPrice": 7930000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-12-30T18:28:27Z",
+        "ticketPrice": 1300000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-12-22T23:21:59Z",
+        "ticketPrice": 7760000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-15T00:50:05Z",
+        "ticketPrice": 8720000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2A"
+    },
+    {
+        "departureDateTime": "2024-11-30T13:39:49Z",
+        "ticketPrice": 7680000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-11-30T06:31:51Z",
+        "ticketPrice": 5020000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-12-18T15:27:30Z",
+        "ticketPrice": 5620000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-12-01T13:04:14Z",
+        "ticketPrice": 1680000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-11-28T09:54:31Z",
+        "ticketPrice": 8270000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1C"
+    },
+    {
+        "departureDateTime": "2024-12-29T04:12:45Z",
+        "ticketPrice": 8660000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-23T00:54:45Z",
+        "ticketPrice": 6950000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "2A"
+    },
+    {
+        "departureDateTime": "2024-12-06T04:17:02Z",
+        "ticketPrice": 4720000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2A"
+    },
+    {
+        "departureDateTime": "2024-12-26T19:02:54Z",
+        "ticketPrice": 2840000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-06T20:33:23Z",
+        "ticketPrice": 1720000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "3C"
+    },
+    {
+        "departureDateTime": "2024-12-12T09:42:05Z",
+        "ticketPrice": 2230000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-10T21:24:34Z",
+        "ticketPrice": 2520000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1C"
+    },
+    {
+        "departureDateTime": "2024-12-07T21:04:05Z",
+        "ticketPrice": 7450000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1C"
+    },
+    {
+        "departureDateTime": "2024-12-01T18:42:10Z",
+        "ticketPrice": 8280000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-12-04T22:10:10Z",
+        "ticketPrice": 1820000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-12T10:35:39Z",
+        "ticketPrice": 1820000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "1"
+    },
+    {
+        "departureDateTime": "2024-12-08T21:02:37Z",
+        "ticketPrice": 2200000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-12-22T07:36:07Z",
+        "ticketPrice": 7760000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-12-22T21:19:05Z",
+        "ticketPrice": 3560000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2A"
+    },
+    {
+        "departureDateTime": "2024-12-17T09:40:14Z",
+        "ticketPrice": 4630000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-29T02:56:18Z",
+        "ticketPrice": 5270000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1A"
+    },
+    {
+        "departureDateTime": "2024-11-28T07:23:28Z",
+        "ticketPrice": 6310000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "1C"
+    },
+    {
+        "departureDateTime": "2024-11-28T03:21:42Z",
+        "ticketPrice": 6880000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-11T22:23:35Z",
+        "ticketPrice": 3720000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-11-29T14:48:34Z",
+        "ticketPrice": 1230000,
+        "seatAvailability": 72,
+        "seatClass": "Premium Economy",
+        "terminalGate": "3A"
+    },
+    {
+        "departureDateTime": "2024-11-27T03:32:10Z",
+        "ticketPrice": 6770000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-11-28T14:15:15Z",
+        "ticketPrice": 9600000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2B"
+    },
+    {
+        "departureDateTime": "2024-12-25T03:28:22Z",
+        "ticketPrice": 7300000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "3A"
+    },
+    {
+        "departureDateTime": "2024-11-27T01:14:29Z",
+        "ticketPrice": 6450000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "3C"
+    },
+    {
+        "departureDateTime": "2024-12-15T17:33:43Z",
+        "ticketPrice": 2660000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-03T19:06:36Z",
+        "ticketPrice": 8640000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-05T00:04:13Z",
+        "ticketPrice": 3500000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2"
+    },
+    {
+        "departureDateTime": "2024-12-15T05:05:46Z",
+        "ticketPrice": 7700000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "2A"
+    },
+    {
+        "departureDateTime": "2024-12-25T03:17:33Z",
+        "ticketPrice": 4730000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "3"
+    },
+    {
+        "departureDateTime": "2024-12-10T07:25:30Z",
+        "ticketPrice": 6780000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2A"
+    },
+    {
+        "departureDateTime": "2024-12-25T15:48:17Z",
+        "ticketPrice": 5300000,
+        "seatAvailability": 72,
+        "seatClass": "Economy",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-12-01T01:42:14Z",
+        "ticketPrice": 7960000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-26T09:52:27Z",
+        "ticketPrice": 8780000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "2C"
+    },
+    {
+        "departureDateTime": "2024-12-18T05:25:34Z",
+        "ticketPrice": 2700000,
+        "seatAvailability": 72,
+        "seatClass": "Business",
+        "terminalGate": "3B"
+    },
+    {
+        "departureDateTime": "2024-12-10T00:03:24Z",
+        "ticketPrice": 2750000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "1B"
+    },
+    {
+        "departureDateTime": "2024-12-28T10:39:21Z",
+        "ticketPrice": 7500000,
+        "seatAvailability": 72,
+        "seatClass": "First Class",
+        "terminalGate": "3B"
+    }
+]
