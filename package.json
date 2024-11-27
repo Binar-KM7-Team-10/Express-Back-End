@@ -7,7 +7,8 @@
     "start:dev": "nodemon app.js",
     "dbpush": "npx prisma db push",
     "seed:airport": "node ./database/seedAirport.js",
-    "seed:airline": "node ./database/seedAirline.js"
+    "seed:airline": "node ./database/seedAirline.js",
+    "seed:service": "node ./database/seedService.js"
   },
   "author": "",
   "license": "ISC",
