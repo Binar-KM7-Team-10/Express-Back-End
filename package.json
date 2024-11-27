@@ -10,7 +10,9 @@
     "seed:airline": "node ./database/seedAirline.js",
     "seed:service": "node ./database/seedService.js",
     "seed:user": "node ./database/seedUser.js",
-    "seed:flight": "node ./database/seedFlight.js"
+    "seed:flight": "node ./database/seedFlight.js",
+    "seed:flight-service": "node ./database/seedFlightService.js",
+    "seed:baggage": "node ./database/seedBaggage.js"
   },
   "author": "",
   "license": "ISC",
