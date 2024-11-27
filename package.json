@@ -8,7 +8,8 @@
     "dbpush": "npx prisma db push",
     "seed:airport": "node ./database/seedAirport.js",
     "seed:airline": "node ./database/seedAirline.js",
-    "seed:service": "node ./database/seedService.js"
+    "seed:service": "node ./database/seedService.js",
+    "seed:user": "node ./database/seedUser.js"
   },
   "author": "",
   "license": "ISC",
