@@ -2,6 +2,74 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 class Schedule {
+    static async create(data) {
+        const {
+            flightId,
+            departureDateTime,
+            arrivalDateTime,
+            ticketPrice,
+            seatAvailability,
+            seatClass,
+            terminalGate
+        } = data;
+
+        const duration = (new Date(arrivalDateTime) - new Date(departureDateTime)) / (1000 * 60);
+
+        const schedule = await prisma.schedule.create({
+            data: {
+                flightId,
+                departureDateTime,
+                arrivalDateTime,
+                duration,
+                ticketPrice,
+                seatAvailability,
+                seatClass,
+                terminalGate
+            }
+        });
+
+        return schedule.id;
+    }
+
+    static async delete(id) {
+        await prisma.schedule.delete({
+            where: {
+                id: parseInt(id)
+            }
+        });
+    }
+
+    static async update(id, data) {
+        if (data.departureDateTime && data.arrivalDateTime) {
+            data.duration = (new Date(data.arrivalDateTime) - new Date(data.departureDateTime)) / (1000 * 60);
+        } else if (data.departureDateTime) {
+            const { arrivalDateTime } = await prisma.schedule.findUnique({
+                where: {
+                    id: parseInt(id)
+                }
+            });
+            
+            data.duration = (new Date(arrivalDateTime) - new Date(data.departureDateTime)) / (1000 * 60);
+        } else if (data.arrivalDateTime) {
+            const { departureDateTime } = await prisma.schedule.findUnique({
+                where: {
+                    id: parseInt(id)
+                }
+            });
+            
+            data.duration = (new Date(data.arrivalDateTime) - new Date(departureDateTime)) / (1000 * 60);
+        }
+
+        const scheduleData = Object.fromEntries(Object.entries(data).filter(([_, value]) => value !== undefined && value !== null));
+
+        await prisma.schedule.update({
+            where: {
+                id: parseInt(id)
+            },
+            data: scheduleData
+        });
+    }
+
     static async getDTO(id) {
         const schedule = await prisma.schedule.findUnique({
             where: {
@@ -102,7 +170,7 @@ class Schedule {
         };
     }
 
-    static async getAllDTO() {
+    static async getManyDTO() {
         const schedules = await prisma.schedule.findMany({
             skip: 0,
             take: 10,
