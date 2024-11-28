@@ -17,7 +17,9 @@ model Airport {
   id Int @id @default(autoincrement())
   name String
   city String
+  cityCode String
   country String
+  continent String
   iataCode String
   flightsDeparture Flight[] @relation("departureAirport")
   flightsArrival Flight[] @relation("arrivalAirport")
@@ -38,13 +40,13 @@ model Flight {
   arrivalAirportId Int
   airlineId Int
   flightNumber String
-  flightType String
+  flightType String?
   departureAirport Airport @relation("departureAirport", fields: [departureAirportId], references: [id])
   arrivalAirport Airport @relation("arrivalAirport", fields: [arrivalAirportId], references: [id])
   airline Airline @relation(fields: [airlineId], references: [id])
   Schedule Schedule[]
   Baggage Baggage?
-  Service Service[]
+  FlightService FlightService[]
 }
 
 model Baggage {
@@ -57,9 +59,16 @@ model Baggage {
 
 model Service {
   id Int @id @default(autoincrement())
-  flightId Int
   title String
+  FlightService FlightService[]
+}
+
+model FlightService {
+  id Int @id @default(autoincrement())
+  flightId Int
+  serviceId Int
   flight Flight @relation(fields: [flightId], references: [id])
+  service Service @relation(fields: [serviceId], references: [id])
 }
 
 model Schedule {
@@ -98,9 +107,10 @@ model Itinerary {
 model Booking {
   id Int @id @default(autoincrement())
   userId Int
-  bookingCode String @unique
+  bookingCode String? @unique
   date DateTime
-  status String @default("Unpaid")
+  status String @default("Draft")
+  draftDueDateTime DateTime
   user User @relation(fields: [userId], references: [id])
   Passenger Passenger[]
   Itinerary Itinerary?
@@ -149,7 +159,7 @@ model Invoice {
   subtotal Int
   taxAmount Int
   totalAmount Int
-  paymentDueDateTime DateTime
+  paymentDueDateTime DateTime?
   booking Booking @relation(fields: [bookingId], references: [id])
   Payment Payment?
 }
@@ -157,8 +167,12 @@ model Invoice {
 model Payment {
   id Int @id @default(autoincrement())
   invoiceId Int @unique
-  method String
   date DateTime
+  method String
+  accountNumber String
+  holderName String?
+  CVV String?
+  expiryDate String?
   invoice Invoice @relation(fields: [invoiceId], references: [id])
   Notification Notification[]
 }
