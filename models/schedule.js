@@ -305,7 +305,6 @@ class Schedule {
             },
         });
 
-        // Map additional data for each schedule
         const data = schedules.map((schedule) => {
             const flightServices = schedule.flight.FlightService.map(
                 (fs) => fs.service.title

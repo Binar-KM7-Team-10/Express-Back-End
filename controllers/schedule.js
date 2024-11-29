@@ -10,7 +10,7 @@ module.exports = {
             return res.status(201).json({
                 status: 'OK',
                 statusCode: 201,
-                message: 'Successfully created a new schedule!',
+                message: 'Successfully created a new schedule',
                 data: {
                     scheduleId
                 }
