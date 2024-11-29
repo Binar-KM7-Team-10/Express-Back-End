@@ -270,6 +270,7 @@ Endpoints for listing flight schedules
 			"message": "Internal Server Error"
 		}
 		```
+ 
 
 ### GET /schedules/{scheduleId}
 
@@ -546,7 +547,7 @@ Endpoints for listing flight schedules
 		}
 		```
 
-### DELETE/schedules/{scheduleId}
+### DELETE /schedules/{scheduleId}
 
 - **Description**: Deletes a flight schedule.
 - **Parameters**:
@@ -606,3 +607,176 @@ Endpoints for listing flight schedules
 			"message": "Internal Server Error"
 		}
 		```
+
+
+### POST /login
+- **Description**: Login for get token authenticate.
+-  **Parameters**:
+	- **Data params**: None
+	- **Path Params**: None
+	- **Query Params**: None
+- **Headers**:
+	- Content-Type: application/json
+- **Success Response**:
+	- Code: 201
+	- Response Body:
+	```
+		{
+  "message": "Login berhasil",
+  "status" : "OK",
+  "statusCode" : 201,
+  "data": {
+    "user": {
+      "id": 1,
+      "name": "John Doe",
+      "email": "user@example.com"
+    },
+    "token": "eyJhbGciOiJIUzI1NiIsInR5..."
+  }
+}
+- **Fail Response (Server Failure)**:
+	- Code: 500
+	- Response Body:
+		```json
+		{
+			"status": "Error",
+			"statusCode": 500,
+			"message": "Internal Server Error"
+		}
+		```
+
+- **Fail Response (Validation Error)**:
+	- Code: 401
+	- Response Body:
+		```
+		{
+			"status": "Fail",
+			"statusCode": 401,
+			"message": <error_message>
+		}
+		```
+	- Example: 
+		```json
+		{
+			"status": "Fail",
+			"statusCode": 401,
+			"message": "email must be a email!"
+		}
+		```
+	- **Fail Response (Login Does Not Exist)**:
+	- Code: 404
+	- Response Body:
+		```json
+		{
+			"status": "Fail",
+			"statusCode": 404,
+			"message": "Login does not exist"
+		}
+		```
+
+### POST /register
+ **Description**: Make user account.
+-  **Parameters**:
+	- **Data params**: None
+	- **Path Params**: None
+	- **Query Params**: None
+- **Headers**:
+	- Content-Type: application/json
+	- Success Response**:
+	- Code: 201
+	- Response Body:
+	```
+		{
+  "message": "Register berhasil",
+  "status" : "OK",
+  "statusCode" : 201,
+  "data": {
+    "user": {
+      "id": 1,
+      "name": "John Doe",
+      "email": "user@example.com"
+    },
+    "token": "eyJhbGciOiJIUzI1NiIsInR5..."
+  }
+}
+- **Fail Response (Server Failure)**:
+	- Code: 500
+	- Response Body:
+		```json
+		{
+			"status": "Error",
+			"statusCode": 500,
+			"message": "Internal Server Error"
+		}
+		```
+- **Fail Response (Validation Error)**:
+	- Code: 401
+	- Response Body:
+		```
+		{
+			"status": "Fail",
+			"statusCode": 401,
+			"message": <error_message>
+		}
+		```
+	- Example: 
+		```json
+		{
+			"status": "Fail",
+			"statusCode": 401,
+			"message": "email must be a email!"
+		}
+		```
+- **Fail Response (Register Does Not Exist)**:
+	- Code: 404
+	- Response Body:
+		```json
+		{
+			"status": "Fail",
+			"statusCode": 404,
+			"message": "Register does not exist"
+		}
+		```
+
+### GET / dashboard
+-   **Description**: Retrieves all flight schedules.
+-   **Parameters**:
+    -   **Data params**: None
+    -   **Path Params**: None
+    -   **Query Params**:None
+-   **Headers**:
+    
+    -   Content-Type: application/json
+-   **Success Response**:
+    
+    -   Code: 200
+    -   Response Body:
+        
+        ```
+        {
+        	"status": "OK",
+        	"statusCode": 200,
+        	"message": "Successfully retrieved dashboard",
+        	"pageNumber": <page_number>,
+        	"data": {
+	        	"card" : {
+	        	"departureAirdport" : "Jakarta",
+	        	"arrivalAirport" : "Bangkok",
+	        	"airline" : "AirAsia",
+	        	"duration" : "20 - 30 Maret 2023",
+	        	"ticketPrice" :"IDR 950.000"
+	        	}
+        	}
+        }
+  
+  - **Fail Response (Dashboard Does Not Exist)**:
+ **Failed Response**:
+- Code: 404
+- Response Body:
+   
+           {
+        	"status": "Fail",
+        	"statusCode": 404,
+        	"message": "Page Not Found"
+        }
+       
