@@ -50,13 +50,14 @@ module.exports = {
     },
     getAll: async (req, res, next) => {
         try {
-            const outboundSchedules = await Schedule.getManyDTO();
+            const outboundSchedules = await Schedule.getManyDTO(req.query);
 
             if (!outboundSchedules) {
                 return res.status(200).json({
                     status: 'OK',
                     statusCode: 200,
                     message: 'Schedule is empty',
+                    pageNumber: 1,
                     data: []
                 });
             }
@@ -65,6 +66,7 @@ module.exports = {
                 status: 'OK',
                 statusCode: 200,
                 message: 'Successfully retrieved all schedules',
+                pageNumber: (req.query.limit && req.query.offset) ? Math.floor(req.query.offset / req.query.limit) + 1 : 1,
                 data: {
                     schedule: {
                         outbound: outboundSchedules,
