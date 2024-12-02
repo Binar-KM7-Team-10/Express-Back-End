@@ -2225,7 +2225,7 @@ Endpoints for listing flight schedules
 					},
 					...
 				]
-			}.
+			},
 			"seat": {
 				"outbound": [
 					{
