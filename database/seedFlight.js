@@ -1,33 +1,48 @@
-const flight = require('./seeds/flight.json');
+const airline = require('./seeds/airline.json');
+const airport = require('./seeds/airport.json');
+const city = require('./seeds/city.json');
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
+function getRandomInt(min, max, exclude) {
+    const minCeiled = Math.ceil(min);
+    const maxFloored = Math.floor(max);
+
+    let randomInt;
+    do {
+        randomInt = Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); 
+    } while (randomInt === exclude);
+
+    return randomInt;
+}
+
+function getRandomThreeDigitNumber() {
+    return Math.floor(Math.random() * (999 - 100 + 1)) + 100;
+}
+
 const seedDatabase = async () => {
-    for (const data of flight) {
+    const airportNumber = airport.length;
+    let total = 0;
+    
+    for (const data of airline) {
         try {
-            const departureCountry = await prisma.airport.findUnique({ 
-                where: {
-                    id: data.departureAirportId
-                },
-                select: {
-                    country: true
-                }
-            });
+            total++;
+            const departureAirportId = getRandomInt(1, airportNumber + 1, 0);
+            const arrivalAirportId = getRandomInt(1, airportNumber + 1, departureAirportId);
 
-            const arrivalCountry = await prisma.airport.findUnique({ 
-                where: {
-                    id: data.arrivalAirportId
-                },
-                select: {
-                    country: true
-                }
-            });
+            const departureCountry = city[airport[departureAirportId - 1].cityId - 1].country;
+            const arrivalCountry = city[airport[arrivalAirportId - 1].cityId - 1].country;
 
-            const flightType = (departureCountry === arrivalCountry) ? 'Domestic' : 'International';
+            const flightType = departureCountry === arrivalCountry ? 'Domestik' : 'Internasional';
+            const airlineId = total;
+            const flightNumber = `${data.iataCode}${getRandomThreeDigitNumber()}`;
 
             await prisma.flight.create({
                 data: {
-                    ...data,
+                    departureAirportId,
+                    arrivalAirportId,
+                    airlineId,
+                    flightNumber,
                     flightType
                 }
             });
@@ -35,10 +50,12 @@ const seedDatabase = async () => {
             console.error(err);
         }
     }
+
+    return total;
 }
 
 seedDatabase()
-    .then(() => console.log('Successfully seeding Flight'))
+    .then((total) => console.log(`Successfully seeding ${total} rows of Flight`))
     .catch((err) => console.log(`Failed seeding Flight\nError: ${err.message}`))
     .finally(async () => {
         await prisma.$disconnect();
