@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start:dev": "nodemon app.js",
-    "dbpush": "npx prisma db push",
+    "db:push": "npx prisma db push",
+    "db:reset": "npx prisma db push --force-reset",
     "seed:airport": "node ./database/seedAirport.js",
     "seed:airline": "node ./database/seedAirline.js",
     "seed:service": "node ./database/seedService.js",
