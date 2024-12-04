@@ -1,11 +1,11 @@
-const HttpRequestError = require('../utils/error');
 const User = require('../models/user');
 const UserValidations = require('../validations/user');
 
 module.exports = {
     create: async (req, res, next) => {
         try {
-            // validation create
+            await UserValidations.validateRole(req.body);
+            await UserValidations.create(req.body);
             const userCreate = await User.create(req.body);
 
             return res.status(201).json({
@@ -20,8 +20,8 @@ module.exports = {
     },
     getAll: async (req, res, next) => {
         try {
-            // validation get
-            const userGetAll = await User.getAllUsers(); //tandain
+            await UserValidations.validateRole(req.body);
+            const userGetAll = await User.getAllUsers(); 
 
             if (userGetAll.length === 0){
                 return res.status(200).json({
@@ -44,7 +44,7 @@ module.exports = {
     },
     getById: async (req, res, next) => {
         try {
-            // validation get by id
+            await UserValidations.validateId(req.params.id);
             const userGetById = await User.getUserById(req.params.id);
 
             return res.status(200).json({
@@ -59,7 +59,8 @@ module.exports = {
     },
     update: async (req, res, next) => {
         try {
-            // validation update
+            await UserValidations.validateId(req.params.id);
+            await UserValidations.patch(req.body);
             const editUser = await User.patchUser(req.params.id, req.body);
 
             return res.status(200).json({
@@ -74,7 +75,7 @@ module.exports = {
     },
     delete: async (req, res, next) => {
         try {
-            // validation delete
+            await UserValidations.validateId(req.params.id);
             await User.deleteUser(req.params.id);
 
             return res.status(200).json({
