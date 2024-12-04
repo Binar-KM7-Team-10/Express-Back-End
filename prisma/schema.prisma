@@ -13,14 +13,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Airport {
+model City {
   id Int @id @default(autoincrement())
   name String
-  city String
-  cityCode String
+  code String
   country String
   continent String
+  imageUrl String?
+  Airport Airport[]
+}
+
+model Airport {
+  id Int @id @default(autoincrement())
+  cityId Int
+  name String
   iataCode String
+  city City @relation(fields: [cityId], references: [id])
   flightsDeparture Flight[] @relation("departureAirport")
   flightsArrival Flight[] @relation("arrivalAirport")
 }
@@ -83,37 +91,29 @@ model Schedule {
   terminalGate String
   flight Flight @relation(fields: [flightId], references: [id])
   Seat Seat[]
-  ItinerarySchedule ItinerarySchedule[]
+  Itinerary Itinerary[]
   Notification Notification[]
-}
-
-model ItinerarySchedule {
-  id Int @id @default(autoincrement())
-  itineraryId Int
-  scheduleId Int
-  tripDirection String @default("Outbound")
-  itinerary Itinerary @relation(fields: [itineraryId], references: [id])
-  schedule Schedule @relation(fields: [scheduleId], references: [id])
 }
 
 model Itinerary {
   id Int @id @default(autoincrement())
-  bookingId Int @unique
-  journeyType String
-  booking Booking @relation(fields: [bookingId], references: [id])
-  ItinerarySchedule ItinerarySchedule[]
+  bookingId Int
+  scheduleId Int
+  tripDirection String @default("Outbound")
+  Booking Booking @relation(fields: [bookingId], references: [id])
+  schedule Schedule @relation(fields: [scheduleId], references: [id])
 }
 
 model Booking {
   id Int @id @default(autoincrement())
   userId Int
-  bookingCode String? @unique
+  bookingCode String @unique
   date DateTime
-  status String @default("Draft")
-  draftDueDateTime DateTime
+  status String @default("Unpaid")
+  journeyType String @default("One-way")
   user User @relation(fields: [userId], references: [id])
   Passenger Passenger[]
-  Itinerary Itinerary?
+  Itinerary Itinerary[]
   BookedSeat BookedSeat[]
   Invoice Invoice?
   Notification Notification[]
@@ -139,18 +139,19 @@ model BookedSeat {
 model Passenger {
   id Int @id @default(autoincrement())
   bookingId Int
-  bookedSeatId Int @unique
+  bookedSeatId Int? @unique
+  label String
   ageGroup String
-  title String
-  fullName String
+  title String?
+  fullName String?
   familyName String?
-  birthDate DateTime
-  nationality String
-  identityNumber String
+  birthDate DateTime?
+  nationality String?
+  identityNumber String?
   issuingCountry String?
   expiryDate DateTime?
   booking Booking @relation(fields: [bookingId], references: [id])
-  bookedSeat BookedSeat @relation(fields: [bookedSeatId], references: [id])
+  bookedSeat BookedSeat? @relation(fields: [bookedSeatId], references: [id])
 }
 
 model Invoice {
@@ -159,7 +160,7 @@ model Invoice {
   subtotal Int
   taxAmount Int
   totalAmount Int
-  paymentDueDateTime DateTime?
+  paymentDueDateTime DateTime
   booking Booking @relation(fields: [bookingId], references: [id])
   Payment Payment?
 }
@@ -186,6 +187,8 @@ model User {
   fullName String
   passwordResetToken String?
   passwordResetTokenExpirationTime DateTime?
+  otpSecret String?
+  isVerified Boolean @default(false)
   role String @default("Buyer")
   Booking Booking[]
   Notification Notification[]
