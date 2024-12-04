@@ -187,6 +187,7 @@ model User {
   fullName String
   passwordResetToken String?
   passwordResetTokenExpirationTime DateTime?
+  otpSecret String?
   isVerified Boolean @default(false)
   role String @default("Buyer")
   Booking Booking[]
