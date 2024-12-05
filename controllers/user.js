@@ -4,7 +4,7 @@ const UserValidations = require('../validations/user');
 module.exports = {
     create: async (req, res, next) => {
         try {
-            await UserValidations.validateRole(req.body);
+            //await UserValidations.validateRole(req.body);
             await UserValidations.create(req.body);
             const userCreate = await User.create(req.body);
 
@@ -20,7 +20,7 @@ module.exports = {
     },
     getAll: async (req, res, next) => {
         try {
-            await UserValidations.validateRole(req.body);
+            //await UserValidations.validateRole(req.body);
             const userGetAll = await User.getAllUsers(); 
 
             if (userGetAll.length === 0){
@@ -32,7 +32,7 @@ module.exports = {
                 });
             }
 
-            return res.status(200).json({
+            res.status(200).json({
                 status: "Success",
                 statusCode: 200,
                 message: "Data pengguna berhasil diambil.",
@@ -44,7 +44,7 @@ module.exports = {
     },
     getById: async (req, res, next) => {
         try {
-            await UserValidations.validateId(req.params.id);
+            await UserValidations.validateId(req.params);
             const userGetById = await User.getUserById(req.params.id);
 
             return res.status(200).json({
@@ -59,7 +59,7 @@ module.exports = {
     },
     update: async (req, res, next) => {
         try {
-            await UserValidations.validateId(req.params.id);
+            await UserValidations.validateId(req.params);
             await UserValidations.patch(req.body);
             const editUser = await User.patchUser(req.params.id, req.body);
 
@@ -75,7 +75,7 @@ module.exports = {
     },
     delete: async (req, res, next) => {
         try {
-            await UserValidations.validateId(req.params.id);
+            await UserValidations.validateId(req.params);
             await User.deleteUser(req.params.id);
 
             return res.status(200).json({

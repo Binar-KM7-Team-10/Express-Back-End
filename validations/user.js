@@ -93,7 +93,7 @@ module.exports = {
     validateRole: async (data) => {
         const { role } = data;
 
-        if (role == 'buyer' || role !== 'admin'){
+        if (role == 'Buyer' || role !== 'Admin'){
             throw new HttpRequestError("Access denied, you aren't allowed to access this endpoint.", 403);
         }
     },
