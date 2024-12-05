@@ -1,16 +1,21 @@
-const { authenticator } = require('otplib');
-const { totp } = authenticator;
+const { totp, authenticator } = require('otplib');
 
-// Konfigurasi TOTP
-totp.options = { step: 60, digits: 6 }; // ini yang ngehasilin 6 angka dan 60 detik
+totp.options = {
+    step: 60,
+    digit: 6
+};
 
 // Generate TOTP
 const generateTOTP = (secret) => totp.generate(secret);
 
 //genereate secret
-const generateSecret = totp.generateSecret();
+const generateSecret = () => {
+    return authenticator.generateSecret();
+};
 
 // Verifikasi TOTP
-const verifyTOTP = (token, secret) => totp.check(token, secret);
+const verifyTOTP = (token, secret) => {
+    return totp.check(token, secret);
+};
 
 module.exports = { generateTOTP, verifyTOTP, generateSecret };
