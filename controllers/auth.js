@@ -38,7 +38,7 @@ module.exports = {
       const data = await Auth.resendOTP(req.body);
 
       // Kirim email dengan TOTP baru
-      await sendEmail(req.body.email, "Verifikasi Akun Baru - Kode OTP Anda", `Your new TOTP code is: ${data}. Please verify your account within 60 seconds.`, data);
+      await sendEmail(req.body.email, "Verifikasi Akun Baru - Kode OTP Anda", `Kode TOTP Anda adalah: ${data}. Silakan verifikasi akun Anda dalam waktu 60 detik.`, data);
 
       return res.status(200).json({
         status: 'Success',
