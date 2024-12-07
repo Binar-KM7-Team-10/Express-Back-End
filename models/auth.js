@@ -21,7 +21,8 @@ class Auth {
             id: user.id,
             fullName: user.fullName,
             email: user.email,
-            phoneNumber: user.phoneNumber
+            phoneNumber: user.phoneNumber,
+            role: user.role
         };
     }
 
