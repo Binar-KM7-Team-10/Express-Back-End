@@ -1,5 +1,6 @@
 const user = require('./seeds/user.json');
 const { PrismaClient } = require('@prisma/client');
+const bcrypt = require('bcrypt');
 const prisma = new PrismaClient();
 
 let total = 0;
@@ -11,6 +12,25 @@ const seedDatabase = async () => {
         } catch (err) {
             console.error(err);
         }
+    }
+
+    // Create an account for admin access
+    // email    : admin@tiketku.com
+    // password : admin1234
+    try {
+        const password = bcrypt.hash('admin1234', 10);
+        await prisma.user.create({
+            data: {
+                email: 'admin@tiketku.com',
+                fullName: 'Admin 1',
+                password,
+                phoneNumber: '6281209981551',
+                isVerified: true,
+                role: 'Admin'
+            }
+        });
+    } catch (err) {
+        console.error(err);
     }
 }
 
