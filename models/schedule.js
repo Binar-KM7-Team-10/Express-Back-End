@@ -1,5 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
 const QueryParser = require('../utils/queryParser');
+const HttpRequestError = require('../utils/error');
 const prisma = new PrismaClient();
 
 class Schedule {
@@ -92,13 +93,23 @@ class Schedule {
                         departureAirport: {
                             select: {
                                 name: true,
-                                cityCode: true
+                                city: {
+                                    select: {
+                                        name: true,
+                                        code: true
+                                    }
+                                }
                             }
                         },
                         arrivalAirport: {
                             select: {
                                 name: true,
-                                cityCode: true
+                                city: {
+                                    select: {
+                                        name: true,
+                                        code: true
+                                    }
+                                }
                             }
                         },
                         airline: {
@@ -151,14 +162,16 @@ class Schedule {
             departure: {
                 day: daysOfWeek[schedule.departureDateTime.getDay()],
                 dateTime: schedule.departureDateTime,
-                cityCode: schedule.flight.departureAirport.cityCode,
+                city: schedule.flight.departureAirport.city.name,
+                cityCode: schedule.flight.departureAirport.city.code,
                 airportName: schedule.flight.departureAirport.name,
                 terminalGate: schedule.terminalGate
             },
             arrival: {
                 day: daysOfWeek[schedule.arrivalDateTime.getDay()],
                 dateTime: schedule.arrivalDateTime,
-                cityCode: schedule.flight.arrivalAirport.cityCode,
+                city: schedule.flight.arrivalAirport.city.name,
+                cityCode: schedule.flight.arrivalAirport.city.code,
                 airportName: schedule.flight.arrivalAirport.name
             },
             facilities: {
@@ -172,138 +185,58 @@ class Schedule {
     }
 
     static async getManyDTO(query) {
-        const {
-            limit = 10,
-            offset = 0,
-        } = query;
+        const page = query.page ? query.page : 1; // If query page is defined, the value will follow. Otherwise, it will be 1.
+        const limit = 10; // The maximum number of content in a page is always 10.
+        const offset = (parseInt(page) * limit) - limit;
 
-        const where = QueryParser.parseScheduleFilters(query);
+        const where = await QueryParser.parseScheduleFilters(query);
         const orderBy = QueryParser.parseScheduleSort(query);
 
-        // const schedules = await prisma.schedule.findMany({
-        //     skip: parseInt(offset),
-        //     take: parseInt(limit),
-        //     where,
-        //     orderBy,
-        //     select: {
-        //         id: true,
-        //         flightId: true,
-        //         seatClass: true,
-        //         duration: true,
-        //         seatAvailability: true,
-        //         ticketPrice: true,
-        //         terminalGate: true,
-        //         departureDateTime: true,
-        //         arrivalDateTime: true,
-        //         flight: {
-        //             select: {
-        //                 flightNumber: true,
-        //                 departureAirport: {
-        //                     select: {
-        //                         name: true,
-        //                         cityCode: true
-        //                     }
-        //                 },
-        //                 arrivalAirport: {
-        //                     select: {
-        //                         name: true,
-        //                         cityCode: true
-        //                     }
-        //                 },
-        //                 airline: {
-        //                     select: {
-        //                         name: true
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //     }
-        // });
-
-        // const data = await Promise.all(
-        //     schedules.map(async (schedule) => {
-        //         const baggage = await prisma.baggage.findUnique({
-        //             where: {
-        //                 flightId: schedule.flightId
-        //             },
-        //             select: {
-        //                 maxBaggageWeight: true,
-        //                 maxCabinBaggageWeight: true
-        //             }
-        //         });
-
-        //         const flightServices = await prisma.flightService.findMany({
-        //             where: {
-        //                 flightId: schedule.flightId
-        //             },
-        //             select: {
-        //                 service: {
-        //                     select: {
-        //                         title: true
-        //                     }
-        //                 }
-        //             }
-        //         });
-
-        //         const services = flightServices.map((index) => {
-        //             return index.service.title;
-        //         });
-
-        //         const daysOfWeek = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
-
-        //         return {
-        //             scheduleId: schedule.id,
-        //             airlineName: schedule.flight.airline.name,
-        //             seatClass: schedule.seatClass,
-        //             duration: schedule.duration,
-        //             flightNumber: schedule.flight.flightNumber,
-        //             availableSeat: schedule.seatAvailability,
-        //             price: schedule.ticketPrice,
-        //             departure: {
-        //                 day: daysOfWeek[schedule.departureDateTime.getDay()],
-        //                 dateTime: schedule.departureDateTime,
-        //                 cityCode: schedule.flight.departureAirport.cityCode,
-        //                 airportName: schedule.flight.departureAirport.name,
-        //                 terminalGate: schedule.terminalGate
-        //             },
-        //             arrival: {
-        //                 day: daysOfWeek[schedule.arrivalDateTime.getDay()],
-        //                 dateTime: schedule.arrivalDateTime,
-        //                 cityCode: schedule.flight.arrivalAirport.cityCode,
-        //                 airportName: schedule.flight.arrivalAirport.name
-        //             },
-        //             facilities: {
-        //                 baggage: baggage.maxBaggageWeight,
-        //                 cabinBaggage: baggage.maxCabinBaggageWeight,
-        //                 entertainment: services.includes('In-Flight Entertainment'),
-        //                 meal: services.includes('In-Flight Meal'),
-        //                 wifi: services.includes('WiFi')
-        //             }
-        //         };
-        //     })
-        // );
-
-        // return data;
-
         const schedules = await prisma.schedule.findMany({
-            skip: parseInt(offset),
-            take: parseInt(limit),
+            skip: offset,
+            take: limit,
             where,
             orderBy,
             include: {
                 flight: {
                     include: {
-                        departureAirport: true,
-                        arrivalAirport: true,
+                        departureAirport: {
+                            include: {
+                                city: true
+                            }
+                        },
+                        arrivalAirport: {
+                            include: {
+                                city: true
+                            }
+                        },
                         airline: true,
                         Baggage: true,
                         FlightService: {
-                            include: { service: true },
+                            include: {
+                                service: true
+                            },
                         },
                     },
                 },
             },
         });
+
+        // Total rows of schedule with given condition without pagination
+        const totalItem = await prisma.schedule.count({ where });
+
+        const pagination = {
+            currentPage: parseInt(page),
+            totalPage: Math.ceil(totalItem / limit),
+            count: schedules.length,
+            total: totalItem,
+            hasNextPage: totalItem - (page * limit) > 0 ? true : false,
+            hasPreviousPage: (page - 1) <= 0 ? false : true
+        };
+
+        if (totalItem !== 0 && pagination.currentPage > pagination.totalPage) {
+            throw new HttpRequestError('Validasi gagal. Nomor page yang Anda masukkan tidak tersedia.', 400);
+        }
 
         const data = schedules.map((schedule) => {
             const flightServices = schedule.flight.FlightService.map(
@@ -311,6 +244,7 @@ class Schedule {
             );
 
             const daysOfWeek = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+            const terminalGate = `${schedule.terminalGate} ${schedule.flight.flightType}`;
 
             return {
                 scheduleId: schedule.id,
@@ -323,20 +257,21 @@ class Schedule {
                 departure: {
                     day: daysOfWeek[schedule.departureDateTime.getDay()],
                     dateTime: schedule.departureDateTime,
-                    cityCode: schedule.flight.departureAirport.cityCode,
+                    city: schedule.flight.departureAirport.city.name,
+                    cityCode: schedule.flight.departureAirport.city.code,
                     airportName: schedule.flight.departureAirport.name,
-                    terminalGate: schedule.terminalGate,
+                    terminalGate,
                 },
                 arrival: {
                     day: daysOfWeek[schedule.arrivalDateTime.getDay()],
                     dateTime: schedule.arrivalDateTime,
-                    cityCode: schedule.flight.arrivalAirport.cityCode,
+                    city: schedule.flight.arrivalAirport.city.name,
+                    cityCode: schedule.flight.arrivalAirport.city.code,
                     airportName: schedule.flight.arrivalAirport.name,
                 },
                 facilities: {
                     baggage: schedule.flight.Baggage?.maxBaggageWeight || null,
-                    cabinBaggage:
-                        schedule.flight.Baggage?.maxCabinBaggageWeight || null,
+                    cabinBaggage: schedule.flight.Baggage?.maxCabinBaggageWeight || null,
                     entertainment: flightServices.includes('In-Flight Entertainment'),
                     meal: flightServices.includes('In-Flight Meal'),
                     wifi: flightServices.includes('WiFi'),
@@ -344,7 +279,10 @@ class Schedule {
             };
         });
 
-        return data;
+        return {
+            pagination,
+            data
+        };
     }
 };
 

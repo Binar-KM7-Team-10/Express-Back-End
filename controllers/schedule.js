@@ -8,9 +8,9 @@ module.exports = {
             const scheduleId = await Schedule.create(req.body);
 
             return res.status(201).json({
-                status: 'OK',
+                status: 'Success',
                 statusCode: 201,
-                message: 'Successfully created a new schedule',
+                message: 'Berhasil membuat jadwal penerbangan.',
                 data: {
                     scheduleId
                 }
@@ -25,9 +25,9 @@ module.exports = {
             await Schedule.delete(req.params.id);
 
             return res.status(200).json({
-                status: 'OK',
+                status: 'Success',
                 statusCode: 200,
-                message: 'Successfully deleted schedule'
+                message: 'Berhasil menghapus jadwal penerbangan.'
             });
         } catch (error) {
             next(error);
@@ -39,37 +39,39 @@ module.exports = {
             const data = await Schedule.getDTO(req.params.id);
 
             return res.status(200).json({
-                status: 'OK',
+                status: 'Success',
                 statusCode: 200,
-                message: 'Successfully retrieved schedule details',
+                message: 'Berhasil mendapatkan data jadwal penerbangan.',
                 data
             });
         } catch (error) {
-            next(error)
+            next(error);
         }
     },
     getAll: async (req, res, next) => {
         try {
-            const outboundSchedules = await Schedule.getManyDTO(req.query);
+            ScheduleValidation.validateQueryParams(req.query);
+            const result = await Schedule.getManyDTO(req.query);
 
-            if (!outboundSchedules) {
+            if (result.data.length === 0) {
                 return res.status(200).json({
-                    status: 'OK',
+                    status: 'Success',
                     statusCode: 200,
-                    message: 'Schedule is empty',
-                    pageNumber: 1,
+                    message: 'Tidak ada data jadwal penerbangan yang tersedia',
                     data: []
                 });
             }
 
             return res.status(200).json({
-                status: 'OK',
+                status: 'Success',
                 statusCode: 200,
-                message: 'Successfully retrieved all schedules',
-                pageNumber: (req.query.limit && req.query.offset) ? Math.floor(req.query.offset / req.query.limit) + 1 : 1,
+                message: 'Data jadwal penerbangan berhasil diambil.',
+                pagination: {
+                    ...result.pagination
+                },
                 data: {
                     schedule: {
-                        outbound: outboundSchedules,
+                        outbound: result.data,
                         inbound: null
                     }
                 }
@@ -87,7 +89,7 @@ module.exports = {
             return res.status(200).json({
                 status: 'Success',
                 statusCode: 200,
-                message: 'Successfully edited schedule'
+                message: 'Berhasil memperbarui jadwal penerbangan.'
             });
         } catch (err) {
             next(err);
