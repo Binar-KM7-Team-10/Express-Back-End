@@ -1,18 +1,18 @@
 const HttpRequestError = require('./error');
 
 module.exports = (err, req, res, next) => {
-    // console.log(err);
+    console.log(err);
     if (err instanceof HttpRequestError) {
         return res.status(err.statusCode).json({
-            status: 'Fail',
+            status: 'Failed',
             statusCode: err.statusCode,
             message: err.message
         });
     }
 
     return res.status(500).json({
-        status: 'Error',
+        status: 'Failed',
         statusCode: 500,
-        message: 'Internal Server Error'
+        message: 'Terjadi kesalahan pada server. Silakan coba lagi nanti.'
     });
 };

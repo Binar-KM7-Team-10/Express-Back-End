@@ -4,22 +4,23 @@ module.exports = {
     validateLogin: (data) => {
         const { email, password } = data;
 
-        if (!email) {
-            throw new HttpRequestError('Email or Password cannot be empty', 400);
+        if (!email || !password) {
+            throw new HttpRequestError('Validasi gagal. Pastikan email dan password telah diisi.', 400);
         }
+
+        if (typeof email !== 'string' || typeof password !== 'string') {
+            throw new HttpRequestError('Validasi gagal. email dan password harus berupa string.', 400);
+        }
+
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            throw new HttpRequestError('Invalid email format', 400);
+            throw new HttpRequestError('Format email tidak valid. Pastikan Anda memasukkan email dengan format yang benar.', 400);
         }
 
-        if (!password) {
-            throw new HttpRequestError('Email or Password cannot be empty', 400);
-        }
         if (password.length < 8 || password.length > 70) {
-            throw new HttpRequestError('Password must be between 8 and 70 characters', 400);
+            throw new HttpRequestError('Validasi gagal. password harus memiliki 8 hingga 70 digit.', 400);
         }
     },
-
     validateEmail: (data) => {
         const { email } = data;
 

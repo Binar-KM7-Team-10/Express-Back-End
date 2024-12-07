@@ -13,7 +13,7 @@ const verifyToken = (token) => {
 };
 
 const signOut = () => {
-    return generateToken({}, '1s');
+    return generateToken({}, '1ms');
 };
 
 module.exports = {
