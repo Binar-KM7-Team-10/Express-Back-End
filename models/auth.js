@@ -1,8 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcrypt')
 const crypto = require('crypto')
-const {sendEmail} = require('../utils/emailHelper');
-const { error } = require('console');
 const HttpRequestError = require('../utils/error');
 const JwtHelper = require('../utils/jwtHelper');
 const prisma = new PrismaClient()
@@ -30,48 +28,62 @@ class Auth {
         return JwtHelper.signOut();
     }
 
-    static async createPasswordToken (email){
+    static async createPasswordToken(email) {
         const user = await prisma.user.findUnique({
-            where: {email}
+            where: {
+                email
+            }
         })
-        if (!user) throw new error ('User not found')
-            const token = crypto.randomBytes(32).toString('hex')
-        const expirationTime = new Date(Date.now() + 3600 * 1000)
+
+        if (!user) {
+            throw new HttpRequestError('Email tidak terdaftar. Pastikan email yang Anda masukkan benar.', 400)
+        }
+
+        const token = crypto.randomBytes(32).toString('hex')
+        const hashedResetToken = crypto.createHash('sha256').update(token).digest('hex');
+        const expirationTime = new Date(Date.now() + 10 * 60 * 1000) // Token expires in 10 minutes
 
         await prisma.user.update({
-            where: {id: user.id},
+            where: {
+                id: user.id
+            },
             data: {
-                passwordResetToken: token,
+                passwordResetToken: hashedResetToken,
                 passwordResetTokenExpirationTime: expirationTime,
             },
         })
-        await sendEmail(
-            email,
-            'password Reset',
-            `Your reset token: ${token}`
-        )
-        return token
+
+        return token;
     }
+
     static async resetPassword (token, newPassword){
+        const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+
         const user = await prisma.user.findFirst({
             where: {
-                passwordResetToken: token,
-                passwordResetTokenExpirationTime: {gte: new Date()},
+                passwordResetToken: hashedToken,
+                passwordResetTokenExpirationTime: {
+                    gte: new Date(Date.now())
+                },
             },
-        })
-        if (!user) throw new Error('Invalid or expired token')
-        const hashedPassword = await bcrypt.hash(newPassword, 10)
+        });
+
+        if (!user) {
+            throw new HttpRequestError('Token reset password tidak valid atau telah kedaluwarsa. Silakan lakukan permintaan reset password kembali.', 400);
+        }
+
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
 
         await prisma.user.update({
-            where: {id: user.id},
+            where: {
+                id: user.id
+            },
             data: {
                 password: hashedPassword,
                 passwordResetToken: null,
                 passwordResetTokenExpirationTime: null,
             },
-        })
-
-        return 'Password updated succesfully'
+        });
     }
 }
 module.exports = Auth;
