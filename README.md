@@ -45,7 +45,8 @@ Endpoints for listing flight schedules
 		"id": <user_id>,
 		"fullName": <full_name>,
 		"email": <email>,
-		"phoneNumber": <phone_number>
+		"phoneNumber": <phone_number>,
+		"role": <user_role_enum>
 	}
 	```
 
@@ -242,7 +243,8 @@ Endpoints for listing flight schedules
 					"id": 1,
 					"fullName": "John Doe",
 					"email": "user@example.com",
-					"phoneNumber": "6281245678912"
+					"phoneNumber": "6281245678912",
+					"role": "Buyer"
 				}
 			}
 		}
@@ -330,7 +332,8 @@ Endpoints for listing flight schedules
 					"id": 1,
 					"fullName": "John Doe",
 					"email": "user@example.com",
-					"phoneNumber": "6281245678912"
+					"phoneNumber": "6281245678912",
+					"role": "Buyer"
 				}
 			}
 		}
@@ -476,7 +479,8 @@ Endpoints for listing flight schedules
 					"id": 1,
 					"fullName": "John Doe",
 					"email": "user@example.com",
-					"phoneNumber": "6281245678912"
+					"phoneNumber": "6281245678912",
+					"role": "Buyer"
 			    },
 			    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
 		  }
@@ -545,7 +549,7 @@ Endpoints for listing flight schedules
 			"statusCode": 201,
 			"message": "Logout berhasil. Anda telah keluar dari akun Anda.",
 			"data": {
-			    "logoutToken": <logout_token>
+			    "accessToken": <access_token>
 		  }
 		}
 		```
@@ -556,7 +560,7 @@ Endpoints for listing flight schedules
 			"message": "Logout berhasil. Anda telah keluar dari akun Anda.",
 			"statusCode": 201,
 			"data": {
-			    "logoutToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+			    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
 		  }
 		}
 		```
@@ -611,12 +615,12 @@ Endpoints for listing flight schedules
 		```
 
 - **Fail Response (Email Is Not Registered)**:
-	- Code: 404
+	- Code: 400
 	- Response Body:
 		```json
 		{
 			"status": "Failed",
-			"statusCode": 404,
+			"statusCode": 400,
 			"message": "Email tidak terdaftar. Pastikan email yang Anda masukkan benar."
 		}
 		```
@@ -759,13 +763,15 @@ Endpoints for listing flight schedules
 					"id": 1,
 					"fullName": "John Doe",
 					"email": "example@mail.com",
-					"phoneNumber": "6281245678912"
+					"phoneNumber": "6281245678912",
+					"role": "Buyer"
 				},
 				{
 					"id": 2,
 					"fullName": "Matthew Murdock",
 					"email": "devil@hellskitchen.com",
-					"phoneNumber": "6281300001111"
+					"phoneNumber": "6281300001111",
+					"role": "Admin"
 				},
 				...
 			]
@@ -847,10 +853,11 @@ Endpoints for listing flight schedules
 			"statusCode": 200,
 			"message": "Data pengguna berhasil diambil.",
 			"data": {
-					"id": 1,
-					"fullName": "John Doe",
-					"email": "example@mail.com",
-					"phoneNumber": "6281245678912"
+				"id": 1,
+				"fullName": "John Doe",
+				"email": "example@mail.com",
+				"phoneNumber": "6281245678912",
+				"role": "Buyer"
 			}
 		}
 		```
@@ -963,7 +970,8 @@ Endpoints for listing flight schedules
 					"id": 1,
 					"fullName": "John Doe",
 					"email": "example@mail.com",
-					"phoneNumber": "6281234567980"
+					"phoneNumber": "6281234567980",
+					"role": "Buyer"
 				}
 			}
 		}
@@ -1074,7 +1082,8 @@ Endpoints for listing flight schedules
 					"id": 1,
 					"fullName": "John Doe Doe John",
 					"email": "example@mail.com",
-					"phoneNumber": "6281234567980"
+					"phoneNumber": "6281234567980",
+					"role": "Buyer"
 				}
 			}
 		}
@@ -2660,8 +2669,7 @@ Endpoints for listing flight schedules
 			"statusCode": 200,
 			"message": "Token valid. Pengguna terautentikasi.",
 			"data": {
-				...<user_object>,
-				role: <user_role_enum>
+				<user_object>
         	}
 		}
 		```
