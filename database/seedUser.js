@@ -18,7 +18,7 @@ const seedDatabase = async () => {
     // email    : admin@tiketku.com
     // password : admin1234
     try {
-        const password = bcrypt.hash('admin1234', 10);
+        const password = await bcrypt.hash('admin1234', 10);
         await prisma.user.create({
             data: {
                 email: 'admin@tiketku.com',
