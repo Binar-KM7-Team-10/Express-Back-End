@@ -4,6 +4,7 @@
   "description": "a service/API to purchase and book flight tickets online",
   "main": "app.js",
   "scripts": {
+    "db:reset": "npx prisma db push --force-reset",
     "start:dev": "nodemon app.js",
     "dbpush": "npx prisma db push",
     "seed:airport": "node ./database/seedAirport.js",
@@ -19,9 +20,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^5.22.0",
+    "@prisma/client": "^6.0.1",
     "express": "^4.21.1",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "prisma": "^6.0.1"
   },
   "devDependencies": {
     "dotenv": "^16.4.5",

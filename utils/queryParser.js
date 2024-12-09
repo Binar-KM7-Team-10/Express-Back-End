@@ -84,6 +84,27 @@ class QueryParser {
 
         return orderBy;
     }
+
+    static parseBookingFilters(query) {
+        const {userId, bookingCode, dpDate } = query;
+
+        return {
+            bookingCode : bookingCode || undefined,
+            userId: userId,
+            Itinerary : {
+                some : {
+                    Schedule : {
+                        departureDateTime : dpDate ? {
+                            gte : new Date(`${dpDate}T00:00:00Z`),
+                            lte : new Date(`${dpDate}T23:59:59Z`),
+                        } : undefined,
+                    },
+                },
+            },
+        }
+    }
 };
+
+
 
 module.exports = QueryParser;
