@@ -1,4 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
+const HttpRequestError = require('../utils/error');
 const prisma = new PrismaClient();
 
 class Homepage {
@@ -53,7 +54,7 @@ class Homepage {
 
         const cards = flights.map((flight) => {
             const minPrice = flight.Schedule.reduce((min, schedule) => Math.min(min, schedule.ticketPrice), Infinity);
-            
+
             return {
                 departureCity: flight.departureAirport.city.name,
                 arrivalCity: flight.arrivalAirport.city.name,
@@ -72,6 +73,10 @@ class Homepage {
         });
 
         const totalPage = Math.ceil(total / limit);
+
+        if (totalPage < page) {
+            throw new HttpRequestError('Validasi gagal. Pastikan page tidak melebih total halaman.', 400);
+        }
 
         return {
             pagination: {
