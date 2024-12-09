@@ -6,7 +6,9 @@
   "scripts": {
     "db:reset": "npx prisma db push --force-reset",
     "start:dev": "nodemon app.js",
-    "dbpush": "npx prisma db push",
+    "db:push": "npx prisma db push",
+    "db:reset": "npx prisma db push --force-reset",
+    "seed:city": "node ./database/seedCity.js",
     "seed:airport": "node ./database/seedAirport.js",
     "seed:airline": "node ./database/seedAirline.js",
     "seed:service": "node ./database/seedService.js",
@@ -15,18 +17,25 @@
     "seed:flight-service": "node ./database/seedFlightService.js",
     "seed:baggage": "node ./database/seedBaggage.js",
     "seed:schedule": "node ./database/seedSchedule.js",
-    "seed:seat": "node ./database/seedSeat.js"
+    "seed:seat": "node ./database/seedSeat.js",
+    "seed:all": "node ./database/seedCity.js && node ./database/seedAirport.js && node ./database/seedAirline.js && node ./database/seedService.js && node ./database/seedUser.js && node ./database/seedFlight.js && node ./database/seedFlightService.js && node ./database/seedBaggage.js && node ./database/seedSchedule.js && node ./database/seedSeat.js",
+    "setup": "npm run db:reset && npm run seed:all && echo \"If there is no error above, then you have successfully setup the database.\""
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^6.0.1",
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
     "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
+    "nodemailer": "^6.9.16",
+    "otplib": "^12.0.1",
     "prisma": "^6.0.1"
   },
   "devDependencies": {
-    "dotenv": "^16.4.5",
+    "dotenv": "^16.4.7",
     "nodemon": "^3.1.7"
   }
 }
