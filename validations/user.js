@@ -120,10 +120,12 @@ module.exports = {
           throw new HttpRequestError('Validasi gagal. Pastikan newPassword dan confirmNewPassword sama.', 400);
       }
   },
-  validateTokenHeader: (headers) =>{
-    const {authorization} = headers
-    if (!authorization || !authorization.startsWith('Bearer')){
-      throw new HttpRequestError('Token tidak valid atau telah kadaluarsa, Silahkan login kembali untuk mendapatakna token baru')
+  headers: ({ authorization }) => {
+    if (!authorization || !authorization.startsWith("Bearer ")) {
+      throw new HttpRequestError(
+        "Token tidak valid atau telah kedaluwarsa. Silakan login kembali untuk mendapatkan token baru.",
+        401
+      );
     }
-  }
+  },
 };

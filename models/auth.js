@@ -168,17 +168,21 @@ class Auth {
         const decoded = JwtHelper.verifyToken(token)
 
         const user = await prisma.user.findUnique({
-            where: {
-                id: decoded.id
-            }
-        })
+            where: { id: decoded.id },
+          });
         if (!user) {
             throw new HttpRequestError(
               'Token tidak valid atau telah kedaluwarsa. Silakan login kembali untuk mendapatkan token baru',
               401
             );
         }
-          return user; 
+        return {
+            id: user.id,
+            fullName: user.fullName,
+            email: user.email,
+            phoneNumber: user.phoneNumber,
+            role: user.role,
+          };
         }
       }
 module.exports = Auth;

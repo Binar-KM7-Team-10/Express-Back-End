@@ -3,7 +3,6 @@ const Auth = require("../models/auth");
 const JwtHelper = require('../utils/jwtHelper');
 const sendEmail = require("../utils/mailerSmtp");
 const user = require("../validations/user");
-const user = require("../validations/user");
 const { CLIENT_URL } = process.env; // Front-end URL, used for specifying URL on password reset
 
 module.exports = {
@@ -205,19 +204,21 @@ module.exports = {
           next(err);
       }
   },
-  authenticate: async (req, res, next) =>{
+  authenticate: async (req, res, next) => {
     try {
-      UserValidation.validateTokenHeader(req.headers.authorization)
-      const user = await Auth.authenticate(req.headers.authorization)
-
+      UserValidation.headers(req.headers);
+  
+      const user = await Auth.authenticate(req.headers.authorization);
+  
       return res.status(200).json({
-        status: 'Succsess',
+        status: "Success",
         statusCode: 200,
-        message: 'Token valid. Pengguna terautentikasi',
+        message: "Token valid. Pengguna terautentikasi.",
         data: user,
-      })
+      });
     } catch (error) {
-      next(error)
+      next(error);
     }
-  }
+  },
+  
 };
