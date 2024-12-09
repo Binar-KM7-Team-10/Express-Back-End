@@ -136,7 +136,7 @@ class QueryParser {
             userId: userId,
             Itinerary : {
                 some : {
-                    Schedule : {
+                    schedule : {
                         departureDateTime : dpDate ? {
                             gte : new Date(`${dpDate}T00:00:00Z`),
                             lte : new Date(`${dpDate}T23:59:59Z`),
