@@ -1,6 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
-const HttpRequestError = require('../utils/error');
 const bcrypt = require('bcrypt');
 
 class User {

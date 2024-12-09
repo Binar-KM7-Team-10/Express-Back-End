@@ -5,8 +5,12 @@ function nextChar(c) {
     return String.fromCharCode(c.charCodeAt(0) + 1);
 }
 
+let total = 0;
 const seedDatabase = async () => {
-    for (let i = 1; i <= 400; i++) {
+    console.log('Please wait, this might take a while to seed Seat table.');
+    const scheduleNumber = await prisma.schedule.count();
+
+    for (let i = 1; i <= scheduleNumber; i++) {
         let col = 'A';
         let row = 1;
         for (let j = 1; j <= 72; j++) {
@@ -25,6 +29,9 @@ const seedDatabase = async () => {
                         seatNumber
                     }
                 });
+                total++;
+                // console.clear();
+                // console.log(`Inserted ${total}/${scheduleNumber * 72} rows on Seat table`);
             } catch (err) {
                 console.error(err);
             }
@@ -33,7 +40,7 @@ const seedDatabase = async () => {
 }
 
 seedDatabase()
-    .then(() => console.log('Successfully seeding Seat'))
+    .then(() => console.log(`Successfully seeding ${total} rows of Seat`))
     .catch((err) => console.log(`Failed seeding Seat\nError: ${err.message}`))
     .finally(async () => {
         await prisma.$disconnect();

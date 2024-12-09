@@ -1,802 +1,197 @@
 [
     {
-        "name": "Santa Lucia Air Force Base",
-        "city": "Buliu",
-        "cityCode": "DEN",
-        "country": "China",
-        "continent": "Asia",
-        "iataCode": "TBU"
-    },
-    {
-        "name": "Ejin Banner-Taolai Airport",
-        "city": "Guanchi",
-        "cityCode": "ATL",
-        "country": "China",
-        "continent": "Africa",
-        "iataCode": "HAQ"
-    },
-    {
-        "name": "Víctor Lafón Airport",
-        "city": "Rislane",
-        "cityCode": "LA",
-        "country": "Morocco",
-        "continent": "America",
-        "iataCode": "STM"
-    },
-    {
-        "name": "Guangzhou Baiyun International Airport",
-        "city": "Bilajer",
-        "cityCode": "SEA",
-        "country": "Azerbaijan",
-        "continent": "Asia",
-        "iataCode": "AGC"
-    },
-    {
-        "name": "Abakan Airport",
-        "city": "Abucayan",
-        "cityCode": "DAL",
-        "country": "Philippines",
-        "continent": "America",
-        "iataCode": "YYD"
-    },
-    {
-        "name": "Tuluksak Airport",
-        "city": "Delgermörön",
-        "cityCode": "MIA",
-        "country": "Mongolia",
-        "continent": "Australia",
-        "iataCode": "SUN"
-    },
-    {
-        "name": "Mount Hagen Kagamuga Airport",
-        "city": "Hecun",
-        "cityCode": "ATL",
-        "country": "China",
-        "continent": "Australia",
-        "iataCode": "LUM"
-    },
-    {
-        "name": "Necochea Airport",
-        "city": "Kibingo",
-        "cityCode": "CHI",
-        "country": "Uganda",
-        "continent": "Africa",
-        "iataCode": "OTR"
-    },
-    {
-        "name": "Lake Manyara Airport",
-        "city": "María la Baja",
-        "cityCode": "DEN",
-        "country": "Colombia",
-        "continent": "Africa",
-        "iataCode": "YCA"
-    },
-    {
-        "name": "Malindi Airport",
-        "city": "Irkliyevskaya",
-        "cityCode": "LA",
-        "country": "Russia",
-        "continent": "Africa",
-        "iataCode": "STM"
-    },
-    {
-        "name": "Clinton Municipal Airport",
-        "city": "Göteborg",
-        "cityCode": "LA",
-        "country": "Sweden",
-        "continent": "Asia",
-        "iataCode": "AGC"
-    },
-    {
-        "name": "Gregorio Luperon International Airport",
-        "city": "Tekeli",
-        "cityCode": "LA",
-        "country": "Kazakhstan",
-        "continent": "Europe",
-        "iataCode": "LUM"
-    },
-    {
-        "name": "Gran Canaria Airport",
-        "city": "Rozsypne",
-        "cityCode": "MIA",
-        "country": "Ukraine",
-        "continent": "America",
-        "iataCode": "STM"
+        "cityId": 1,
+        "name": "Soekarno-Hatta International Airport",
+        "iataCode": "CGK"
     },
     {
-        "name": "Iginniarfik",
-        "city": "Shuanghe",
-        "cityCode": "SEA",
-        "country": "China",
-        "continent": "Europe",
-        "iataCode": "SUN"
+        "cityId": 2,
+        "name": "Supadio International Airport",
+        "iataCode": "PNK"
     },
     {
-        "name": "Paranavaí Airport",
-        "city": "El Quebrachal",
-        "cityCode": "ATL",
-        "country": "Argentina",
-        "continent": "Europe",
-        "iataCode": "LUM"
+        "cityId": 3,
+        "name": "Ngurah Rai International Airport",
+        "iataCode": "DPS"
     },
     {
-        "name": "Emmen Air Base",
-        "city": "Prakhon Chai",
-        "cityCode": "SEA",
-        "country": "Thailand",
-        "continent": "Australia",
-        "iataCode": "LUM"
+        "cityId": 4,
+        "name": "Charles de Gaulle Airport",
+        "iataCode": "CDG"
     },
     {
-        "name": "Padova Airport",
-        "city": "Granja",
-        "cityCode": "HOU",
-        "country": "Portugal",
-        "continent": "Asia",
-        "iataCode": "HAQ"
+        "cityId": 5,
+        "name": "Lyon-Saint Exupéry Airport",
+        "iataCode": "LYS"
     },
     {
-        "name": "Cuyo Airport",
-        "city": "Changhan",
-        "cityCode": "NYC",
-        "country": "Thailand",
-        "continent": "America",
-        "iataCode": "HAQ"
+        "cityId": 6,
+        "name": "John F. Kennedy International Airport",
+        "iataCode": "JFK"
     },
     {
-        "name": "Spirit Lake Municipal Airport",
-        "city": "Tizguine",
-        "cityCode": "MIA",
-        "country": "Morocco",
-        "continent": "Europe",
-        "iataCode": "LUM"
+        "cityId": 6,
+        "name": "LaGuardia Airport",
+        "iataCode": "LGA"
     },
     {
-        "name": "Nusatupe Airport",
-        "city": "Janowice",
-        "cityCode": "CHI",
-        "country": "Poland",
-        "continent": "Asia",
-        "iataCode": "SUN"
+        "cityId": 7,
+        "name": "Los Angeles International Airport",
+        "iataCode": "LAX"
     },
     {
-        "name": "Lusambo Airport",
-        "city": "Beigang",
-        "cityCode": "LA",
-        "country": "China",
-        "continent": "Africa",
-        "iataCode": "STM"
+        "cityId": 8,
+        "name": "O'Hare International Airport",
+        "iataCode": "ORD"
     },
     {
-        "name": "Uranium City Airport",
-        "city": "Mysove",
-        "cityCode": "DAL",
-        "country": "Ukraine",
-        "continent": "America",
-        "iataCode": "AGC"
+        "cityId": 9,
+        "name": "Sydney Kingsford Smith Airport",
+        "iataCode": "SYD"
     },
     {
-        "name": "Bunyu Airport",
-        "city": "Shangshaleng",
-        "cityCode": "HOU",
-        "country": "China",
-        "continent": "Africa",
-        "iataCode": "HAQ"
+        "cityId": 10,
+        "name": "Melbourne Airport",
+        "iataCode": "MEL"
     },
     {
-        "name": "Mafra Airport",
-        "city": "Torbeck",
-        "cityCode": "HOU",
-        "country": "Haiti",
-        "continent": "Europe",
-        "iataCode": "ROP"
+        "cityId": 11,
+        "name": "Narita International Airport",
+        "iataCode": "NRT"
     },
     {
-        "name": "Enyu Airfield",
-        "city": "Sukasenang",
-        "cityCode": "PHX",
-        "country": "Indonesia",
-        "continent": "Europe",
-        "iataCode": "HAQ"
+        "cityId": 11,
+        "name": "Haneda Airport",
+        "iataCode": "HND"
     },
     {
-        "name": "Dracena Airport",
-        "city": "Kommunar",
-        "cityCode": "HOU",
-        "country": "Russia",
-        "continent": "America",
-        "iataCode": "SUN"
+        "cityId": 12,
+        "name": "Kansai International Airport",
+        "iataCode": "KIX"
     },
     {
-        "name": "Gallup Municipal Airport",
-        "city": "Pakkat",
-        "cityCode": "LA",
-        "country": "Indonesia",
-        "continent": "Australia",
-        "iataCode": "YCA"
+        "cityId": 13,
+        "name": "Cape Town International Airport",
+        "iataCode": "CPT"
     },
     {
-        "name": "Wana Airport",
-        "city": "Laborde",
-        "cityCode": "LA",
-        "country": "Argentina",
-        "continent": "Europe",
-        "iataCode": "ROP"
+        "cityId": 14,
+        "name": "Cairo International Airport",
+        "iataCode": "CAI"
     },
     {
-        "name": "Avignon-Caumont Airport",
-        "city": "Baoping",
-        "cityCode": "DAL",
-        "country": "China",
-        "continent": "America",
-        "iataCode": "ROP"
+        "cityId": 15,
+        "name": "Berlin Brandenburg Airport",
+        "iataCode": "BER"
     },
     {
-        "name": "Buchanan Airport",
-        "city": "Croix",
-        "cityCode": "CHI",
-        "country": "France",
-        "continent": "Australia",
-        "iataCode": "STM"
+        "cityId": 16,
+        "name": "Munich Airport",
+        "iataCode": "MUC"
     },
     {
-        "name": "Qazvin Airport",
-        "city": "Kos",
-        "cityCode": "DEN",
-        "country": "Greece",
-        "continent": "Australia",
-        "iataCode": "AGC"
+        "cityId": 17,
+        "name": "Ministro Pistarini International Airport",
+        "iataCode": "EZE"
     },
     {
-        "name": "Jingdezhen Airport",
-        "city": "Studzionka",
-        "cityCode": "ATL",
-        "country": "Poland",
-        "continent": "Africa",
-        "iataCode": "TBU"
+        "cityId": 18,
+        "name": "Chhatrapati Shivaji Maharaj International Airport",
+        "iataCode": "BOM"
     },
     {
-        "name": "Roscoe Turner Airport",
-        "city": "Rio de Janeiro",
-        "cityCode": "NYC",
-        "country": "Brazil",
-        "continent": "Europe",
-        "iataCode": "ROP"
+        "cityId": 19,
+        "name": "Indira Gandhi International Airport",
+        "iataCode": "DEL"
     },
     {
-        "name": "Wemindji Airport",
-        "city": "Port-de-Paix",
-        "cityCode": "CHI",
-        "country": "Haiti",
-        "continent": "Australia",
-        "iataCode": "YYD"
+        "cityId": 20,
+        "name": "Suvarnabhumi Airport",
+        "iataCode": "BKK"
     },
     {
-        "name": "Mekambo Airport",
-        "city": "Shangtang",
-        "cityCode": "MIA",
-        "country": "China",
-        "continent": "Asia",
-        "iataCode": "STM"
+        "cityId": 21,
+        "name": "Phuket International Airport",
+        "iataCode": "HKT"
     },
     {
-        "name": "Falcon State Airport",
-        "city": "Husów",
-        "cityCode": "MIA",
-        "country": "Poland",
-        "continent": "America",
-        "iataCode": "HAQ"
+        "cityId": 22,
+        "name": "Ninoy Aquino International Airport",
+        "iataCode": "MNL"
     },
     {
-        "name": "Betou Airport",
-        "city": "Baguinge",
-        "cityCode": "CHI",
-        "country": "Philippines",
-        "continent": "Australia",
-        "iataCode": "ROP"
+        "cityId": 23,
+        "name": "Mactan-Cebu International Airport",
+        "iataCode": "CEB"
     },
     {
-        "name": "Ust-Nera Airport",
-        "city": "Zhaixi",
-        "cityCode": "PHX",
-        "country": "China",
-        "continent": "Australia",
-        "iataCode": "TBU"
+        "cityId": 24,
+        "name": "Kuala Lumpur International Airport",
+        "iataCode": "KUL"
     },
     {
-        "name": "Gustavo Vargas Airport",
-        "city": "Pervomayskoye",
-        "cityCode": "CHI",
-        "country": "Russia",
-        "continent": "Australia",
-        "iataCode": "OTR"
+        "cityId": 25,
+        "name": "Penang International Airport",
+        "iataCode": "PEN"
     },
     {
-        "name": "Uyuni Airport",
-        "city": "Yuncheng",
-        "cityCode": "NYC",
-        "country": "China",
-        "continent": "Africa",
-        "iataCode": "OTR"
+        "cityId": 26,
+        "name": "Adisutjipto International Airport",
+        "iataCode": "JOG"
     },
     {
-        "name": "Grant County Airport",
-        "city": "Cikadongdong",
-        "cityCode": "SEA",
-        "country": "Indonesia",
-        "continent": "Australia",
-        "iataCode": "OTR"
+        "cityId": 27,
+        "name": "Juanda International Airport",
+        "iataCode": "SUB"
     },
     {
-        "name": "Okushiri Airport",
-        "city": "Arrifes",
-        "cityCode": "SEA",
-        "country": "Portugal",
-        "continent": "Europe",
-        "iataCode": "TBU"
+        "cityId": 28,
+        "name": "Sultan Hasanuddin International Airport",
+        "iataCode": "UPG"
     },
     {
-        "name": "Betoambari Airport",
-        "city": "Sambirobyong",
-        "cityCode": "DAL",
-        "country": "Indonesia",
-        "continent": "Africa",
-        "iataCode": "LUM"
+        "cityId": 29,
+        "name": "Da Nang International Airport",
+        "iataCode": "DAD"
     },
     {
-        "name": "Sibiti Airport",
-        "city": "Roldanillo",
-        "cityCode": "DEN",
-        "country": "Colombia",
-        "continent": "America",
-        "iataCode": "STM"
+        "cityId": 30,
+        "name": "Tan Son Nhat International Airport",
+        "iataCode": "SGN"
     },
     {
-        "name": "Sydney Bankstown Airport",
-        "city": "Paris La Défense",
-        "cityCode": "ATL",
-        "country": "France",
-        "continent": "Africa",
-        "iataCode": "LUM"
+        "cityId": 31,
+        "name": "Noi Bai International Airport",
+        "iataCode": "HAN"
     },
     {
-        "name": "Wilpena Pound Airport",
-        "city": "Darkūsh",
-        "cityCode": "HOU",
-        "country": "Syria",
-        "continent": "Australia",
-        "iataCode": "SUN"
+        "cityId": 32,
+        "name": "Wattay International Airport",
+        "iataCode": "VTE"
     },
     {
-        "name": "Jönköping Airport",
-        "city": "Alivéri",
-        "cityCode": "NYC",
-        "country": "Greece",
-        "continent": "Europe",
-        "iataCode": "ROP"
+        "cityId": 33,
+        "name": "Siem Reap International Airport",
+        "iataCode": "REP"
     },
     {
-        "name": "Centralia Municipal Airport",
-        "city": "Halmstad",
-        "cityCode": "NYC",
-        "country": "Sweden",
-        "continent": "Africa",
-        "iataCode": "SUN"
+        "cityId": 34,
+        "name": "Phnom Penh International Airport",
+        "iataCode": "PNH"
     },
     {
-        "name": "Allakaket Airport",
-        "city": "Ninh Giang",
-        "cityCode": "DEN",
-        "country": "Vietnam",
-        "continent": "America",
-        "iataCode": "HAQ"
+        "cityId": 35,
+        "name": "Brunei International Airport",
+        "iataCode": "BWN"
     },
     {
-        "name": "Butterworth Airport",
-        "city": "Valladolid",
-        "cityCode": "ATL",
-        "country": "Spain",
-        "continent": "America",
-        "iataCode": "HAQ"
+        "cityId": 36,
+        "name": "Naypyidaw Airport",
+        "iataCode": "NYT"
     },
     {
-        "name": "Mc Cook Ben Nelson Regional Airport",
-        "city": "Campo Maior",
-        "cityCode": "NYC",
-        "country": "Portugal",
-        "continent": "Australia",
-        "iataCode": "OTR"
-    },
-    {
-        "name": "Perry Municipal Airport",
-        "city": "Floirac",
-        "cityCode": "DAL",
-        "country": "France",
-        "continent": "America",
-        "iataCode": "YYD"
-    },
-    {
-        "name": "Eliye Springs Airport",
-        "city": "Novozavidovskiy",
-        "cityCode": "HOU",
-        "country": "Russia",
-        "continent": "Europe",
-        "iataCode": "ROP"
-    },
-    {
-        "name": "Avenger Field",
-        "city": "Kraljevo",
-        "cityCode": "HOU",
-        "country": "Serbia",
-        "continent": "Asia",
-        "iataCode": "OTR"
-    },
-    {
-        "name": "Sky Harbor Airport",
-        "city": "Zalesnoye",
-        "cityCode": "PHX",
-        "country": "Ukraine",
-        "continent": "Europe",
-        "iataCode": "YYD"
-    },
-    {
-        "name": "Bhavnagar Airport",
-        "city": "Beloostrov",
-        "cityCode": "MIA",
-        "country": "Russia",
-        "continent": "Africa",
-        "iataCode": "STM"
-    },
-    {
-        "name": "Oxford House Airport",
-        "city": "Šmartno pri Litiji",
-        "cityCode": "MIA",
-        "country": "Slovenia",
-        "continent": "America",
-        "iataCode": "YCA"
-    },
-    {
-        "name": "Siargao Airport",
-        "city": "Guaporé",
-        "cityCode": "HOU",
-        "country": "Brazil",
-        "continent": "Africa",
-        "iataCode": "OTR"
-    },
-    {
-        "name": "Lingling Airport",
-        "city": "Menlou",
-        "cityCode": "NYC",
-        "country": "China",
-        "continent": "Australia",
-        "iataCode": "SUN"
-    },
-    {
-        "name": "Palma Airport",
-        "city": "Wamba",
-        "cityCode": "CHI",
-        "country": "Nigeria",
-        "continent": "Australia",
-        "iataCode": "YYD"
-    },
-    {
-        "name": "Teruel Airport",
-        "city": "Crateús",
-        "cityCode": "HOU",
-        "country": "Brazil",
-        "continent": "America",
-        "iataCode": "LUM"
-    },
-    {
-        "name": "Shepparton Airport",
-        "city": "Sankt Lorenzen im Mürztal",
-        "cityCode": "SEA",
-        "country": "Austria",
-        "continent": "Australia",
-        "iataCode": "SUN"
-    },
-    {
-        "name": "Greene County Airport",
-        "city": "Berëzovyy",
-        "cityCode": "PHX",
-        "country": "Russia",
-        "continent": "Australia",
-        "iataCode": "SUN"
-    },
-    {
-        "name": "Thompson Falls Airport",
-        "city": "Sokol",
-        "cityCode": "DEN",
-        "country": "Russia",
-        "continent": "Africa",
-        "iataCode": "AGC"
-    },
-    {
-        "name": "Fairbury Municipal Airport",
-        "city": "Staryye Atagi",
-        "cityCode": "SEA",
-        "country": "Russia",
-        "continent": "Australia",
-        "iataCode": "STM"
-    },
-    {
-        "name": "Jenpeg Airport",
-        "city": "Lueng Putu",
-        "cityCode": "CHI",
-        "country": "Indonesia",
-        "continent": "Europe",
-        "iataCode": "SUN"
-    },
-    {
-        "name": "Northeast Alabama Regional Airport",
-        "city": "Guadalupe",
-        "cityCode": "PHX",
-        "country": "Philippines",
-        "continent": "Australia",
-        "iataCode": "OTR"
-    },
-    {
-        "name": "Anaktuvuk Pass Airport",
-        "city": "Zhongba",
-        "cityCode": "MIA",
-        "country": "China",
-        "continent": "Asia",
-        "iataCode": "AGC"
-    },
-    {
-        "name": "Barriles Airport",
-        "city": "Pásion",
-        "cityCode": "MIA",
-        "country": "Greece",
-        "continent": "Europe",
-        "iataCode": "TBU"
-    },
-    {
-        "name": "Ephrata Municipal Airport",
-        "city": "Sancti Spíritus",
-        "cityCode": "CHI",
-        "country": "Cuba",
-        "continent": "Africa",
-        "iataCode": "YYD"
-    },
-    {
-        "name": "Región de Murcia International Airport",
-        "city": "Jaboatão dos Guararapes",
-        "cityCode": "LA",
-        "country": "Brazil",
-        "continent": "Africa",
-        "iataCode": "STM"
-    },
-    {
-        "name": "Janakpur Airport",
-        "city": "Colatina",
-        "cityCode": "NYC",
-        "country": "Brazil",
-        "continent": "Europe",
-        "iataCode": "AGC"
-    },
-    {
-        "name": "Prominent Hill Airport",
-        "city": "Chengtou",
-        "cityCode": "CHI",
-        "country": "China",
-        "continent": "Europe",
-        "iataCode": "TBU"
-    },
-    {
-        "name": "San Juan Del César Airport",
-        "city": "Chucatamani",
-        "cityCode": "ATL",
-        "country": "Peru",
-        "continent": "Asia",
-        "iataCode": "ROP"
-    },
-    {
-        "name": "Tulsipur Airport",
-        "city": "Bantul",
-        "cityCode": "HOU",
-        "country": "Indonesia",
-        "continent": "Asia",
-        "iataCode": "HAQ"
-    },
-    {
-        "name": "Whale Pass Seaplane Float Harbor Facility",
-        "city": "Roioen",
-        "cityCode": "DEN",
-        "country": "Indonesia",
-        "continent": "Asia",
-        "iataCode": "YYD"
-    },
-    {
-        "name": "Metema Airport",
-        "city": "Sibinal",
-        "cityCode": "DEN",
-        "country": "Guatemala",
-        "continent": "Australia",
-        "iataCode": "AGC"
-    },
-    {
-        "name": "Edmond Cané Airport",
-        "city": "Yuanling",
-        "cityCode": "NYC",
-        "country": "China",
-        "continent": "Asia",
-        "iataCode": "SUN"
-    },
-    {
-        "name": "Bitam Airport",
-        "city": "Kinna",
-        "cityCode": "LA",
-        "country": "Sweden",
-        "continent": "Africa",
-        "iataCode": "AGC"
-    },
-    {
-        "name": "Merrill Municipal Airport",
-        "city": "Longsheng",
-        "cityCode": "MIA",
-        "country": "China",
-        "continent": "Europe",
-        "iataCode": "LUM"
-    },
-    {
-        "name": "San Fernando Airport",
-        "city": "Alaghsas",
-        "cityCode": "DAL",
-        "country": "Niger",
-        "continent": "Africa",
-        "iataCode": "STM"
-    },
-    {
-        "name": "Akita Airport",
-        "city": "Broniszewice",
-        "cityCode": "HOU",
-        "country": "Poland",
-        "continent": "America",
-        "iataCode": "TBU"
-    },
-    {
-        "name": "Lal Bahadur Shastri Airport",
-        "city": "Chuanshan",
-        "cityCode": "CHI",
-        "country": "China",
-        "continent": "Africa",
-        "iataCode": "STM"
-    },
-    {
-        "name": "Rockhampton Airport",
-        "city": "Shaoyang",
-        "cityCode": "HOU",
-        "country": "China",
-        "continent": "America",
-        "iataCode": "LUM"
-    },
-    {
-        "name": "El Tepual Airport",
-        "city": "Néa Éfesos",
-        "cityCode": "SEA",
-        "country": "Greece",
-        "continent": "Africa",
-        "iataCode": "YYD"
-    },
-    {
-        "name": "Menara Airport",
-        "city": "Jhingergācha",
-        "cityCode": "SEA",
-        "country": "Bangladesh",
-        "continent": "America",
-        "iataCode": "YCA"
-    },
-    {
-        "name": "Pumani Airport",
-        "city": "Shatou",
-        "cityCode": "DEN",
-        "country": "China",
-        "continent": "America",
-        "iataCode": "TBU"
-    },
-    {
-        "name": "Chatham Kent Airport",
-        "city": "Charleston",
-        "cityCode": "ATL",
-        "country": "United States",
-        "continent": "America",
-        "iataCode": "OTR"
-    },
-    {
-        "name": "Egal International Airport",
-        "city": "La Quiaca",
-        "cityCode": "MIA",
-        "country": "Argentina",
-        "continent": "Europe",
-        "iataCode": "HAQ"
-    },
-    {
-        "name": "Quincy Regional Baldwin Field",
-        "city": "Barkly East",
-        "cityCode": "ATL",
-        "country": "South Africa",
-        "continent": "Asia",
-        "iataCode": "AGC"
-    },
-    {
-        "name": "Terre-de-Haut Airport",
-        "city": "Weepangali",
-        "cityCode": "DEN",
-        "country": "Indonesia",
-        "continent": "Asia",
-        "iataCode": "YCA"
-    },
-    {
-        "name": "Djerba Zarzis International Airport",
-        "city": "Taiping",
-        "cityCode": "NYC",
-        "country": "China",
-        "continent": "Europe",
-        "iataCode": "LUM"
-    },
-    {
-        "name": "Cam Ranh Airport",
-        "city": "Adorjan",
-        "cityCode": "LA",
-        "country": "Serbia",
-        "continent": "Asia",
-        "iataCode": "ROP"
-    },
-    {
-        "name": "Opuwa Airport",
-        "city": "Sicheng",
-        "cityCode": "NYC",
-        "country": "China",
-        "continent": "Europe",
-        "iataCode": "AGC"
-    },
-    {
-        "name": "Narrabri Airport",
-        "city": "San Francisco",
-        "cityCode": "MIA",
-        "country": "Philippines",
-        "continent": "Asia",
-        "iataCode": "HAQ"
-    },
-    {
-        "name": "Kahramanmaraş Airport",
-        "city": "Wat Bot",
-        "cityCode": "DEN",
-        "country": "Thailand",
-        "continent": "America",
-        "iataCode": "OTR"
-    },
-    {
-        "name": "Yangzhou Taizhou Airport",
-        "city": "Gimcheon",
-        "cityCode": "CHI",
-        "country": "South Korea",
-        "continent": "Asia",
-        "iataCode": "ROP"
-    },
-    {
-        "name": "Esa'ala Airport",
-        "city": "Ube",
-        "cityCode": "DAL",
-        "country": "Japan",
-        "continent": "Europe",
-        "iataCode": "YYD"
-    },
-    {
-        "name": "Sary Su Airport",
-        "city": "Sanana",
-        "cityCode": "LA",
-        "country": "Indonesia",
-        "continent": "Australia",
-        "iataCode": "YCA"
-    },
-    {
-        "name": "Mariánské Lázně Airport",
-        "city": "Lebyazh’ye",
-        "cityCode": "HOU",
-        "country": "Russia",
-        "continent": "Europe",
-        "iataCode": "ROP"
+        "cityId": 37,
+        "name": "Yangon International Airport",
+        "iataCode": "RGN"
     }
 ]

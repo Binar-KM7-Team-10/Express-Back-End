@@ -12,6 +12,7 @@ Flight ticket booking service.
 	- [Endpoints](#endpoints)
 		- [POST /register](#post-register)
 		- [POST /register/otp](#post-registerotp)
+		- [POST /register/otp/resend](#post-registerotpresend)
 		- [POST /login](#post-login)
 		- [GET /logout](#get-logout)
 		- [POST /forgot-password](#post-forgot-password)
@@ -30,7 +31,7 @@ Flight ticket booking service.
 		- [GET /bookings/{bookingId}](#get-bookingsbookingid)
 		- [POST /bookings](#post-bookings)
 		- [POST /bookings/{bookingId}/payments](#post-bookingsbookingidpayments)
-		- [GET /dashboard](#get-dashboard)
+		- [GET /homepage](#get-homepage)
 		- [GET /auth](#get-auth)
 
 
@@ -44,7 +45,8 @@ Endpoints for listing flight schedules
 		"id": <user_id>,
 		"fullName": <full_name>,
 		"email": <email>,
-		"phoneNumber": <phone_number>
+		"phoneNumber": <phone_number>,
+		"role": <user_role_enum>
 	}
 	```
 
@@ -157,12 +159,25 @@ Endpoints for listing flight schedules
 	}
 	```
 
+- pagination_object
+	```
+	{
+		"currentPage": <current_page_number>,
+		"totalPage": <total_page_amount>,
+		"count": <item_count_page>,
+		"total": <item_count_total>,
+		"hasNextPage": <boolean>,
+		"hasPreviousPage": <boolean>
+	}
+	```
+
 ## Endpoints
 
 | Method | URL | Functionality | Authentication | 
 | --- | --- | --- | --- |
 | POST | /register | Creates a user account | FALSE |
 | POST | /register/otp | Verify a user account with OTP | FALSE |
+| POST | /register/otp/resend | Resend OTP to user's email | FALSE |
 | POST | /login | Logs in a user | FALSE |
 | GET | /login/google | Logs in/creates a user account with Google OAuth 2.0 | FALSE |
 | GET | /logout | Logs out a user | TRUE |
@@ -182,7 +197,7 @@ Endpoints for listing flight schedules
 | GET | /bookings/{bookingId} | Retrieves a booking details | TRUE |
 | POST | /bookings | Creates a booking | TRUE |
 | POST | /bookings/{bookingId}/payments | Creates a payment for a booking | TRUE |
-| GET | /dashboard | Retrieves dashboard data | FALSE |
+| GET | /homepage | Retrieves homepage data | FALSE |
 | GET | /auth | Authenticate user | TRUE |
 
 ---
@@ -228,7 +243,8 @@ Endpoints for listing flight schedules
 					"id": 1,
 					"fullName": "John Doe",
 					"email": "user@example.com",
-					"phoneNumber": "6281245678912"
+					"phoneNumber": "6281245678912",
+					"role": "Buyer"
 				}
 			}
 		}
@@ -316,7 +332,8 @@ Endpoints for listing flight schedules
 					"id": 1,
 					"fullName": "John Doe",
 					"email": "user@example.com",
-					"phoneNumber": "6281245678912"
+					"phoneNumber": "6281245678912",
+					"role": "Buyer"
 				}
 			}
 		}
@@ -330,6 +347,82 @@ Endpoints for listing flight schedules
 			"status": "Failed",
 			"statusCode": 400,
 			"message": "Verifikasi OTP gagal. Pastikan kode OTP yang dimasukkan benar dan belum kedaluwarsa."
+		}
+		```
+
+- **Fail Response (Server Failure)**:
+	- Code: 500
+	- Response Body:
+		```json
+		{
+			"status": "Failed",
+			"statusCode": 500,
+			"message": "Terjadi kesalahan pada server. Silakan coba lagi nanti."
+		}
+		```
+
+---
+
+### POST /register/otp/resend
+
+- **Description**: Resend OTP to user's account.
+- **Parameters**:
+	- **Data params**:
+		```
+		{
+			"email": <email>
+		}
+		```
+	- **Path Params**: None
+	- **Query Params**: None
+- **Headers**:
+	- Content-Type: application/json
+- **Success Response**:
+	- Code: 201
+	- Response Body:
+		```
+		{
+			"status": "Success",
+			"statusCode": 201,
+			"message": "Kode OTP telah berhasil dikirim ulang. Silakan verifikasi akun Anda melalui kode OTP yang telah dikirimkan ke email Anda."
+		}
+		```
+	- Example:
+		```json
+		{
+			"status" : "Success",
+			"statusCode" : 201,
+			"message": "Kode OTP telah berhasil dikirim ulang. Silakan verifikasi akun Anda melalui kode OTP yang telah dikirimkan ke email Anda."
+		}
+		```
+
+- **Fail Response (Email Already Registered)**:
+	- Code: 409
+	- Response Body:
+		```json
+		{
+			"status": "Failed",
+			"statusCode": 409,
+			"message": "Email sudah terdaftar. Silakan gunakan email lain atau login dengan email tersebut."
+		}
+		```
+
+- **Fail Response (Validation Error)**:
+	- Code: 400
+	- Response Body:
+		```
+		{
+			"status": "Failed",
+			"statusCode": 400,
+			"message": <error_message>
+		}
+		```
+	- Example: 
+		```json
+		{
+			"status": "Failed",
+			"statusCode": 400,
+			"message": "Format email tidak valid. Pastikan Anda memasukkan email dengan format yang benar."
 		}
 		```
 
@@ -386,7 +479,8 @@ Endpoints for listing flight schedules
 					"id": 1,
 					"fullName": "John Doe",
 					"email": "user@example.com",
-					"phoneNumber": "6281245678912"
+					"phoneNumber": "6281245678912",
+					"role": "Buyer"
 			    },
 			    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
 		  }
@@ -455,7 +549,7 @@ Endpoints for listing flight schedules
 			"statusCode": 201,
 			"message": "Logout berhasil. Anda telah keluar dari akun Anda.",
 			"data": {
-			    "logoutToken": <logout_token>
+			    "accessToken": <access_token>
 		  }
 		}
 		```
@@ -466,7 +560,7 @@ Endpoints for listing flight schedules
 			"message": "Logout berhasil. Anda telah keluar dari akun Anda.",
 			"statusCode": 201,
 			"data": {
-			    "logoutToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+			    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
 		  }
 		}
 		```
@@ -521,12 +615,12 @@ Endpoints for listing flight schedules
 		```
 
 - **Fail Response (Email Is Not Registered)**:
-	- Code: 404
+	- Code: 400
 	- Response Body:
 		```json
 		{
 			"status": "Failed",
-			"statusCode": 404,
+			"statusCode": 400,
 			"message": "Email tidak terdaftar. Pastikan email yang Anda masukkan benar."
 		}
 		```
@@ -669,13 +763,15 @@ Endpoints for listing flight schedules
 					"id": 1,
 					"fullName": "John Doe",
 					"email": "example@mail.com",
-					"phoneNumber": "6281245678912"
+					"phoneNumber": "6281245678912",
+					"role": "Buyer"
 				},
 				{
 					"id": 2,
 					"fullName": "Matthew Murdock",
 					"email": "devil@hellskitchen.com",
-					"phoneNumber": "6281300001111"
+					"phoneNumber": "6281300001111",
+					"role": "Admin"
 				},
 				...
 			]
@@ -757,10 +853,11 @@ Endpoints for listing flight schedules
 			"statusCode": 200,
 			"message": "Data pengguna berhasil diambil.",
 			"data": {
-					"id": 1,
-					"fullName": "John Doe",
-					"email": "example@mail.com",
-					"phoneNumber": "6281245678912"
+				"id": 1,
+				"fullName": "John Doe",
+				"email": "example@mail.com",
+				"phoneNumber": "6281245678912",
+				"role": "Buyer"
 			}
 		}
 		```
@@ -873,7 +970,8 @@ Endpoints for listing flight schedules
 					"id": 1,
 					"fullName": "John Doe",
 					"email": "example@mail.com",
-					"phoneNumber": "6281234567980"
+					"phoneNumber": "6281234567980",
+					"role": "Buyer"
 				}
 			}
 		}
@@ -984,7 +1082,8 @@ Endpoints for listing flight schedules
 					"id": 1,
 					"fullName": "John Doe Doe John",
 					"email": "example@mail.com",
-					"phoneNumber": "6281234567980"
+					"phoneNumber": "6281234567980",
+					"role": "Buyer"
 				}
 			}
 		}
@@ -1174,10 +1273,7 @@ Endpoints for listing flight schedules
 			"status": "Success",
 			"statusCode": 200,
 			"message": "Data jadwal penerbangan berhasil diambil.",
-			"page": {
-				"current": <current_page_number>,
-				"total": <total_page>
-			},
+			"pagination": <pagination_object>,
 			"data": {
 				"schedules": {
 					"outbound": [
@@ -1202,9 +1298,13 @@ Endpoints for listing flight schedules
 			"status": "Success",
 			"statusCode": 200,
 			"message": "Data jadwal penerbangan berhasil diambil.",
-			"page": {
-				"current": 1,
-				"total": 10
+			"pagination": {
+				"currentPage": 1,
+				"totalPage": 6,
+				"count": 10,
+				"total": 51,
+				"hasNextPage": true,
+				"hasPreviousPage": false
 			},
 			"data": {
 				"schedules": {
@@ -1338,6 +1438,7 @@ Endpoints for listing flight schedules
 					]
 				}
 			}
+		}
 		```
 
 - **Success Response (Empty Data)**:
@@ -1381,7 +1482,7 @@ Endpoints for listing flight schedules
 - **Description**: Retrieves a flight schedule details.
 - **Parameters**:
 	- **Data params**: None
-	- **Path Params**: scheduleId (required)
+	- **Path Params**: scheduleId (Required)
 	- **Query Params**: None
 - **Headers**:
 	- Content-Type: application/json
@@ -1510,6 +1611,7 @@ Endpoints for listing flight schedules
 			"message": "Berhasil membuat jadwal penerbangan.",
 			"data": {
 				"scheduleId": <schedule_id>
+			}
 		}
 		```
 	-  Example:
@@ -1543,6 +1645,14 @@ Endpoints for listing flight schedules
 		}
 		```
 
+		```json
+		{
+			"status": "Failed",
+			"statusCode": 400,
+			"message": "Jadwal penerbangan gagal dibuat. Jadwal penerbangan harus berdasarkan penerbangan yang terdaftar."
+		}
+		```
+
 - **Fail Response (Invalid Token)**:
 	- Code: 401
 	- Response Body:
@@ -1562,17 +1672,6 @@ Endpoints for listing flight schedules
 			"status": "Failed",
 			"statusCode": 403,
 			"message": "Akses ditolak. Anda tidak memiliki izin untuk mengakses endpoint ini."
-		}
-		```
-
-- **Fail Response (Flight Does Not Exist)**:
-	- Code: 404
-	- Response Body:
-		```json
-		{
-			"status": "Failed",
-			"statusCode": 404,
-			"message": "Jadwal penerbangan gagal dibuat. Jadwal penerbangan harus berdasarkan penerbangan yang terdaftar."
 		}
 		```
 
@@ -1805,8 +1904,6 @@ Endpoints for listing flight schedules
 | bookingCode | Unique code identifier for flight booking ticket. | string | _/bookings?bookingCode=6723y2GHK_ | Optional |
 | dpDate | Date of departure/outbound. Date format in YYYY-MM-DD. | date | _/bookings?dpDate=2024-11-25_ | Optional |
 | retDate | Date of return/inbound. Date format in YYYY-MM-DD. | date | _/bookings?retDate=2024-11-27_ | Optional |
-| limit | Maximum amount of content to be retrieved in a single request. The value by default is 10. | number | _/bookings?limit=10_ | Optional |
-| offset | Amount of content to be skipped before returning the next `limit` amount of contents. The value by default is 0. | number | _/bookings?offset=20_ | Optional |
 
 - **Headers**:
 	- Content-Type: application/json
@@ -2435,8 +2532,8 @@ Endpoints for listing flight schedules
 
 ---
 
-### GET /dashboard
--   **Description**: Retrieves all dashboard data.
+### GET /homepage
+-   **Description**: Retrieves all homepage data.
 -   **Parameters**:
     -   **Data params**: None
     -   **Path Params**: None
@@ -2444,8 +2541,8 @@ Endpoints for listing flight schedules
 
 | Parameter | Description | Type | Example | Option |
 | --- | --- | --- | --- | --- |
-| continent | Area of continent. Value is either "All", "Asia", "America", "Australia", "Europe", or "Africa". | string | _/dashboard?continent=Asia_ | **Required** |
-| limit | Maximum amount of content to be retrieved in a single request. The value by default is 5. | number | _/dashboard?continent=All&limit=10_ | Optional |
+| continent | Area of continent. Value is either "All", "Asia", "America", "Australia", "Europe", or "Africa". By default the value is "All" | string | _/homepage?continent=Asia_ | **Required** |
+| page | Current page number. Each page has at most 5 contents. The value is 1 by default | number | _/homepage?page=2_ | Optional |
 
 -   **Headers**:
     -   Content-Type: application/json
@@ -2456,7 +2553,8 @@ Endpoints for listing flight schedules
 		{
 			"status": "Success",
 			"statusCode": 200,
-			"message": "Data dashboard berhasil diambil.",
+			"message": "Data homepage berhasil diambil.",
+			"pagination": <pagination_object>,
 			"data": {
 				"cards": [
 		        	<card_object>,
@@ -2472,7 +2570,15 @@ Endpoints for listing flight schedules
 			{
 	        	"status": "Success",
 	        	"statusCode": 200,
-	        	"message": "Data dashboard berhasil diambil.",
+	        	"message": "Data homepage berhasil diambil.",
+				"pagination": {
+					"currentPage": 2,
+					"totalPage": 5,
+					"count": 5,
+					"total": 25,
+					"hasNextPage": true,
+					"hasPreviousPage": true
+				},
 	        	"data": {
 			        "cards": [
 			        	{
@@ -2506,7 +2612,7 @@ Endpoints for listing flight schedules
 		{
 			"status": "Success",
 			"statusCode": 200,
-			"message": "Tidak ada data dashboard yang tersedia.",
+			"message": "Tidak ada data homepage yang tersedia.",
 			"data": {
 				"cards": []
         	}
@@ -2563,8 +2669,7 @@ Endpoints for listing flight schedules
 			"statusCode": 200,
 			"message": "Token valid. Pengguna terautentikasi.",
 			"data": {
-				...<user_object>,
-				role: <user_role_enum>
+				<user_object>
         	}
 		}
 		```
