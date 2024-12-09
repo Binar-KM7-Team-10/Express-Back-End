@@ -7,6 +7,7 @@ function nextChar(c) {
 
 let total = 0;
 const seedDatabase = async () => {
+    console.log('Please wait, this might take a while to seed Seat table.');
     const scheduleNumber = await prisma.schedule.count();
 
     for (let i = 1; i <= scheduleNumber; i++) {
@@ -29,8 +30,8 @@ const seedDatabase = async () => {
                     }
                 });
                 total++;
-                console.clear();
-                console.log(`Inserted ${total}/${scheduleNumber * 72} rows on Seat table`);
+                // console.clear();
+                // console.log(`Inserted ${total}/${scheduleNumber * 72} rows on Seat table`);
             } catch (err) {
                 console.error(err);
             }
