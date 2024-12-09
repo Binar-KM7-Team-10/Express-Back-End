@@ -162,6 +162,23 @@ class Auth {
             },
         });
     }
-}
 
+    static async authenticate(authHeader){
+        const token = authHeader.split(' ')[1]
+        const decoded = JwtHelper.verifyToken(token)
+
+        const user = await prisma.user.findUnique({
+            where: {
+                id: decoded.id
+            }
+        })
+        if (!user) {
+            throw new HttpRequestError(
+              'Token tidak valid atau telah kedaluwarsa. Silakan login kembali untuk mendapatkan token baru',
+              401
+            );
+        }
+          return user; 
+        }
+      }
 module.exports = Auth;
