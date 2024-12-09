@@ -12,7 +12,15 @@ module.exports = {
                 status: "Success",
                 statusCode: 201,
                 message: "Pengguna berhasil ditambahkan.",
-                data: userCreate
+                data: {
+                    user: {
+                        id: userCreate.id,
+                        fullname: userCreate.fullName,
+                        email: userCreate.email,
+                        phoneNumber: userCreate.phoneNumber,
+                        role: userCreate.role
+                    }
+                }
             });
         } catch (error) {
             next(error);
@@ -27,19 +35,19 @@ module.exports = {
                 return res.status(200).json({
                     status: "Success",
                     statusCode: 200,
-                    message: "Tidak ada data pengguna yang ditemukan",
+                    message: "Tidak ada data pengguna yang ditemukan.",
                     data: []
                 });
             }
 
-            res.status(200).json({
+            return res.status(200).json({
                 status: "Success",
                 statusCode: 200,
                 message: "Data pengguna berhasil diambil.",
                 data: userGetAll
             })
-        } catch (error) {
-            next(error);
+        } catch (err) {
+            next(err);
         }
     },
     getById: async (req, res, next) => {
@@ -50,11 +58,11 @@ module.exports = {
             return res.status(200).json({
                 status: "Success",
                 statusCode: 200,
-                message: "Data pengguna berhasil diambil",
+                message: "Data pengguna berhasil diambil.",
                 data: userGetById
-            })
-        } catch (error) {
-            next(error);
+            });
+        } catch (err) {
+            next(err);
         }
     },
     update: async (req, res, next) => {
@@ -67,8 +75,16 @@ module.exports = {
                 status: "Success",
                 statusCode: 200,
                 message: "Data pengguna berhasil diperbarui.",
-                data: editUser
-            })
+                data: {
+                    user: {
+                        id: editUser.id,
+                        fullName: editUser.fullName,
+                        email: editUser.email,
+                        phoneNumber: editUser.phoneNumber,
+                        role: editUser.role
+                    }
+                }
+            });
         } catch (error) {
             next(error);
         }
@@ -81,7 +97,7 @@ module.exports = {
             return res.status(200).json({
                 status: "Success",
                 statusCode: 200,
-                message: "Pengguna berhasil dihapus"
+                message: "Pengguna berhasil dihapus."
             })
         } catch (error) {
             next(error);

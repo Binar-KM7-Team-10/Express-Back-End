@@ -6,14 +6,15 @@ const bcrypt = require('bcrypt');
 class User {
     static async getAllUsers(){
         const findUsers = await prisma.user.findMany({
-            orderBy: {id: "asc"},
             select: {
                 id: true,
                 fullName: true,
                 email: true,
-                phoneNumber: true
+                phoneNumber: true,
+                role: true
             }
         });
+
         return findUsers;
     }
 
@@ -25,13 +26,15 @@ class User {
                 id: true,
                 fullName: true,
                 email: true,
-                phoneNumber: true
+                phoneNumber: true,
+                role: true
             }
         });
+
         return findUser;
     }
 
-    static async create({ email, phoneNumber, fullName, password, role }){
+    static async create({ email, phoneNumber, fullName, password, googleId = null, role }){
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const createUser = await prisma.user.create({
@@ -40,6 +43,7 @@ class User {
                 phoneNumber,
                 password: hashedPassword,
                 fullName,
+                googleId,
                 role,
                 isVerified: true
             }
@@ -49,24 +53,19 @@ class User {
     }
 
     static async patchUser(id, data){
-        const { fullName, phoneNumber, email } = data;
+        const { fullName = undefined, phoneNumber = undefined, email = undefined, password = undefined } = data;
 
-        const findUser = await prisma.user.findUnique({
-            where: {id: parseInt(id)}
-        });
-
-        if (!findUser) {
-            throw new HttpRequestError(404, "Pengguna tidak ditemukan");
-        }
-
-        await prisma.user.update({
+        const user = await prisma.user.update({
             where: {id: parseInt(id)},
             data: {
                 fullName: fullName,
                 email: email,
+                password: password,
                 phoneNumber: phoneNumber,
             }
-        })
+        });
+
+        return user;
     }
 
     static async deleteUser(id){
