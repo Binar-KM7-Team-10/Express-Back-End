@@ -4,7 +4,6 @@ const UserValidations = require('../validations/user');
 module.exports = {
     create: async (req, res, next) => {
         try {
-            //await UserValidations.validateRole(req.body);
             await UserValidations.create(req.body);
             const userCreate = await User.create(req.body);
 
@@ -28,7 +27,6 @@ module.exports = {
     },
     getAll: async (req, res, next) => {
         try {
-            //await UserValidations.validateRole(req.body);
             const userGetAll = await User.getAllUsers(); 
 
             if (userGetAll.length === 0){

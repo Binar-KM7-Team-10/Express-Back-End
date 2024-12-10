@@ -251,11 +251,12 @@ module.exports = {
           throw new HttpRequestError("Validasi gagal. password harus memiliki 8 hingga 70 digit.", 400);
       }
   },
-  validateRole: async (data) => {
-      const { role } = data;
-  
-      if (role == 'Buyer' || role !== 'Admin'){
-          throw new HttpRequestError("Access denied, you aren't allowed to access this endpoint.", 403);
-      }
+  headers: ({ authorization }) => {
+    if (!authorization || !authorization.startsWith("Bearer ")) {
+      throw new HttpRequestError(
+        "Token tidak valid atau telah kedaluwarsa. Silakan login kembali untuk mendapatkan token baru.",
+        401
+      );
+    }
   },
 };
