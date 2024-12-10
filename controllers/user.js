@@ -4,23 +4,23 @@ const UserValidations = require('../validations/user');
 module.exports = {
     create: async (req, res, next) => {
         try {
-            //await UserValidations.validateRole(req.body);
+            // await UserValidations.validateRole(req.body);
             await UserValidations.create(req.body);
             const userCreate = await User.create(req.body);
 
             return res.status(201).json({
-                status: "Success",
+                status: 'Success',
                 statusCode: 201,
-                message: "Pengguna berhasil ditambahkan.",
+                message: 'Pengguna berhasil ditambahkan.',
                 data: {
                     user: {
                         id: userCreate.id,
                         fullname: userCreate.fullName,
                         email: userCreate.email,
                         phoneNumber: userCreate.phoneNumber,
-                        role: userCreate.role
-                    }
-                }
+                        role: userCreate.role,
+                    },
+                },
             });
         } catch (error) {
             next(error);
@@ -28,24 +28,24 @@ module.exports = {
     },
     getAll: async (req, res, next) => {
         try {
-            //await UserValidations.validateRole(req.body);
-            const userGetAll = await User.getAllUsers(); 
+            // await UserValidations.validateRole(req.body);
+            const userGetAll = await User.getAllUsers();
 
-            if (userGetAll.length === 0){
+            if (userGetAll.length === 0) {
                 return res.status(200).json({
-                    status: "Success",
+                    status: 'Success',
                     statusCode: 200,
-                    message: "Tidak ada data pengguna yang ditemukan.",
-                    data: []
+                    message: 'Tidak ada data pengguna yang ditemukan.',
+                    data: [],
                 });
             }
 
             return res.status(200).json({
-                status: "Success",
+                status: 'Success',
                 statusCode: 200,
-                message: "Data pengguna berhasil diambil.",
-                data: userGetAll
-            })
+                message: 'Data pengguna berhasil diambil.',
+                data: userGetAll,
+            });
         } catch (err) {
             next(err);
         }
@@ -56,10 +56,10 @@ module.exports = {
             const userGetById = await User.getUserById(req.params.id);
 
             return res.status(200).json({
-                status: "Success",
+                status: 'Success',
                 statusCode: 200,
-                message: "Data pengguna berhasil diambil.",
-                data: userGetById
+                message: 'Data pengguna berhasil diambil.',
+                data: userGetById,
             });
         } catch (err) {
             next(err);
@@ -72,18 +72,18 @@ module.exports = {
             const editUser = await User.patchUser(req.params.id, req.body);
 
             return res.status(200).json({
-                status: "Success",
+                status: 'Success',
                 statusCode: 200,
-                message: "Data pengguna berhasil diperbarui.",
+                message: 'Data pengguna berhasil diperbarui.',
                 data: {
                     user: {
                         id: editUser.id,
                         fullName: editUser.fullName,
                         email: editUser.email,
                         phoneNumber: editUser.phoneNumber,
-                        role: editUser.role
-                    }
-                }
+                        role: editUser.role,
+                    },
+                },
             });
         } catch (error) {
             next(error);
@@ -95,14 +95,13 @@ module.exports = {
             await User.deleteUser(req.params.id);
 
             return res.status(200).json({
-                status: "Success",
+                status: 'Success',
                 statusCode: 200,
-                message: "Pengguna berhasil dihapus."
-            })
+                message: 'Pengguna berhasil dihapus.',
+            });
         } catch (error) {
             next(error);
         }
-    }
-    
+    },
 
-}
+};

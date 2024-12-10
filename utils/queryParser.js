@@ -1,4 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
+
 const prisma = new PrismaClient();
 
 class QueryParser {
@@ -11,16 +12,16 @@ class QueryParser {
             minPrice = 0,
             maxPrice,
             psg,
-            facility
+            facility,
         } = query;
 
         const facilityMapping = {
-            entertainment: "In-Flight Entertainment",
-            meal: "In-Flight Meal",
-            wifi: "WiFi",
+            entertainment: 'In-Flight Entertainment',
+            meal: 'In-Flight Meal',
+            wifi: 'WiFi',
         };
 
-        const facilities = facility ? facility.split('.').map(f => facilityMapping[f]).filter(Boolean) : [];
+        const facilities = facility ? facility.split('.').map((f) => facilityMapping[f]).filter(Boolean) : [];
         const [adults = 0, children = 0] = psg ? psg.split('.').map(Number) : [undefined, undefined];
         const totalPassengers = adults + children;
 
@@ -30,15 +31,16 @@ class QueryParser {
         // But it works ¯\_(ツ)_/¯, nvm it does not work
         // Oops, it works now, don't touch it
 
-        let dpCityId, arCityId;
+        let dpCityId; let
+            arCityId;
         if (!dpCity & !arCity) {
             dpCityId = undefined;
             arCityId = undefined;
         } else if (dpCity || arCity) {
             let dpData = await prisma.city.findFirst({
                 where: {
-                    name: dpCity
-                }
+                    name: dpCity,
+                },
             });
 
             if (dpData === null) {
@@ -48,8 +50,8 @@ class QueryParser {
 
             let arData = await prisma.city.findFirst({
                 where: {
-                    name: arCity
-                }
+                    name: arCity,
+                },
             });
 
             if (arData === null) {
@@ -60,37 +62,37 @@ class QueryParser {
             dpCityId = dpCity ? dpData.id : undefined;
             arCityId = arCity ? arData.id : undefined;
         }
-    
+
         return {
             flight: {
                 departureAirport: dpCity ? {
-                    cityId: dpCityId
+                    cityId: dpCityId,
                 } : undefined,
                 arrivalAirport: arCity ? {
-                    cityId: arCityId
+                    cityId: arCityId,
                 } : undefined,
-                AND: facilities.length ? facilities.map(f => ({
+                AND: facilities.length ? facilities.map((f) => ({
                     FlightService: {
                         some: {
                             service: {
-                                title: f
-                            }
-                        }
-                    }
+                                title: f,
+                            },
+                        },
+                    },
                 })) : undefined,
             },
             seatAvailability: {
                 gte: totalPassengers,
             },
             departureDateTime: dpDate ? {
-                    gte: new Date(`${dpDate}T00:00:00Z`),
-                    lte: new Date(`${dpDate}T23:59:59Z`),
+                gte: new Date(`${dpDate}T00:00:00Z`),
+                lte: new Date(`${dpDate}T23:59:59Z`),
             } : undefined,
             seatClass: seatClass || undefined,
             ticketPrice: minPrice || maxPrice ? {
                 gte: parseInt(minPrice),
-                lte: parseInt(maxPrice) || undefined
-            } : undefined
+                lte: parseInt(maxPrice) || undefined,
+            } : undefined,
         };
     }
 
@@ -99,34 +101,34 @@ class QueryParser {
         const orderBy = {};
 
         switch (sort) {
-            case 'price':
-                orderBy.ticketPrice = 'asc';
-                break;
-            case '-price':
-                orderBy.ticketPrice = 'desc';
-                break;
-            case 'duration':
-                orderBy.duration = 'asc';
-                break;
-            case '-duration':
-                orderBy.duration = 'desc';
-                break;
-            case 'dpTime':
-                orderBy.departureDateTime = 'asc';
-                break;
-            case '-dpTime':
-                orderBy.departureDateTime = 'desc';
-                break;
-            case 'arTime':
-                orderBy.arrivalDateTime = 'asc';
-                break;
-            case '-arTime':
-                orderBy.arrivalDateTime = 'desc';
-                break;
+        case 'price':
+            orderBy.ticketPrice = 'asc';
+            break;
+        case '-price':
+            orderBy.ticketPrice = 'desc';
+            break;
+        case 'duration':
+            orderBy.duration = 'asc';
+            break;
+        case '-duration':
+            orderBy.duration = 'desc';
+            break;
+        case 'dpTime':
+            orderBy.departureDateTime = 'asc';
+            break;
+        case '-dpTime':
+            orderBy.departureDateTime = 'desc';
+            break;
+        case 'arTime':
+            orderBy.arrivalDateTime = 'asc';
+            break;
+        case '-arTime':
+            orderBy.arrivalDateTime = 'desc';
+            break;
         }
 
         return orderBy;
     }
-};
+}
 
 module.exports = QueryParser;

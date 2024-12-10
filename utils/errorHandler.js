@@ -6,13 +6,13 @@ module.exports = (err, req, res, next) => {
         return res.status(err.statusCode).json({
             status: 'Failed',
             statusCode: err.statusCode,
-            message: err.message
+            message: err.message,
         });
     }
 
     return res.status(500).json({
         status: 'Failed',
         statusCode: 500,
-        message: 'Terjadi kesalahan pada server. Silakan coba lagi nanti.'
+        message: 'Terjadi kesalahan pada server. Silakan coba lagi nanti.',
     });
 };

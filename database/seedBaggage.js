@@ -1,4 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
+
 const prisma = new PrismaClient();
 
 function getRandomInt(min, max) {
@@ -16,15 +17,15 @@ const seedDatabase = async () => {
                 data: {
                     flightId: i,
                     maxBaggageWeight: getRandomInt(10, 31),
-                    maxCabinBaggageWeight: getRandomInt(7, 11)
-                }
+                    maxCabinBaggageWeight: getRandomInt(7, 11),
+                },
             });
             total++;
         } catch (err) {
             console.error(err);
         }
     }
-}
+};
 
 seedDatabase()
     .then(() => console.log(`Successfully seeding ${total} rows of Baggage`))

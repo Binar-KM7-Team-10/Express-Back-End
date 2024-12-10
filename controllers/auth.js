@@ -1,24 +1,25 @@
-const UserValidation = require("../validations/user");
-const Auth = require("../models/auth");
+const UserValidation = require('../validations/user');
+const Auth = require('../models/auth');
 const JwtHelper = require('../utils/jwtHelper');
-const sendEmail = require("../utils/mailerSmtp");
+const sendEmail = require('../utils/mailerSmtp');
+
 const { CLIENT_URL } = process.env; // Front-end URL, used for specifying URL on password reset
 
 module.exports = {
-  register: async (req, res, next) => {
-    try {
-      // Validasi input
-      await UserValidation.register(req.body);
+    register: async (req, res, next) => {
+        try {
+            // Validasi input
+            await UserValidation.register(req.body);
 
-      // Simpan data user dan hasilkan OTP
-      const data = await Auth.register(req.body);
+            // Simpan data user dan hasilkan OTP
+            const data = await Auth.register(req.body);
 
-      // Kirim email dengan OTP
-      await sendEmail(
-        data.email,
-        "Verifikasi Akun Baru - Kode OTP Anda",
-        `Kode OTP Anda adalah: ${data.otp}. Silakan verifikasi akun Anda dalam waktu 60 detik.`,
-        `<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #6A1B9A; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #BDBDBD; border-radius: 8px; background-color: #FFFFFF;">
+            // Kirim email dengan OTP
+            await sendEmail(
+                data.email,
+                'Verifikasi Akun Baru - Kode OTP Anda',
+                `Kode OTP Anda adalah: ${data.otp}. Silakan verifikasi akun Anda dalam waktu 60 detik.`,
+                `<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #6A1B9A; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #BDBDBD; border-radius: 8px; background-color: #FFFFFF;">
             <h2 style="text-align: center; color: #6A1B9A;">Verifikasi Akun Baru</h2>
             <p>Halo,</p>
             <p>Terima kasih telah mendaftar. Untuk memverifikasi email Anda, masukkan kode berikut:</p>
@@ -34,37 +35,37 @@ module.exports = {
             <p style="font-size: 12px; color: #6A1B9A;">Jika Anda mengalami masalah, silakan hubungi 
                 <a href="mailto:support@example.com" style="color: #6A1B9A;">support@example.com</a>.
             </p>
-        </div>`
-      );
+        </div>`,
+            );
 
-      return res.status(201).json({
-        status : "Success",
-        statusCode: 201,
-        message: "Registrasi berhasil. Silakan verifikasi akun Anda melalui kode OTP yang telah dikirimkan ke email Anda.",
-        data: {
-          user: {
-            id: data.id,
-            fullName: data.fullName,
-            email: data.email,
-            phoneNumber: data.phoneNumber
-          },
-        },
-      });
-    } catch (err) {
-      next(err);
-    }
-  },
-  resend: async (req, res, next) => {
-    try {
-      await UserValidation.resendOtp(req.body);
-      const data = await Auth.resendOTP(req.body);
+            return res.status(201).json({
+                status: 'Success',
+                statusCode: 201,
+                message: 'Registrasi berhasil. Silakan verifikasi akun Anda melalui kode OTP yang telah dikirimkan ke email Anda.',
+                data: {
+                    user: {
+                        id: data.id,
+                        fullName: data.fullName,
+                        email: data.email,
+                        phoneNumber: data.phoneNumber,
+                    },
+                },
+            });
+        } catch (err) {
+            next(err);
+        }
+    },
+    resend: async (req, res, next) => {
+        try {
+            await UserValidation.resendOtp(req.body);
+            const data = await Auth.resendOTP(req.body);
 
-      // Kirim email dengan TOTP baru
-      await sendEmail(
-        req.body.email,
-        "Verifikasi Akun Baru - Kode OTP Anda",
-        `Kode OTP Anda adalah: ${data}. Silakan verifikasi akun Anda dalam waktu 60 detik.`,
-        `<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #6A1B9A; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #BDBDBD; border-radius: 8px; background-color: #FFFFFF;">
+            // Kirim email dengan TOTP baru
+            await sendEmail(
+                req.body.email,
+                'Verifikasi Akun Baru - Kode OTP Anda',
+                `Kode OTP Anda adalah: ${data}. Silakan verifikasi akun Anda dalam waktu 60 detik.`,
+                `<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #6A1B9A; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #BDBDBD; border-radius: 8px; background-color: #FFFFFF;">
             <h2 style="text-align: center; color: #6A1B9A;">Verifikasi Akun Baru</h2>
             <p>Halo,</p>
             <p>Terima kasih telah mendaftar. Untuk memverifikasi email Anda, masukkan kode berikut:</p>
@@ -80,84 +81,84 @@ module.exports = {
             <p style="font-size: 12px; color: #6A1B9A;">Jika Anda mengalami masalah, silakan hubungi 
                 <a href="mailto:support@example.com" style="color: #6A1B9A;">support@example.com</a>.
             </p>
-        </div>`
-      );
+        </div>`,
+            );
 
-      return res.status(200).json({
-        status: 'Success',
-        statusCode: 200,
-        message: 'Kode OTP telah berhasil dikirim ulang. Silakan verifikasi akun Anda melalui kode OTP yang telah dikirimkan ke email Anda.'
-      });
-    } catch (err) {
-      next(err);
-    }
-  },
-  verify: async (req, res, next) => {
-    try {
-      await UserValidation.otp(req.body);
-      const user = await Auth.verifyOTP(req.body);
-
-      return res.status(201).json({ 
-        status: 'Success',
-        message: "Verifikasi OTP berhasil. Akun Anda sekarang aktif dan dapat digunakan.",
-        statusCode: 201,
-        data: {
-            user: {
-                id: user.id,
-                fullName: user.fullName,
-                email: user.email,
-                phoneNumber: user.phoneNumber
-            }
+            return res.status(200).json({
+                status: 'Success',
+                statusCode: 200,
+                message: 'Kode OTP telah berhasil dikirim ulang. Silakan verifikasi akun Anda melalui kode OTP yang telah dikirimkan ke email Anda.',
+            });
+        } catch (err) {
+            next(err);
         }
-      });
-    } catch (err) {
-      next(err);
-    }
-  },
-  login: async (req, res, next) => {
-      try {
-          UserValidation.validateLogin(req.body); 
-          const { email, password } = req.body;
-          const user = await Auth.login(email, password);
-          const accessToken = JwtHelper.generateToken(user);
+    },
+    verify: async (req, res, next) => {
+        try {
+            await UserValidation.otp(req.body);
+            const user = await Auth.verifyOTP(req.body);
 
-          return res.status(200).json({
-              status: 'Success',
-              statusCode: 200,
-              message: 'Login berhasil.',
-              data: {
-                  user,
-                  accessToken
-              }
-          });
-      } catch (err) {
-          next(err);
-      }
-  },
-  logout: (req, res) => {
-      const accessToken = Auth.logout();
-      
-      return res.status(200).json({
-          status: 'Success',
-          statusCode: 200,
-          message: 'Logout berhasil. Anda telah keluar dari akun Anda.',
-          data: {
-              accessToken
-          }
-      });
-  },
-  createPasswordReset: async (req, res, next) => {
-      try {
-          UserValidation.validateEmail(req.body)
-          const { email } = req.body
-          const token = await Auth.createPasswordToken(email);
-          const resetUrl = `${CLIENT_URL}/reset-password?token=${token}`;
+            return res.status(201).json({
+                status: 'Success',
+                message: 'Verifikasi OTP berhasil. Akun Anda sekarang aktif dan dapat digunakan.',
+                statusCode: 201,
+                data: {
+                    user: {
+                        id: user.id,
+                        fullName: user.fullName,
+                        email: user.email,
+                        phoneNumber: user.phoneNumber,
+                    },
+                },
+            });
+        } catch (err) {
+            next(err);
+        }
+    },
+    login: async (req, res, next) => {
+        try {
+            UserValidation.validateLogin(req.body);
+            const { email, password } = req.body;
+            const user = await Auth.login(email, password);
+            const accessToken = JwtHelper.generateToken(user);
 
-          await sendEmail(
-              email,
-              'Reset Password Anda',
-              `Klik tautan berikut untuk mengatur ulang kata sandi Anda: ${resetUrl}`,
-              `<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #6A1B9A; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #BDBDBD; border-radius: 8px; background-color: #FFFFFF;">
+            return res.status(200).json({
+                status: 'Success',
+                statusCode: 200,
+                message: 'Login berhasil.',
+                data: {
+                    user,
+                    accessToken,
+                },
+            });
+        } catch (err) {
+            next(err);
+        }
+    },
+    logout: (req, res) => {
+        const accessToken = Auth.logout();
+
+        return res.status(200).json({
+            status: 'Success',
+            statusCode: 200,
+            message: 'Logout berhasil. Anda telah keluar dari akun Anda.',
+            data: {
+                accessToken,
+            },
+        });
+    },
+    createPasswordReset: async (req, res, next) => {
+        try {
+            UserValidation.validateEmail(req.body);
+            const { email } = req.body;
+            const token = await Auth.createPasswordToken(email);
+            const resetUrl = `${CLIENT_URL}/reset-password?token=${token}`;
+
+            await sendEmail(
+                email,
+                'Reset Password Anda',
+                `Klik tautan berikut untuk mengatur ulang kata sandi Anda: ${resetUrl}`,
+                `<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #6A1B9A; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #BDBDBD; border-radius: 8px; background-color: #FFFFFF;">
                   <h2 style="text-align: center; color: #6A1B9A;">Reset Password Anda</h2>
                   <p>Halo,</p>
                   <p>Anda menerima email ini karena ada permintaan untuk mengatur ulang kata sandi akun Anda. Klik tautan di bawah ini untuk mengatur ulang kata sandi Anda:</p>
@@ -176,31 +177,31 @@ module.exports = {
                   <p style="font-size: 12px; color: #6A1B9A;">Untuk bantuan lebih lanjut, silakan hubungi 
                       <a href="mailto:support@example.com" style="color: #6A1B9A;">support@example.com</a>.
                   </p>
-              </div>`
-          );
+              </div>`,
+            );
 
-          return res.status (200).json({
-              status: 'Success',
-              statusCode: 200,
-              message: 'Permintaan reset password berhasil. Silakan cek email Anda untuk tautan reset password.',
-          });
-      } catch (err) {
-          next(err)
-      }
-  },
-  resetPassword: async (req, res, next) =>{
-      try {
-          UserValidation.validatePasswordReset(req.body);
-          const { passwordResetToken, newPassword } = req.body;
-          await Auth.resetPassword(passwordResetToken, newPassword);
+            return res.status(200).json({
+                status: 'Success',
+                statusCode: 200,
+                message: 'Permintaan reset password berhasil. Silakan cek email Anda untuk tautan reset password.',
+            });
+        } catch (err) {
+            next(err);
+        }
+    },
+    resetPassword: async (req, res, next) => {
+        try {
+            UserValidation.validatePasswordReset(req.body);
+            const { passwordResetToken, newPassword } = req.body;
+            await Auth.resetPassword(passwordResetToken, newPassword);
 
-          return res.status (200).json({
-              status: 'Success',
-              statusCode: 200,
-              message: 'Password berhasil direset. Silakan login dengan password baru Anda.',
-          });
-      } catch (err) {
-          next(err);
-      }
-  }
+            return res.status(200).json({
+                status: 'Success',
+                statusCode: 200,
+                message: 'Password berhasil direset. Silakan login dengan password baru Anda.',
+            });
+        } catch (err) {
+            next(err);
+        }
+    },
 };

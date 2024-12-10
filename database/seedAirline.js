@@ -1,5 +1,6 @@
-const airline = require('./seeds/airline.json');
 const { PrismaClient } = require('@prisma/client');
+const airline = require('./seeds/airline.json');
+
 const prisma = new PrismaClient();
 
 const seedDatabase = async () => {
@@ -14,7 +15,7 @@ const seedDatabase = async () => {
     }
 
     return total;
-}
+};
 
 seedDatabase()
     .then((total) => console.log(`Successfully seeding ${total} rows of Airline`))

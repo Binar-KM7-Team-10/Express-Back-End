@@ -1,6 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const QueryParser = require('../utils/queryParser');
 const HttpRequestError = require('../utils/error');
+
 const prisma = new PrismaClient();
 
 class Schedule {
@@ -12,7 +13,7 @@ class Schedule {
             ticketPrice,
             seatAvailability,
             seatClass,
-            terminalGate
+            terminalGate,
         } = data;
 
         const duration = (new Date(arrivalDateTime) - new Date(departureDateTime)) / (1000 * 60);
@@ -26,8 +27,8 @@ class Schedule {
                 ticketPrice,
                 seatAvailability,
                 seatClass,
-                terminalGate
-            }
+                terminalGate,
+            },
         });
 
         return schedule.id;
@@ -36,8 +37,8 @@ class Schedule {
     static async delete(id) {
         await prisma.schedule.delete({
             where: {
-                id: parseInt(id)
-            }
+                id: parseInt(id),
+            },
         });
     }
 
@@ -47,18 +48,18 @@ class Schedule {
         } else if (data.departureDateTime) {
             const { arrivalDateTime } = await prisma.schedule.findUnique({
                 where: {
-                    id: parseInt(id)
-                }
+                    id: parseInt(id),
+                },
             });
-            
+
             data.duration = (new Date(arrivalDateTime) - new Date(data.departureDateTime)) / (1000 * 60);
         } else if (data.arrivalDateTime) {
             const { departureDateTime } = await prisma.schedule.findUnique({
                 where: {
-                    id: parseInt(id)
-                }
+                    id: parseInt(id),
+                },
             });
-            
+
             data.duration = (new Date(data.arrivalDateTime) - new Date(departureDateTime)) / (1000 * 60);
         }
 
@@ -66,16 +67,16 @@ class Schedule {
 
         await prisma.schedule.update({
             where: {
-                id: parseInt(id)
+                id: parseInt(id),
             },
-            data: scheduleData
+            data: scheduleData,
         });
     }
 
     static async getDTO(id) {
         const schedule = await prisma.schedule.findUnique({
             where: {
-                id: parseInt(id)
+                id: parseInt(id),
             },
             select: {
                 id: true,
@@ -96,10 +97,10 @@ class Schedule {
                                 city: {
                                     select: {
                                         name: true,
-                                        code: true
-                                    }
-                                }
-                            }
+                                        code: true,
+                                    },
+                                },
+                            },
                         },
                         arrivalAirport: {
                             select: {
@@ -107,49 +108,47 @@ class Schedule {
                                 city: {
                                     select: {
                                         name: true,
-                                        code: true
-                                    }
-                                }
-                            }
+                                        code: true,
+                                    },
+                                },
+                            },
                         },
                         airline: {
                             select: {
-                                name: true
-                            }
-                        }
-                    }
-                }
-            }
+                                name: true,
+                            },
+                        },
+                    },
+                },
+            },
         });
 
         const baggage = await prisma.baggage.findUnique({
             where: {
-                flightId: schedule.flightId
+                flightId: schedule.flightId,
             },
             select: {
                 maxBaggageWeight: true,
-                maxCabinBaggageWeight: true
-            }
+                maxCabinBaggageWeight: true,
+            },
         });
 
         const flightServices = await prisma.flightService.findMany({
             where: {
-                flightId: schedule.flightId
+                flightId: schedule.flightId,
             },
             select: {
                 service: {
                     select: {
-                        title: true
-                    }
-                }
-            }
+                        title: true,
+                    },
+                },
+            },
         });
 
-        const services = flightServices.map((index) => {
-            return index.service.title;
-        });
+        const services = flightServices.map((index) => index.service.title);
 
-        const daysOfWeek = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+        const daysOfWeek = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
 
         return {
             scheduleId: schedule.id,
@@ -165,22 +164,22 @@ class Schedule {
                 city: schedule.flight.departureAirport.city.name,
                 cityCode: schedule.flight.departureAirport.city.code,
                 airportName: schedule.flight.departureAirport.name,
-                terminalGate: schedule.terminalGate
+                terminalGate: schedule.terminalGate,
             },
             arrival: {
                 day: daysOfWeek[schedule.arrivalDateTime.getDay()],
                 dateTime: schedule.arrivalDateTime,
                 city: schedule.flight.arrivalAirport.city.name,
                 cityCode: schedule.flight.arrivalAirport.city.code,
-                airportName: schedule.flight.arrivalAirport.name
+                airportName: schedule.flight.arrivalAirport.name,
             },
             facilities: {
                 baggage: baggage.maxBaggageWeight,
                 cabinBaggage: baggage.maxCabinBaggageWeight,
                 entertainment: services.includes('In-Flight Entertainment'),
                 meal: services.includes('In-Flight Meal'),
-                wifi: services.includes('WiFi')
-            }
+                wifi: services.includes('WiFi'),
+            },
         };
     }
 
@@ -202,19 +201,19 @@ class Schedule {
                     include: {
                         departureAirport: {
                             include: {
-                                city: true
-                            }
+                                city: true,
+                            },
                         },
                         arrivalAirport: {
                             include: {
-                                city: true
-                            }
+                                city: true,
+                            },
                         },
                         airline: true,
                         Baggage: true,
                         FlightService: {
                             include: {
-                                service: true
+                                service: true,
                             },
                         },
                     },
@@ -230,8 +229,8 @@ class Schedule {
             totalPage: Math.ceil(totalItem / limit),
             count: schedules.length,
             total: totalItem,
-            hasNextPage: totalItem - (page * limit) > 0 ? true : false,
-            hasPreviousPage: (page - 1) <= 0 ? false : true
+            hasNextPage: totalItem - (page * limit) > 0,
+            hasPreviousPage: !((page - 1) <= 0),
         };
 
         if (totalItem !== 0 && pagination.currentPage > pagination.totalPage) {
@@ -240,10 +239,10 @@ class Schedule {
 
         const data = schedules.map((schedule) => {
             const flightServices = schedule.flight.FlightService.map(
-                (fs) => fs.service.title
+                (fs) => fs.service.title,
             );
 
-            const daysOfWeek = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+            const daysOfWeek = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
             const terminalGate = `${schedule.terminalGate} ${schedule.flight.flightType}`;
 
             return {
@@ -281,9 +280,9 @@ class Schedule {
 
         return {
             pagination,
-            data
+            data,
         };
     }
-};
+}
 
 module.exports = Schedule;

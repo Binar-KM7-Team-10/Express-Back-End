@@ -3,10 +3,10 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const express = require('express');
-const router = require('./routes/index');
-const errorHandler = require('./utils/errorHandler');
 const morgan = require('morgan');
 const cors = require('cors');
+const router = require('./routes/index');
+const errorHandler = require('./utils/errorHandler');
 
 const app = express();
 const PORT = process.env.PORT || 3000;

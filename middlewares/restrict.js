@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const AuthValidation = require('../validations/auth');
 const HttpRequestError = require('../utils/error');
+
 const { JWT_SECRET } = process.env;
 
 module.exports = {
@@ -36,8 +37,8 @@ module.exports = {
 
                 AuthValidation.userId(req.params);
 
-                if (!(decoded.role === 'Buyer' || decoded.role === 'Admin') ||
-                    (decoded.id !== req.params.id && decoded.role === 'Buyer')) {
+                if (!(decoded.role === 'Buyer' || decoded.role === 'Admin')
+                    || (decoded.id !== req.params.id && decoded.role === 'Buyer')) {
                     throw new HttpRequestError('Akses ditolak. Anda tidak memiliki izin untuk mengakses endpoint ini.', 403);
                 }
 
@@ -59,8 +60,8 @@ module.exports = {
 
                 AuthValidation.userId(req.query);
 
-                if (!(decoded.role === 'Buyer' || decoded.role === 'Admin') ||
-                    (decoded.id !== req.params.id && decoded.role === 'Buyer')) {
+                if (!(decoded.role === 'Buyer' || decoded.role === 'Admin')
+                    || (decoded.id !== req.params.id && decoded.role === 'Buyer')) {
                     throw new HttpRequestError('Akses ditolak. Anda tidak memiliki izin untuk mengakses endpoint ini.', 403);
                 }
 

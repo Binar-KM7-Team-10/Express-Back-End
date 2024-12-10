@@ -10,5 +10,5 @@ module.exports = {
         if (!userId || isNaN(userId)) {
             throw new HttpRequestError('userId tidak valid. Pastikan userId yang Anda masukkan dalam format yang benar.', 400);
         }
-    }
+    },
 };

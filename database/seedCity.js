@@ -1,5 +1,6 @@
-const city = require('./seeds/city.json');
 const { PrismaClient } = require('@prisma/client');
+const city = require('./seeds/city.json');
+
 const prisma = new PrismaClient();
 
 const seedDatabase = async () => {
@@ -14,7 +15,7 @@ const seedDatabase = async () => {
     }
 
     return total;
-}
+};
 
 seedDatabase()
     .then((total) => console.log(`Successfully seeding ${total} rows of City`))

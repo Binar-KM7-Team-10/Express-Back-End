@@ -1,4 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
+
 const prisma = new PrismaClient();
 
 function getRandomInt(min, max) {
@@ -27,11 +28,11 @@ const seedDatabase = async () => {
             const ticketPrice = getRandomInt(1000, 9900) * 1000;
             const seatAvailability = 72;
 
-            const seatClass = ["Economy", "Premium Economy", "Business", "First Class"][
+            const seatClass = ['Economy', 'Premium Economy', 'Business', 'First Class'][
                 getRandomInt(0, 3)
             ];
 
-            const terminalGate = ["1A", "1B", "1C", "2A", "2B", "2C", "3A", "3B", "3C"][
+            const terminalGate = ['1A', '1B', '1C', '2A', '2B', '2C', '3A', '3B', '3C'][
                 getRandomInt(0, 8)
             ];
 
@@ -50,7 +51,7 @@ const seedDatabase = async () => {
             total++;
         }
     }
-}
+};
 
 seedDatabase()
     .then(() => console.log(`Successfully seeding ${total} rows of Schedule`))

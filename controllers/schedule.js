@@ -1,8 +1,8 @@
-const Schedule = require ('../models/schedule');
-const ScheduleValidation = require ('../validations/schedule');
+const Schedule = require('../models/schedule');
+const ScheduleValidation = require('../validations/schedule');
 
 module.exports = {
-    create: async (req, res, next) =>{
+    create: async (req, res, next) => {
         try {
             await ScheduleValidation.validateInputData(req.body);
             const scheduleId = await Schedule.create(req.body);
@@ -12,14 +12,14 @@ module.exports = {
                 statusCode: 201,
                 message: 'Berhasil membuat jadwal penerbangan.',
                 data: {
-                    scheduleId
-                }
+                    scheduleId,
+                },
             });
         } catch (error) {
             next(error);
         }
     },
-    delete: async (req, res, next) =>{
+    delete: async (req, res, next) => {
         try {
             await ScheduleValidation.validateId(req.params);
             await Schedule.delete(req.params.id);
@@ -27,13 +27,13 @@ module.exports = {
             return res.status(200).json({
                 status: 'Success',
                 statusCode: 200,
-                message: 'Berhasil menghapus jadwal penerbangan.'
+                message: 'Berhasil menghapus jadwal penerbangan.',
             });
         } catch (error) {
             next(error);
         }
     },
-    getById: async (req, res, next) =>{
+    getById: async (req, res, next) => {
         try {
             await ScheduleValidation.validateId(req.params);
             const data = await Schedule.getDTO(req.params.id);
@@ -42,7 +42,7 @@ module.exports = {
                 status: 'Success',
                 statusCode: 200,
                 message: 'Berhasil mendapatkan data jadwal penerbangan.',
-                data
+                data,
             });
         } catch (error) {
             next(error);
@@ -58,7 +58,7 @@ module.exports = {
                     status: 'Success',
                     statusCode: 200,
                     message: 'Tidak ada data jadwal penerbangan yang tersedia',
-                    data: []
+                    data: [],
                 });
             }
 
@@ -67,14 +67,14 @@ module.exports = {
                 statusCode: 200,
                 message: 'Data jadwal penerbangan berhasil diambil.',
                 pagination: {
-                    ...result.pagination
+                    ...result.pagination,
                 },
                 data: {
                     schedule: {
                         outbound: result.data,
-                        inbound: null
-                    }
-                }
+                        inbound: null,
+                    },
+                },
             });
         } catch (error) {
             next(error);
@@ -89,7 +89,7 @@ module.exports = {
             return res.status(200).json({
                 status: 'Success',
                 statusCode: 200,
-                message: 'Berhasil memperbarui jadwal penerbangan.'
+                message: 'Berhasil memperbarui jadwal penerbangan.',
             });
         } catch (err) {
             next(err);

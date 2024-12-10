@@ -1,7 +1,8 @@
+const { PrismaClient } = require('@prisma/client');
 const airline = require('./seeds/airline.json');
 const airport = require('./seeds/airport.json');
 const city = require('./seeds/city.json');
-const { PrismaClient } = require('@prisma/client');
+
 const prisma = new PrismaClient();
 
 function getRandomInt(min, max, exclude) {
@@ -10,7 +11,7 @@ function getRandomInt(min, max, exclude) {
 
     let randomInt;
     do {
-        randomInt = Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); 
+        randomInt = Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled);
     } while (randomInt === exclude);
 
     return randomInt;
@@ -23,7 +24,7 @@ function getRandomThreeDigitNumber() {
 const seedDatabase = async () => {
     const airportNumber = airport.length;
     let total = 0;
-    
+
     for (const data of airline) {
         try {
             total++;
@@ -43,8 +44,8 @@ const seedDatabase = async () => {
                     arrivalAirportId,
                     airlineId,
                     flightNumber,
-                    flightType
-                }
+                    flightType,
+                },
             });
         } catch (err) {
             console.error(err);
@@ -52,7 +53,7 @@ const seedDatabase = async () => {
     }
 
     return total;
-}
+};
 
 seedDatabase()
     .then((total) => console.log(`Successfully seeding ${total} rows of Flight`))

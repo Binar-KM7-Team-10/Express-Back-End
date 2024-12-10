@@ -1,4 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
+
 const prisma = new PrismaClient();
 
 function nextChar(c) {
@@ -19,15 +20,15 @@ const seedDatabase = async () => {
                     col = nextChar(col);
                     row = 1;
                 }
-    
+
                 const seatNumber = col + row;
                 row++;
-    
+
                 await prisma.seat.create({
                     data: {
                         scheduleId: i,
-                        seatNumber
-                    }
+                        seatNumber,
+                    },
                 });
                 total++;
                 // console.clear();
@@ -37,7 +38,7 @@ const seedDatabase = async () => {
             }
         }
     }
-}
+};
 
 seedDatabase()
     .then(() => console.log(`Successfully seeding ${total} rows of Seat`))

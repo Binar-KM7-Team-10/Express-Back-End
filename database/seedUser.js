@@ -1,6 +1,7 @@
-const user = require('./seeds/user.json');
 const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcrypt');
+const user = require('./seeds/user.json');
+
 const prisma = new PrismaClient();
 
 let total = 0;
@@ -26,13 +27,13 @@ const seedDatabase = async () => {
                 password,
                 phoneNumber: '6281209981551',
                 isVerified: true,
-                role: 'Admin'
-            }
+                role: 'Admin',
+            },
         });
     } catch (err) {
         console.error(err);
     }
-}
+};
 
 seedDatabase()
     .then(() => console.log(`Successfully seeding ${total} rows of User`))
