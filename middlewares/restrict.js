@@ -37,7 +37,7 @@ module.exports = {
                 AuthValidation.userId(req.params);
 
                 if (!(decoded.role === 'Buyer' || decoded.role === 'Admin') ||
-                    (decoded.id !== req.params.id && decoded.role === 'Buyer')) {
+                    (decoded.id !== parseInt(req.params.id) && decoded.role === 'Buyer')) {
                     throw new HttpRequestError('Akses ditolak. Anda tidak memiliki izin untuk mengakses endpoint ini.', 403);
                 }
 
