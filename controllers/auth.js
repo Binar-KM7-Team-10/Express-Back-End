@@ -17,7 +17,7 @@ module.exports = {
       await sendEmail(
         data.email,
         "Verifikasi Akun Baru - Kode OTP Anda",
-        `Kode OTP Anda adalah: ${data.otp}. Silakan verifikasi akun Anda dalam waktu 60 detik.`,
+        `Kode OTP Anda adalah: ${data.otp}. Silakan verifikasi akun Anda dalam waktu 5 menit.`,
         `<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #6A1B9A; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #BDBDBD; border-radius: 8px; background-color: #FFFFFF;">
             <h2 style="text-align: center; color: #6A1B9A;">Verifikasi Akun Baru</h2>
             <p>Halo,</p>
@@ -27,7 +27,7 @@ module.exports = {
                     ${data.otp}
                 </span>
             </div>
-            <p>Kode ini akan kedaluwarsa dalam <strong>60 detik</strong>. Jika Anda tidak meminta kode ini, abaikan email ini.</p>
+            <p>Kode ini akan kedaluwarsa dalam <strong>5 menit</strong>. Jika Anda tidak meminta kode ini, abaikan email ini.</p>
             <p>Salam hangat,<br>
             <strong>Tim Tiketku</strong></p>
             <hr style="border: 0; border-top: 1px solid #BDBDBD; margin: 20px 0;">
@@ -63,7 +63,7 @@ module.exports = {
       await sendEmail(
         req.body.email,
         "Verifikasi Akun Baru - Kode OTP Anda",
-        `Kode OTP Anda adalah: ${data}. Silakan verifikasi akun Anda dalam waktu 60 detik.`,
+        `Kode OTP Anda adalah: ${data}. Silakan verifikasi akun Anda dalam waktu 5 menit.`,
         `<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #6A1B9A; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #BDBDBD; border-radius: 8px; background-color: #FFFFFF;">
             <h2 style="text-align: center; color: #6A1B9A;">Verifikasi Akun Baru</h2>
             <p>Halo,</p>
@@ -73,7 +73,7 @@ module.exports = {
                     ${data}
                 </span>
             </div>
-            <p>Kode ini akan kedaluwarsa dalam <strong>60 detik</strong>. Jika Anda tidak meminta kode ini, abaikan email ini.</p>
+            <p>Kode ini akan kedaluwarsa dalam <strong>5 menit</strong>. Jika Anda tidak meminta kode ini, abaikan email ini.</p>
             <p>Salam hangat,<br>
             <strong>Tim Tiketku</strong></p>
             <hr style="border: 0; border-top: 1px solid #BDBDBD; margin: 20px 0;">
