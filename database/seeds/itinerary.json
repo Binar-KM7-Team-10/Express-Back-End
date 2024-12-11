@@ -1,0 +1,52 @@
+[
+    {
+        "bookingId": 1,
+        "scheduleId": 1,
+        "tripDirection": "Outbound"
+    },
+    {
+        "bookingId": 2,
+        "scheduleId": 1,
+        "tripDirection": "Outbound"
+    },
+    {
+        "bookingId": 3,
+        "scheduleId": 1,
+        "tripDirection": "Outbound"
+    },
+    {
+        "bookingId": 4,
+        "scheduleId": 2,
+        "tripDirection": "Inbound"
+    },
+    {
+        "bookingId": 5,
+        "scheduleId": 2,
+        "tripDirection": "Inbound"
+    },
+    {
+        "bookingId": 6,
+        "scheduleId": 2,
+        "tripDirection": "Inbound"
+    },
+    {
+        "bookingId": 7,
+        "scheduleId": 3,
+        "tripDirection": "Outbound"
+    },
+    {
+        "bookingId": 8,
+        "scheduleId": 3,
+        "tripDirection": "Outbound"
+    },
+    {
+        "bookingId": 9,
+        "scheduleId": 3,
+        "tripDirection": "Outbound"
+    },
+    {
+        "bookingId": 10,
+        "scheduleId": 3,
+        "tripDirection": "Outbound"
+    }
+]
