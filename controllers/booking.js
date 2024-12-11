@@ -1,23 +1,28 @@
 const Booking = require('../models/booking');
 const BookingValidation = require('../validations/booking');
-const { getAll } = require('./schedule');
 
 module.exports = {
     getAll: async (req, res, next) => {
         try {
-            await BookingValidation.parseBookingFilters(req.body);
-            const bookings = await Booking.getMany(req.body);
+            BookingValidation.validateQueryParams(req.query);
+            const bookings = await Booking.getManyDTO(req.query);
+
             return res.status(200).json({
                 status: 'Success',
                 statusCode: 200,
-                message: 'Berhasil mendapatkan data booking.',
-                data
+                message: bookings.length > 0 ? 'Data riwayat pemesanan berhasil diambil.' : 'Data riwayat pemesanan tidak tersedia.',
+                pagination: {
+                    total: bookings.length
+                },
+                data: {
+                    bookings
+                }
             });
-        } catch (error) {
-            next(error);
+        } catch (err) {
+            next(err);
         }
     },
-    getDTO: async (req, res, next) => {
+    getById: async (req, res, next) => {
         try {
             await BookingValidation.parseBookingFilters(req.body);
             const bookings = await Booking.getMany(req.body);
@@ -27,14 +32,15 @@ module.exports = {
                 schedule: booking.schedule,
                 status: booking.status
             }));
+
             return res.status(200).json({
                 status: 'Success',
                 statusCode: 200,
                 message: 'Berhasil mendapatkan data booking DTO.',
                 data: bookingDTOs
             });
-        } catch (error) {
-            next(error);
+        } catch (err) {
+            next(err);
         }
     }
 };

@@ -1915,7 +1915,10 @@ Endpoints for listing flight schedules
 		{
 			"status": "Success",
 			"statusCode": 200,
-			"message": "Data riwayat pemesanan berhasil diambil.",
+			"message": "Data riwayat pemesanan berhasil diambil.",,
+			"pagination": {
+				"total": <total_booking>
+			},
 			"data": {
 				"bookings": [
 					<booking_object>,
@@ -1932,6 +1935,9 @@ Endpoints for listing flight schedules
 			"status": "Success",
 			"statusCode": 200,
 			"message": "Data riwayat pemesanan berhasil diambil",
+			"pagination": {
+				"total": 100
+			},
 			"data": {
 				"bookings": [
 					{
@@ -2022,11 +2028,14 @@ Endpoints for listing flight schedules
 - **Success Response (Empty Data)**:
 	- Code: 200
 	- Response Body:
-		```
+		```json
 		{
 			"status": "Success",
 			"statusCode": 200,
 			"message": "Data riwayat pemesanan tidak tersedia.",
+			"pagination": {
+				"total": 0
+			},
 			"data": {
 				"bookings": []
 			}

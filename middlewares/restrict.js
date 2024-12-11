@@ -57,10 +57,13 @@ module.exports = {
                     throw new HttpRequestError('Token tidak valid atau telah kedaluwarsa. Silakan login kembali untuk mendapatkan token baru.', 401);
                 }
 
-                AuthValidation.userId(req.query);
+                if (req.query.userId) {
+                    AuthValidation.userId(req.query);
 
-                if (!(decoded.role === 'Buyer' || decoded.role === 'Admin') ||
-                    (decoded.id !== req.params.id && decoded.role === 'Buyer')) {
+                    if (decoded.role === 'Buyer' && decoded.id !== parseInt(req.query.userId)) {
+                        throw new HttpRequestError('Akses ditolak. Anda tidak memiliki izin untuk mengakses endpoint ini.', 403);
+                    }
+                } else if (!req.query.userId && decoded.role !== 'Admin') {
                     throw new HttpRequestError('Akses ditolak. Anda tidak memiliki izin untuk mengakses endpoint ini.', 403);
                 }
 

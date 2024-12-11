@@ -2,7 +2,6 @@ const UserValidation = require("../validations/user");
 const Auth = require("../models/auth");
 const JwtHelper = require('../utils/jwtHelper');
 const sendEmail = require("../utils/mailerSmtp");
-const user = require("../validations/user");
 const { CLIENT_URL } = process.env; // Front-end URL, used for specifying URL on password reset
 
 module.exports = {

@@ -1,4 +1,4 @@
-const {PrismaClient} = require('@prisma/client');
+const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 class Invoice {
@@ -6,7 +6,7 @@ class Invoice {
         const invoice = await prisma.invoice.findUnique({
             where: {
                 bookingId: parseInt(bookingId),
-            },
+            }
         });
 
         return {

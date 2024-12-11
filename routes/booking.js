@@ -2,8 +2,8 @@ const router = require('express').Router();
 const BookingController = require('../controllers/booking');
 const Auth = require('../middlewares/restrict');
 
-router.get('/bookings', Auth.admin, BookingController.getAll);
-router.get('/bookings/:id', Auth.admin, BookingController.getDTO);
+router.get('/bookings', Auth.sameUserQuery, BookingController.getAll);
+router.get('/bookings/:id', Auth.admin, BookingController.getById);
 
 
 

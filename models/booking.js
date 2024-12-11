@@ -58,19 +58,13 @@ class Booking {
         };
     }
 
-    static async getMany(query) {
-        const parsedQuery = QueryParser.parseBookingFilters(query);
-    
+    static async getManyDTO(query) {
+        const where = QueryParser.parseBookingFilters(query);
         const bookings = await prisma.booking.findMany({
-            where: parsedQuery,
-            select: {
-                id: true,
-                userId: true,
-                bookingCode: true,
-                date: true,
-                status: true,
-                journeyType: true,
+            orderBy: {
+                date: 'desc'
             },
+            where
         });
     
         // Untuk setiap booking, ambil detailnya menggunakan getDTO
@@ -78,12 +72,9 @@ class Booking {
             bookings.map(async (booking) => {
                 // Ambil itinerary
                 const itinerary = await prisma.itinerary.findMany({
-                    where: { bookingId: booking.id },
-                    select: {
-                        id: true,
-                        scheduleId: true,
-                        tripDirection: true,
-                    },
+                    where: {
+                        bookingId: booking.id
+                    }
                 });
     
                 // Ambil schedules menggunakan itinerary
@@ -103,7 +94,7 @@ class Booking {
                     journeyType: booking.journeyType,
                     itinerary: {
                         outbound: schedules[0], // Asumsi outbound adalah index pertama
-                        inbound: schedules[1] || null, // Asumsi inbound adalah index kedua, jika ada
+                        inbound: schedules.length === 2 ? schedules[1] : null, // Asumsi inbound adalah index kedua, jika ada
                     },
                     passenger,
                     invoice,
@@ -115,20 +106,5 @@ class Booking {
         return results;
     }
 }
-
-// (async () => {
-//     const bookingData = await Booking.getDTO(1); // Ubah `1` ke ID yang valid
-//     console.log('Booking Data:', bookingData);  // Output hasilnya di konsol
-// })();
-
-// (async () => {
-//     const query = {
-//         // Define your query parameters here
-//         userId: 1, // Example query parameter
-//     };
-//     const bookingData = await Booking.getMany(query);
-//     console.log('Booking Data:', bookingData); 
-// })();
-
 
 module.exports = Booking;
