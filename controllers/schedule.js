@@ -83,7 +83,7 @@ module.exports = {
     editById: async (req, res, next) => {
         try {
             await ScheduleValidation.validateId(req.params);
-            ScheduleValidation.validatePatchField(req.body);
+            await ScheduleValidation.validatePatchField(req.body, req.params);
             await Schedule.update(req.params.id, req.body);
 
             return res.status(200).json({

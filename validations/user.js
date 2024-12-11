@@ -174,7 +174,8 @@ module.exports = {
           throw new HttpRequestError("Validasi gagal. password harus memiliki 8 hingga 70 digit.", 400);
       }
   
-      if (role !== 'Buyer' || role !== 'Admin') {
+      const roleOptions = ['Buyer', 'Admin'];
+      if (!roleOptions.includes(role)) {
           throw new HttpRequestError("Validasi gagal. Pastikan role memiliki nilai \'Buyer\' atau \'Admin\'.", 400);
       }
   },
