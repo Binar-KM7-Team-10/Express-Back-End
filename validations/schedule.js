@@ -34,13 +34,26 @@ module.exports = {
             arrivalDateTime,
             departureDateTime
         } = data;
+
+        if (!flightId ||
+            !ticketPrice ||
+            !seatAvailability ||
+            !seatClass ||
+            !terminalGate ||
+            !arrivalDateTime ||
+            !departureDateTime
+        ) {
+            throw new HttpRequestError('Validasi gagal. Pastikan flightId, departureDateTime, arrivalDateTime, ticketPrice, seatAvailability, seatClass, dan terminalGate telah diisi!', 400);
+        }
             
         // validasi tipe data flightId sampai terminalGate
-        if (typeof flightId !== 'number',
-            typeof ticketPrice !== 'number',
-            typeof seatAvailability !== 'number',
-            typeof seatClass !== 'string',
-            typeof terminalGate !== 'string'
+        if (typeof flightId !== 'number' ||
+            typeof ticketPrice !== 'number' ||
+            typeof seatAvailability !== 'number' ||
+            typeof seatClass !== 'string' ||
+            typeof terminalGate !== 'string' ||
+            typeof departureDateTime !== 'string' ||
+            typeof arrivalDateTime !== 'string'
         ) {
             throw new HttpRequestError('Validasi gagal. Pastikan data yang Anda masukkan dalam format yang benar.', 400);
         };
