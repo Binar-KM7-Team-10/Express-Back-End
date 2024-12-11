@@ -34,13 +34,26 @@ module.exports = {
             arrivalDateTime,
             departureDateTime
         } = data;
+
+        if (!flightId ||
+            !ticketPrice ||
+            !seatAvailability ||
+            !seatClass ||
+            !terminalGate ||
+            !arrivalDateTime ||
+            !departureDateTime
+        ) {
+            throw new HttpRequestError('Validasi gagal. Pastikan flightId, departureDateTime, arrivalDateTime, ticketPrice, seatAvailability, seatClass, dan terminalGate telah diisi!', 400);
+        }
             
         // validasi tipe data flightId sampai terminalGate
-        if (typeof flightId !== 'number',
-            typeof ticketPrice !== 'number',
-            typeof seatAvailability !== 'number',
-            typeof seatClass !== 'string',
-            typeof terminalGate !== 'string'
+        if (typeof flightId !== 'number' ||
+            typeof ticketPrice !== 'number' ||
+            typeof seatAvailability !== 'number' ||
+            typeof seatClass !== 'string' ||
+            typeof terminalGate !== 'string' ||
+            typeof departureDateTime !== 'string' ||
+            typeof arrivalDateTime !== 'string'
         ) {
             throw new HttpRequestError('Validasi gagal. Pastikan data yang Anda masukkan dalam format yang benar.', 400);
         };
@@ -81,7 +94,7 @@ module.exports = {
         }
     },
     // VALIDASI EDIT DATA
-    validatePatchField: (data) => { 
+    validatePatchField: async (data, params) => { 
         const {
             id,
             flightId,
@@ -93,6 +106,8 @@ module.exports = {
             departureDateTime
         } = data;
 
+        const { id: scheduleId } = params;
+
         if (id || flightId) {
             throw new HttpRequestError('Validasi gagal. id dan flightId tidak boleh diperbarui.', 400);
         }
@@ -101,42 +116,66 @@ module.exports = {
             throw new HttpRequestError('Validasi gagal. Pastikan Anda memasukkan data ke request body.', 400);
         };
 
-        if (ticketPrice && isNaN(ticketPrice)) {
-            throw new HttpRequestError('Validasi gagal. Pastikan ticketPrice yang Anda masukkan dalam format yang benar.', 400);
+        if (ticketPrice) {
+            if (isNaN(ticketPrice)) {
+                throw new HttpRequestError('Validasi gagal. Pastikan ticketPrice yang Anda masukkan dalam format yang benar.', 400);
+            }
+    
+            if (ticketPrice < 0) {
+                throw new HttpRequestError('Validasi gagal. Pastikan ticketPrice yang Anda masukkan bernilai non-negatif.', 400);
+            }
         }
 
-        if (ticketPrice && ticketPrice < 0) {
-            throw new HttpRequestError('Validasi gagal. Pastikan ticketPrice yang Anda masukkan bernilai non-negatif.', 400);
+        if (seatAvailability) {
+            if (isNaN(seatAvailability) || seatAvailability === true) {
+                throw new HttpRequestError('Validasi gagal. Pastikan seatAvailability yang Anda masukkan dalam format yang benar.', 400);
+            }
+    
+            if (seatAvailability < 0) {
+                throw new HttpRequestError('Validasi gagal. Pastikan seatAvailability yang Anda masukkan bernilai non-negatif.', 400);
+            }
         }
 
-        if (seatAvailability && isNaN(seatAvailability)) {
-            throw new HttpRequestError('Validasi gagal. Pastikan seatAvailability yang Anda masukkan dalam format yang benar.', 400);
-        }
-
-        if (seatAvailability && seatAvailability < 0) {
-            throw new HttpRequestError('Validasi gagal. Pastikan seatAvailability yang Anda masukkan bernilai non-negatif.', 400);
-        }
-
-        if (seatClass && typeof seatClass !== 'string') {
-            throw new HttpRequestError('Validasi gagal. Pastikan seatClass yang Anda masukkan dalam format yang benar.', 400);
+        if (seatClass) {
+            if (seatClass && typeof seatClass !== 'string') {
+                throw new HttpRequestError('Validasi gagal. Pastikan seatClass yang Anda masukkan dalam format yang benar.', 400);
+            }
+    
+            const seatClassEnum = ['Economy', 'Premium Economy', 'Business', 'First Class'];
+            if (seatClass && !seatClassEnum.includes(seatClass)) {
+                throw new HttpRequestError('Validasi gagal. Pastikan seatClass memiliki nilai \'Economy\', \'Premium Economy\', \'Business\', atau \'First Class\'.', 400);
+            };
         }
 
         if (terminalGate && typeof terminalGate !== 'string') {
             throw new HttpRequestError('Validasi gagal. Pastikan terminalGate yang Anda masukkan dalam format yang benar.', 400);
         }
 
-        if ((departureDateTime || arrivalDateTime) && (isNaN(new Date(departureDateTime)) || isNaN(new Date(arrivalDateTime)))){
-            throw new HttpRequestError('Validasi gagal. Pastikan departureDateTime dan arrivalDateTime yang Anda masukkan dalam format yang benar.', 400);
-        };
+        const scheduleData = await prisma.schedule.findUnique({
+            where: {
+                id: parseInt(scheduleId)
+            }
+        })
 
-        if ((departureDateTime || arrivalDateTime) && (new Date(departureDateTime) >= new Date(arrivalDateTime))) {
-            throw new HttpRequestError("Validasi gagal. Pastikan departureDateTime lebih awal dari arrivalDateTime.", 400);
-        };
+        if (departureDateTime) {
+            if (isNaN(new Date(departureDateTime))){
+                throw new HttpRequestError('Validasi gagal. Pastikan departureDateTime yang Anda masukkan dalam format yang benar.', 400);
+            };
+    
+            if (new Date(departureDateTime) >= new Date(scheduleData.arrivalDateTime)) {
+                throw new HttpRequestError("Validasi gagal. Pastikan departureDateTime lebih awal dari arrivalDateTime.", 400);
+            };
+        }
 
-        const seatClassEnum = ['Economy', 'Premium Economy', 'Business', 'First Class'];
-        if (seatClass && !seatClassEnum.includes(seatClass)) {
-            throw new HttpRequestError('Validasi gagal. Pastikan seatClass memiliki nilai \'Economy\', \'Premium Economy\', \'Business\', atau \'First Class\'.', 400);
-        };
+        if (arrivalDateTime) {
+            if (isNaN(new Date(arrivalDateTime))){
+                throw new HttpRequestError('Validasi gagal. Pastikan arrivalDateTime yang Anda masukkan dalam format yang benar.', 400);
+            };
+    
+            if (new Date(scheduleData.departureDateTime) >= new Date(arrivalDateTime)) {
+                throw new HttpRequestError("Validasi gagal. Pastikan departureDateTime lebih awal dari arrivalDateTime.", 400);
+            };
+        }
     },
     validateQueryParams: (data) => {
         const {
