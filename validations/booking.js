@@ -1,4 +1,6 @@
 const HttpRequestError = require("../utils/error");
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
 
 module.exports = {
     validateQueryParams: (query) => {
@@ -29,6 +31,27 @@ module.exports = {
 
         if (dpDate && retDate && (new Date(dpDate) >= new Date(retDate))) {
             throw new HttpRequestError('Validasi gagal. Pastikan dpDate lebih awal daripada retDate.', 400);
+        }
+    },
+    validataPathParams: async (params) => {
+        const { id } = params;
+
+        if (!id) {
+            throw new HttpRequestError('Validasi gagal. Pastikan Anda memasukkan bookingId.', 400);
+        }
+
+        if (isNaN(id)) {
+            throw new HttpRequestError('bookingId tidak valid. Pastikan bookingId yang Anda masukkan dalam format yang benar.', 400);
+        }
+
+        const bookingData = await prisma.booking.findUnique({
+            where: {
+                id: parseInt(id)
+            }
+        });
+
+        if (!bookingData) {
+            throw new HttpRequestError('Riwayat pemesanan tidak ditemukan.', 404);
         }
     }
 };

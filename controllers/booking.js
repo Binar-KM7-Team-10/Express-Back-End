@@ -24,20 +24,14 @@ module.exports = {
     },
     getById: async (req, res, next) => {
         try {
-            await BookingValidation.parseBookingFilters(req.body);
-            const bookings = await Booking.getMany(req.body);
-            const bookingDTOs = bookings.map(booking => ({
-                id: booking.id,
-                user: booking.user,
-                schedule: booking.schedule,
-                status: booking.status
-            }));
+            await BookingValidation.validataPathParams(req.params);
+            const data = await Booking.getDTO(req.params.id);
 
             return res.status(200).json({
                 status: 'Success',
                 statusCode: 200,
-                message: 'Berhasil mendapatkan data booking DTO.',
-                data: bookingDTOs
+                message: 'Data riwayat pemesanan berhasil diambil.',
+                data
             });
         } catch (err) {
             next(err);

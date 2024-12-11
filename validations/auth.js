@@ -10,5 +10,10 @@ module.exports = {
         if (isNaN(userId)) {
             throw new HttpRequestError('userId tidak valid. Pastikan userId yang Anda masukkan dalam format yang benar.', 400);
         }
+    },
+    bookingId: ({ id }) => {
+        if (isNaN(id)) {
+            throw new HttpRequestError('bookingId tidak valid. Pastikan bookingId yang Anda masukkan dalam format yang benar.', 400);
+        }
     }
 };

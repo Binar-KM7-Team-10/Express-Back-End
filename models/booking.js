@@ -11,50 +11,33 @@ class Booking {
         const booking = await prisma.booking.findUnique({
             where: {
                 id: parseInt(id),
-            },
-            select: {
-                id : true,
-                userId: true,
-                bookingCode: true,
-                date: true,
-                status: true,
-                journeyType: true,  
-            },
+            }
         });
 
         const itinerary = await prisma.itinerary.findMany({
             where: {
                 bookingId: parseInt(id),
-            },
-            select: {
-                id: true,
-                scheduleId: true,
-                tripDirection: true,
-            },
+            }
         });
 
-        const schedules = await Promise.all(itinerary.map((it) => {
-            const schedule = Schedule.getDTO(it.scheduleId);
-            return schedule;
-        }));
-
+        const schedules = await Promise.all(itinerary.map((it) => Schedule.getDTO(it.scheduleId)));
         const passenger = await Passenger.getDTO(booking.id);
         const invoice = await Invoice.getDTO(booking.id);
         const payment = await Payment.getDTO(invoice.invoiceId);
 
         return {
-            bookingId : booking.id,
-            bookingCode : booking.bookingCode,
-            date : booking.date,
-            status : booking.status,
-            journeyType : booking.journeyType,
-            itinerary :{
-                outbound : schedules[0],
-                inbound : null
-            }, 
-            passenger : passenger,
-            invoice : invoice,
-            payment : payment,
+            bookingId: booking.id,
+            bookingCode: booking.bookingCode,
+            date: booking.date,
+            status: booking.status,
+            journeyType: booking.journeyType,
+            itinerary: {
+                outbound: schedules[0],
+                inbound: schedules.length === 2 ? schedules[1] : null
+            },
+            passenger,
+            invoice,
+            payment
         };
     }
 
