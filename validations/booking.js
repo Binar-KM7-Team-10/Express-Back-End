@@ -173,10 +173,47 @@ module.exports = {
                     throw new HttpRequestError('Validasi gagal. Pastikan familyName pada passenger.data yang Anda masukkan dalam format yang benar.', 400);
                 }
 
-
                 if (!p.birthDate || typeof p.birthDate !== 'string' || !p.birthDate.match(/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/)) {
                     throw new HttpRequestError('Validasi gagal. Pastikan birthDate pada passenger.data yang Anda masukkan dalam format yang benar (YYYY-MM-DD).', 400);
                 }
+
+                if (!p.nationality || typeof p.nationality !== 'string' || !isNaN(p.nationality)) {
+                    throw new HttpRequestError('Validasi gagal. Pastikan nationality pada passenger.data yang Anda masukkan dalam format yang benar.', 400);
+                }
+
+                if (!p.identityNumber || typeof p.identityNumber !== 'string') {
+                    throw new HttpRequestError('Validasi gagal. Pastikan identityNumber pada passenger.data yang Anda masukkan dalam format yang benar.', 400);
+                }
+
+                if (p.issuingCountry && (typeof p.issuingCountry !== 'string' || !isNaN(p.issuingCountry))) {
+                    throw new HttpRequestError('Validasi gagal. Pastikan issuingCountry pada passenger.data yang Anda masukkan dalam format yang benar.', 400);
+                }
+
+                if (p.expiryDate && (typeof p.expiryDate !== 'string' || !p.expiryDate.match(/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/))) {
+                    throw new HttpRequestError('Validasi gagal. Pastikan expiryDate pada passenger.data yang Anda masukkan dalam format yang benar (YYYY-MM-DD).', 400);
+                }
+            }
+        });
+
+        if (itinerary.journeyType === 'Round-trip' && seat.inbound.length === 0) {
+            throw new HttpRequestError('Validasi gagal. Pastikan Anda memasukkan data tempat duduk pada penerbangan kepulangan (outbound) untuk rencana penerbangan Round-trip.', 400);
+        }
+
+        if (!Array.isArray(seat.outbound)) {
+            throw new HttpRequestError('Validasi gagal. Pastikan data tempat duduk penumpang yang Anda kirim dalam format array.', 400);
+        }
+
+        if (seat.outbound.length !== parseInt(passenger.total)) {
+            throw new HttpRequestError('Validasi gagal. Pastikan jumlah data tempat duduk penumpang bernilai sama dengan total penumpang.', 400);
+        }
+
+        seat.outbound.map((s) => {
+            if (!s.label || typeof s.label !== 'string' || !s.label.match(/^P([1-9]|[1-6][0-9]|7[0-2])$/)) {
+                throw new HttpRequestError('Validasi gagal. Pastikan label pada seat.outbound yang Anda masukkan dalam format yang benar.', 400);
+            }
+
+            if (!s.seatNumber || typeof s.seatNumber !== 'string' || !s.seatNumber.match(/^[A-F](?:1[0-2]|[1-9])$/)) {
+                throw new HttpRequestError('Validasi gagal. Pastikan seatNumber pada seat.outbound yang Anda masukkan dalam format yang benar.', 400);
             }
         });
     },

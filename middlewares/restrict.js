@@ -20,6 +20,7 @@ module.exports = {
                     throw new HttpRequestError('Akses ditolak. Anda tidak memiliki izin untuk mengakses endpoint ini.', 403);
                 }
 
+                req.user = decoded;
                 next();
             });
         } catch (err) {

@@ -88,6 +88,16 @@ class Booking {
     
         return results;
     }
+
+    static async create(data, userId) {
+        const {
+            itinerary,
+            passenger,
+            seat
+        } = data;
+
+        
+    }
 }
 
 module.exports = Booking;

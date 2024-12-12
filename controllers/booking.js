@@ -40,6 +40,14 @@ module.exports = {
     create: async (req, res, async) => {
         try {
             await BookingValidation.validatePostData(req.body);
+            const data = await Booking.create(req.body, req.user.id);
+
+            return res.status(201).json({
+                status: 'Success',
+                statusCode: 201,
+                message: 'Berhasil membuat pesanan tiket penerbangan. Silahkan selesaikan pembayaran Anda.',
+                data
+            });
         } catch (err) {
             next(err);
         }
