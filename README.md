@@ -2307,7 +2307,7 @@ Endpoints for listing flight schedules
 	- **Data params**:
 		```
 		{
-			"schedules": {
+			"itinerary": {
 				"journeyType": <journey_type>,
 				"outbound": <schedule_id>,
 				"inbound": <schedule_id>
@@ -2320,6 +2320,7 @@ Endpoints for listing flight schedules
 				"data": [
 					{
 						"label": <passenger_label>,
+						"ageGroup": <age_group_enum>,
 						"title": <passenger_title>,
 						"fullName": <passenger_full_name>,
 						"familyName": <passenger_family_name>,
@@ -2400,6 +2401,13 @@ Endpoints for listing flight schedules
 			"message": "seatNumber tidak valid. Pastikan seatNumber yang Anda masukkan dalam format yang benar."
 		}
 		```
+		```json
+		{
+			"status": "Failed",
+			"statusCode": 400,
+			"message": "Pesanan tiket penerbangan gagal dibuat. Pesanan tiket penerbangan harus berdasarkan jadwal penerbangan yang terdaftar."
+		}
+		```
 
 - **Fail Response (Invalid Token)**:
 	- Code: 401
@@ -2420,17 +2428,6 @@ Endpoints for listing flight schedules
 			"status": "Failed",
 			"statusCode": 403,
 			"message": "Akses ditolak. Anda tidak memiliki izin untuk mengakses endpoint ini."
-		}
-		```
-
-- **Fail Response (Schedule Does Not Exist)**:
-	- Code: 404
-	- Response Body:
-		```json
-		{
-			"status": "Failed",
-			"statusCode": 404,
-			"message": "Pesanan tiket penerbangan gagal dibuat. Pesanan tiket penerbangan harus berdasarkan jadwal penerbangan yang terdaftar."
 		}
 		```
 

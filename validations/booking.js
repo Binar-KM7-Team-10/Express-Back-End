@@ -53,5 +53,131 @@ module.exports = {
         if (!bookingData) {
             throw new HttpRequestError('Riwayat pemesanan tidak ditemukan.', 404);
         }
-    }
+    },
+    validatePostData: async (data) => {
+        const {
+            itinerary,
+            passenger,
+            seat
+        } = data;
+
+        if (!itinerary || !passenger || !seat) {
+            throw new HttpRequestError('Validasi gagal. Pastikan itinerary, passenger, dan seat telah diisi.', 400);
+        }
+
+        if (!itinerary.hasOwnProperty('journeyType') ||
+            !itinerary.hasOwnProperty('outbound') ||
+            !itinerary.hasOwnProperty('inbound')
+        ) {
+            throw new HttpRequestError('Validasi gagal. Pastikan itinerary memiliki properti journeyType, outbound, dan inbound.', 400);
+        }
+
+        if (!passenger.hasOwnProperty('total') ||
+            !passenger.hasOwnProperty('adult') ||
+            !passenger.hasOwnProperty('child') ||
+            !passenger.hasOwnProperty('baby') ||
+            !passenger.hasOwnProperty('data')
+        ){
+            throw new HttpRequestError('Validasi gagal. Pastikan passenger memiliki properi total, adult, child, baby, dan data.', 400);
+        }
+
+        if (!seat.hasOwnProperty('outbound') || !seat.hasOwnProperty('inbound')) {
+            throw new HttpRequestError('Validasi gagal. Pastikan seat memiliki properti outbound dan inbound.', 400);
+        }
+
+        if (typeof itinerary.journeyType !== 'string' ||
+            typeof itinerary.outbound !== 'string' ||
+            isNaN(itinerary.outbound) ||
+            typeof itinerary.inbound !== 'string' ||
+            isNaN(itinerary.inbound)
+        ) {
+            throw new HttpRequestError('Validasi gagal. Pastikan itinerary.journeyType, itinerary.outbound, dan itinerary.inbound yang Anda masukkan dalam format yang benar.', 400);
+        }
+
+        const journeyTypeOptions = ['One-way', 'Round-trip'];
+        if (!journeyTypeOptions.includes(itinerary.journeyType)) {
+            throw new HttpRequestError('Validasi gagal. Pastikan itinerary.journeyType yang Anda masukkan memiliki nilai \'One-way\' atau \'Round-trip\'.', 400);
+        }
+        
+        const outboundSchedule = await prisma.schedule.findUnique({
+            where: {
+                id: itinerary.outbound
+            }
+        });
+
+        const inboundSchedule = await prisma.schedule.findUnique({
+            where: {
+                id: itinerary.inbound ? itinerary.inbound : -1
+            }
+        });
+
+        if (!outboundSchedule) {
+            throw new HttpRequestError('Validasi gagal. Pastikan itinerary.outbound memiliki nilai scheduleId yang ada.', 400);
+        }
+
+        if (itinerary.journeyType === 'Round-trip') {
+            if (itinerary.inbound === null) {
+                throw new HttpRequestError('Validasi gagal. Pastikan Anda memasukkan jadwal penerbangan kepulangan (outbound) pada rencana penerbangan Round-trip.', 400);
+            }
+
+            if (!inboundSchedule) {
+                throw new HttpRequestError('Validasi gagal. Pastikan itinerary.outbound memiliki nilai scheduleId yang ada.', 400);
+            }
+        }
+
+        if (typeof passenger.total !== 'string' ||
+            isNaN(passenger.total) ||
+            passenger.total < 0 ||
+            typeof passenger.adult !== 'string' ||
+            isNaN(passenger.adult) ||
+            passenger.adult < 0 ||
+            typeof passenger.child !== 'string' ||
+            isNaN(passenger.child) ||
+            passenger.child < 0 ||
+            typeof passenger.baby !== 'string' ||
+            isNaN(passenger.baby) ||
+            passenger.baby < 0
+        ) {
+            throw new HttpRequestError('Validasi gagal. Pastikan passenger.total, passenger.adult, passenger.child, dan passenger.baby yang Anda masukkan dalam format yang benar.', 400);
+        }
+
+        if (passenger.total !== (parseInt(passenger.adult) + parseInt(passenger.child))) {
+            throw new HttpRequestError('Validasi gagal. Pastikan passenger.total memiliki nilai jumlah dari passenger.adult dan passenger.child.', 400);
+        }
+
+        if (passenger.data.length !== (parseInt(passenger.total) + parseInt(passenger.baby))) {
+            throw new HttpRequestError('Validasi gagal. Pastikan passenger.data memiliki jumlah data passenger.total ditambah passenger.baby.', 400);
+        }
+
+        passenger.data.map((p) => {
+            const ageGroupOptions = ['Adult', 'Child', 'Baby'];
+            if (!p.ageGroup || typeof p.ageGroup !== 'string' || !ageGroupOptions.includes(p.ageGroup)) {
+                throw new HttpRequestError('Validasi gagal. Pastikan ageGroup pada passenger.data yang Anda masukkan dalam format yang benar dan memiliki nilai \'Adult\', \'Child\', atau \'Baby\'.', 400);
+            }
+
+            if (p.ageGroup !== 'Baby') {
+                if (!p.label || typeof p.label !== 'string' || !p.label.match(/^P([1-9]|[1-6][0-9]|7[0-2])$/)) {
+                    throw new HttpRequestError('Validasi gagal. Pastikan label pada passenger.data yang Anda masukkan dalam format yang benar.', 400);
+                }
+
+                const titleOptions = ['Mr.', 'Master', 'Mrs.', 'Miss.', 'Ms.'];
+                if (!p.title || typeof p.title !== 'string' || !titleOptions.includes(p.title)) {
+                    throw new HttpRequestError('Validasi gagal. Pastikan title pada passenger.data yang Anda masukkan dalam format yang benar dan memiliki nilai \'Mr.\', \'Master\', \'Mrs.\', \'Miss.\', atau \'Ms.\'.', 400);
+                }
+
+                if (!p.fullName || typeof p.fullName !== 'string' || !isNaN(p.fullName)) {
+                    throw new HttpRequestError('Validasi gagal. Pastikan fullName pada passenger.data yang Anda masukkan dalam format yang benar.', 400);
+                }
+
+                if (p.familyName && (typeof p.familyName !== 'string' || !isNaN(p.familyName))) {
+                    throw new HttpRequestError('Validasi gagal. Pastikan familyName pada passenger.data yang Anda masukkan dalam format yang benar.', 400);
+                }
+
+
+                if (!p.birthDate || typeof p.birthDate !== 'string' || !p.birthDate.match(/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/)) {
+                    throw new HttpRequestError('Validasi gagal. Pastikan birthDate pada passenger.data yang Anda masukkan dalam format yang benar (YYYY-MM-DD).', 400);
+                }
+            }
+        });
+    },
 };

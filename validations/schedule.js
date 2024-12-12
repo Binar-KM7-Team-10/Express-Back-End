@@ -43,7 +43,7 @@ module.exports = {
             !arrivalDateTime ||
             !departureDateTime
         ) {
-            throw new HttpRequestError('Validasi gagal. Pastikan flightId, departureDateTime, arrivalDateTime, ticketPrice, seatAvailability, seatClass, dan terminalGate telah diisi!', 400);
+            throw new HttpRequestError('Validasi gagal. Pastikan flightId, departureDateTime, arrivalDateTime, ticketPrice, seatAvailability, seatClass, dan terminalGate telah diisi.', 400);
         }
             
         // validasi tipe data flightId sampai terminalGate

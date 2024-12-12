@@ -36,5 +36,12 @@ module.exports = {
         } catch (err) {
             next(err);
         }
+    },
+    create: async (req, res, async) => {
+        try {
+            await BookingValidation.validatePostData(req.body);
+        } catch (err) {
+            next(err);
+        }
     }
 };

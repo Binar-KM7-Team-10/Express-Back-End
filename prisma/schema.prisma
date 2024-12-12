@@ -140,7 +140,7 @@ model Passenger {
   id Int @id @default(autoincrement())
   bookingId Int
   bookedSeatId Int? @unique
-  label String
+  label String?
   ageGroup String
   title String?
   fullName String?
