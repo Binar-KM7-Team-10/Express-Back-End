@@ -219,5 +219,14 @@ module.exports = {
       next(error);
     }
   },
+
+  handleOauth: async (req, res) => {
+    try{
+      let token = JwtHelper.generateToken(user);
+
+    }catch(err){
+      next(err)
+    }
+  }
   
 };
