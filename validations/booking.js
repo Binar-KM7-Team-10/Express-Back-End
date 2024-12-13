@@ -86,10 +86,8 @@ module.exports = {
         }
 
         if (typeof itinerary.journeyType !== 'string' ||
-            typeof itinerary.outbound !== 'string' ||
-            isNaN(itinerary.outbound) ||
-            typeof itinerary.inbound !== 'string' ||
-            isNaN(itinerary.inbound)
+            typeof itinerary.outbound !== 'number' ||
+            (itinerary.inbound && typeof itinerary.inbound !== 'number')
         ) {
             throw new HttpRequestError('Validasi gagal. Pastikan itinerary.journeyType, itinerary.outbound, dan itinerary.inbound yang Anda masukkan dalam format yang benar.', 400);
         }
@@ -125,17 +123,13 @@ module.exports = {
             }
         }
 
-        if (typeof passenger.total !== 'string' ||
-            isNaN(passenger.total) ||
+        if (typeof passenger.total !== 'number' ||
             passenger.total < 0 ||
-            typeof passenger.adult !== 'string' ||
-            isNaN(passenger.adult) ||
+            typeof passenger.adult !== 'number' ||
             passenger.adult < 0 ||
-            typeof passenger.child !== 'string' ||
-            isNaN(passenger.child) ||
+            typeof passenger.child !== 'number' ||
             passenger.child < 0 ||
-            typeof passenger.baby !== 'string' ||
-            isNaN(passenger.baby) ||
+            typeof passenger.baby !== 'number' ||
             passenger.baby < 0
         ) {
             throw new HttpRequestError('Validasi gagal. Pastikan passenger.total, passenger.adult, passenger.child, dan passenger.baby yang Anda masukkan dalam format yang benar.', 400);

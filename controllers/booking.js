@@ -37,7 +37,7 @@ module.exports = {
             next(err);
         }
     },
-    create: async (req, res, async) => {
+    create: async (req, res, next) => {
         try {
             await BookingValidation.validatePostData(req.body);
             const data = await Booking.create(req.body, req.user.id);
@@ -48,6 +48,13 @@ module.exports = {
                 message: 'Berhasil membuat pesanan tiket penerbangan. Silahkan selesaikan pembayaran Anda.',
                 data
             });
+        } catch (err) {
+            next(err);
+        }
+    },
+    createPayment: async (req, res, async) => {
+        try {
+
         } catch (err) {
             next(err);
         }

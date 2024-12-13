@@ -108,7 +108,7 @@ model Booking {
   id Int @id @default(autoincrement())
   userId Int
   bookingCode String @unique
-  date DateTime
+  date DateTime @default(now())
   status String @default("Unpaid")
   journeyType String @default("One-way")
   user User @relation(fields: [userId], references: [id])
