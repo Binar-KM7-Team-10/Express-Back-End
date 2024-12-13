@@ -1,7 +1,7 @@
 const { totp, authenticator } = require('otplib');
 
 totp.options = {
-    step: 500,
+    step: 300,
     window: 1,
     digit: 6
 };
