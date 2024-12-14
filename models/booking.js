@@ -149,7 +149,23 @@ class Booking {
             (parseInt(passenger.total) * outboundSchedule.ticketPrice);
         const taxAmount = Math.round(subtotal * 0.1);
         const totalAmount = subtotal + taxAmount;
-        const paymentDueDateTime = new Date(Date.now() + 15 * 60 * 1000);
+
+        let paymentDueDateTime;
+        const dayDiff = Math.floor((new Date(outboundSchedule.departureDateTime.toISOString().split('T')[0]) - new Date(bookingData.date.toISOString().split('T')[0])) / (24 * 60 * 60 * 1000));
+        const isBeforeOneAM = outboundSchedule.departureDateTime.getHours() < 1 || (outboundSchedule.departureDateTime.getHours() === 1 && outboundSchedule.departureDateTime.getMinutes() === 0 && outboundSchedule.departureDateTime.getSeconds() === 0);
+
+        if (dayDiff === 0) {
+            // If user books flight the same date as the departure date, then payment due time is 1 hour before the departure time
+            paymentDueDateTime = new Date(new Date(outboundSchedule.departureDateTime) - 60 * 60 * 1000);
+        } else if (dayDiff === 1 && isBeforeOneAM) {
+            // If user books flight the day before as the departure date and the departure time is 1 am or earlier, then payment due time is 1 hour before the departure time
+            paymentDueDateTime = new Date(new Date(outboundSchedule.departureDateTime) - 60 * 60 * 1000);
+        } else {
+            // If user books flight the day before as the departure date and the departure time is later than 1 am, then payment due time is at 23:59:59 on the booking date. The same would applies when user books days earlier than the day before.
+            const bookingDateCopy = new Date(bookingData.date);
+            bookingDateCopy.setUTCHours(23, 59, 59, 999);
+            paymentDueDateTime = bookingDateCopy;
+        }
 
         // Invoice
         await prisma.invoice.create({
@@ -184,7 +200,7 @@ class Booking {
             }
         }));
 
-        // Passnger -> BookedSeat -> Seat -> Schedule
+        // Passenger -> BookedSeat -> Seat -> Schedule
         passenger.data.map(async (p) => {
             await prisma.passenger.create({
                 data: {
@@ -249,8 +265,48 @@ class Booking {
 
         return {
             bookingId: bookingData.id,
-            bookingCode
+            bookingCode,
+            paymentDueDateTime
         };
+    }
+
+    static async payment(data, bookingId) {
+        const { 
+            method,
+            accountNumber,
+            holderName,
+            CVV,
+            expiryDate
+        } = data;
+
+        const invoice = await prisma.invoice.findUnique({
+            where: {
+                bookingId: parseInt(bookingId)
+            }
+        });
+
+        const payment = await prisma.payment.create({
+            data: {
+                invoiceId: invoice.id,
+                date: new Date(Date.now()),
+                method,
+                accountNumber,
+                holderName: holderName || null,
+                CVV: CVV || null,
+                expiryDate: expiryDate || null
+            }
+        });
+
+        if (payment) {
+            await prisma.booking.update({
+                where: {
+                    id: parseInt(bookingId)
+                },
+                data: {
+                    status: 'Issued'
+                }
+            });
+        }
     }
 }
 

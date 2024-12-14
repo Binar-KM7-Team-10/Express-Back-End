@@ -33,7 +33,7 @@ module.exports = {
             throw new HttpRequestError('Validasi gagal. Pastikan dpDate lebih awal daripada retDate.', 400);
         }
     },
-    validataPathParams: async (params) => {
+    validatePathParams: async (params) => {
         const { id } = params;
 
         if (!id) {
@@ -103,6 +103,11 @@ module.exports = {
             }
         });
 
+        // Disallow ticket booking purchase for 2 hours or less before departure time
+        if (new Date(Date.now()) > new Date(outboundSchedule.departureDateTime) - (2 * 60 * 60 * 1000)) {
+            throw new HttpRequestError('Pemesanan ditolak. Tiket hanya dapat dipesan paling lambat 2 jam sebelum waktu keberangkatan.', 400);
+        }
+
         const inboundSchedule = await prisma.schedule.findUnique({
             where: {
                 id: itinerary.inbound ? itinerary.inbound : -1
@@ -119,7 +124,11 @@ module.exports = {
             }
 
             if (!inboundSchedule) {
-                throw new HttpRequestError('Validasi gagal. Pastikan itinerary.outbound memiliki nilai scheduleId yang ada.', 400);
+                throw new HttpRequestError('Validasi gagal. Pastikan itinerary.outbound memiliki nilai scheduleId yang tersedia.', 400);
+            }
+
+            if (new Date(outboundSchedule.arrivalDateTime) >= new Date(inboundSchedule.departureDateTime)) {
+                throw new HttpRequestError('Pemesanan ditolak. Tiket pulang-pergi hanya dapat dipesan jika waktu kedatangan jadwal pergi tidak melewati waktu keberangkatan jadwal pulang.', 400);
             }
         }
 
@@ -149,6 +158,10 @@ module.exports = {
                 throw new HttpRequestError('Validasi gagal. Pastikan ageGroup pada passenger.data yang Anda masukkan dalam format yang benar dan memiliki nilai \'Adult\', \'Child\', atau \'Baby\'.', 400);
             }
 
+            if (!p.birthDate || typeof p.birthDate !== 'string' || !p.birthDate.match(/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/)) {
+                throw new HttpRequestError('Validasi gagal. Pastikan birthDate pada passenger.data yang Anda masukkan dalam format yang benar (YYYY-MM-DD).', 400);
+            }
+
             if (p.ageGroup !== 'Baby') {
                 if (!p.label || typeof p.label !== 'string' || !p.label.match(/^P([1-9]|[1-6][0-9]|7[0-2])$/)) {
                     throw new HttpRequestError('Validasi gagal. Pastikan label pada passenger.data yang Anda masukkan dalam format yang benar.', 400);
@@ -167,10 +180,6 @@ module.exports = {
                     throw new HttpRequestError('Validasi gagal. Pastikan familyName pada passenger.data yang Anda masukkan dalam format yang benar.', 400);
                 }
 
-                if (!p.birthDate || typeof p.birthDate !== 'string' || !p.birthDate.match(/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/)) {
-                    throw new HttpRequestError('Validasi gagal. Pastikan birthDate pada passenger.data yang Anda masukkan dalam format yang benar (YYYY-MM-DD).', 400);
-                }
-
                 if (!p.nationality || typeof p.nationality !== 'string' || !isNaN(p.nationality)) {
                     throw new HttpRequestError('Validasi gagal. Pastikan nationality pada passenger.data yang Anda masukkan dalam format yang benar.', 400);
                 }
@@ -186,6 +195,16 @@ module.exports = {
                 if (p.expiryDate && (typeof p.expiryDate !== 'string' || !p.expiryDate.match(/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/))) {
                     throw new HttpRequestError('Validasi gagal. Pastikan expiryDate pada passenger.data yang Anda masukkan dalam format yang benar (YYYY-MM-DD).', 400);
                 }
+            }
+
+            const age = Math.abs(new Date(Date.now() - new Date(p.birthDate).getTime()).getUTCFullYear() - 1970);
+            
+            if (p.ageGroup === 'Adult' && age < 12) {
+                throw new HttpRequestError('Validasi gagal. Pastikan ageGroup \'Adult\' (lebih dari atau sama dengan 12 tahun) sesuai dengan usia penumpang.', 400);
+            } else if (p.ageGroup === 'Child' && (age < 2 || age >= 12)) {
+                throw new HttpRequestError('Validasi gagal. Pastikan ageGroup \'Child\' (lebih dari atau sama dengan 2 tahun dan kurang dari 12 tahun) sesuai dengan usia penumpang.', 400);
+            } else if (p.ageGroup === 'Baby' && (age < 0 || age >= 2)) {
+                throw new HttpRequestError('Validasi gagal. Pastikan ageGroup \'Baby\' (kurang dari 2 tahun) sesuai dengan usia penumpang.', 400);
             }
         });
 
@@ -210,5 +229,94 @@ module.exports = {
                 throw new HttpRequestError('Validasi gagal. Pastikan seatNumber pada seat.outbound yang Anda masukkan dalam format yang benar.', 400);
             }
         });
+    },
+    validateBookingId: async (params) => {
+        const { id } = params;
+
+        if (!id) {
+            throw new HttpRequestError('Validasi gagal. Pastikan Anda memasukkan bookingId.', 400);
+        }
+
+        if (isNaN(id)) {
+            throw new HttpRequestError('bookingId tidak valid. Pastikan bookingId yang Anda masukkan dalam format yang benar.', 400);
+        }
+
+        const bookingData = await prisma.booking.findUnique({
+            where: {
+                id: parseInt(id)
+            },
+            include: {
+                Invoice: true
+            }
+        });
+
+        if (!bookingData) {
+            throw new HttpRequestError('Pembayaran tiket penerbangan gagal dibuat. Pembayaran tiket penerbangan harus berdasarkan pesanan tiket penerbangan yang telah dibuat.', 404);
+        }
+
+        if (bookingData.status === 'Issued') {
+            throw new HttpRequestError('Pembayaran tiket penerbangan gagal dibuat. Tiket penerbangan telah diisukan.', 400);
+        }
+
+        if (bookingData.status === 'Cancelled') {
+            throw new HttpRequestError('Pembayaran tiket penerbangan gagal dibuat. Tiket penerbangan telah dibatalkan.', 400);
+        }
+
+        if (new Date(bookingData.Invoice.paymentDueDateTime) <= new Date(Date.now()) && bookingData.status === 'Unpaid') {
+            await prisma.booking.update({
+                where: {
+                    id: parseInt(id)
+                },
+                data: {
+                    status: 'Cancelled'
+                }
+            });
+
+            throw new HttpRequestError('Pembayaran tiket penerbangan gagal dibuat. Batas pembayaran tiket penerbangan telah kedaluwarsa.', 400);
+        }
+    },
+    validatePaymentData: async (data) => {
+        const {
+            method,
+            accountNumber,
+            holderName,
+            CVV,
+            expiryDate
+        } = data;
+
+        if (!method || !accountNumber) {
+            throw new HttpRequestError('Validasi gagal. Pastikan method dan accountNumber telah diisi.', 400);
+        }
+
+        if (typeof method !== 'string' || typeof accountNumber !== 'string') {
+            throw new HttpRequestError('Validasi gagal. Pastikan method dan accountNumber yang Anda masukkan dalam format yang benar.', 400);
+        }
+
+        const methodOptions = ['Credit Card', 'Virtual Account', 'Gopay'];
+        if (!methodOptions.includes(method)) {
+            throw new HttpRequestError('Validasi gagal. Pastikan metode pembayaran yang Anda masukkan memiliki nilai \'Credit Card\', \'Virtual Account\', atau \'Gopay\'.', 400);
+        }
+
+        if (method === 'Credit Card') {
+            if (!holderName || !CVV || !expiryDate) {
+                throw new HttpRequestError('Validasi gagal. Pastikan holderName, CVV, dan expiryDate telah diisi.', 400);
+            }
+
+            if (typeof holderName !== 'string' || typeof CVV !== 'string' || typeof expiryDate !== 'string') {
+                throw new HttpRequestError('Validasi gagal. Pastikan holderName, CVV, dan expiryDate yang Anda masukkan dalam format yang benar.', 400);
+            }
+
+            if (accountNumber.length < 15 || accountNumber.length > 19 || isNaN(accountNumber)) {
+                throw new HttpRequestError('Validasi gagal. Pastikan accountNumber yang Anda masukkan dalam format yang benar.', 400);
+            }
+
+            if (isNaN(CVV)) {
+                throw new HttpRequestError('Validasi gagal. Pastikan CVV yang Anda masukkan dalam format yang benar.', 400);
+            }
+
+            if (!expiryDate.match(/^(0[1-9]|1[0-2])\/\d{2}$/)) {
+                throw new HttpRequestError('Validasi gagal. Pastikan expiryDate yang Anda masukkan dalam format yang benar (MM/YY).', 400);
+            }
+        }
     },
 };

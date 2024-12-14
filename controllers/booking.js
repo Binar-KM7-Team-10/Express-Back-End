@@ -24,7 +24,7 @@ module.exports = {
     },
     getById: async (req, res, next) => {
         try {
-            await BookingValidation.validataPathParams(req.params);
+            await BookingValidation.validatePathParams(req.params);
             const data = await Booking.getDTO(req.params.id);
 
             return res.status(200).json({
@@ -52,9 +52,17 @@ module.exports = {
             next(err);
         }
     },
-    createPayment: async (req, res, async) => {
+    createPayment: async (req, res, next) => {
         try {
+            await BookingValidation.validateBookingId(req.params);
+            await BookingValidation.validatePaymentData(req.body);
+            await Booking.payment(req.body, req.params.id);
 
+            return res.status(201).json({
+                status: 'Success',
+                statusCode: 201,
+                message: 'Berhasil melakukan pembayaran tiket penerbangan.'
+            });
         } catch (err) {
             next(err);
         }

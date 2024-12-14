@@ -29,7 +29,10 @@ class Passenger {
             fullName: passenger.fullName,
             familyName: passenger.familyName,
             ageGroup: passenger.ageGroup,
-            seatNumber: passenger.bookedSeat.seat.seatNumber,
+            seatNumber: {
+                outbound: passenger.bookedSeat.seat.seatNumber,
+                inbound: null
+            }
         };
     }
 
@@ -46,15 +49,15 @@ class Passenger {
 
         passengers.map((passenger) => {
             if (passenger.ageGroup === 'Adult') {
-                adult += 1;
+                adult++;
             }
 
             if (passenger.ageGroup === 'Child') {
-                child += 1
+                child++;
             }
 
             if (passenger.ageGroup === 'Baby') {
-                baby += 1
+                baby++;
             }
         });
 
@@ -65,7 +68,7 @@ class Passenger {
             adult,
             child,
             baby,
-            data,
+            data
         };
     }
 }
