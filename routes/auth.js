@@ -13,12 +13,9 @@ router.post('/reset-password', AuthController.resetPassword)
 router.get('/logout', Auth.allUser, AuthController.logout)
 router.get('/auth', AuthController.authenticate);
 router.get('/oauth', passport.authenticate("google", {scope : ['profile', 'email']}));
-router.get('/callback', passport.authenticate("google", {
-    failureRedirect: '/auth',
-}), AuthController.handleOauth
-// (req, res) => {
-//     console.log('User successfully authenticated:', req.user);
-//     res.redirect('/tes');
+router.get('/callback', 
+    passport.authenticate('google', { failureRedirect: '/auth' }), 
+    AuthController.handleOauth
 );
 
 module.exports = router;
