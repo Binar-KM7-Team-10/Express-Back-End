@@ -21,7 +21,7 @@ class Booking {
             }
         });
 
-        const schedules = await Promise.all(itinerary.map((it) => Schedule.getDTO(it.scheduleId)));
+        const schedules = await Promise.all(itinerary.map((it) => Schedule.getDTO(it.scheduleId, false)));
         const passenger = await Passenger.getDTO(booking.id);
         const invoice = await Invoice.getDTO(booking.id);
         const payment = await Payment.getDTO(invoice.invoiceId);
@@ -62,7 +62,7 @@ class Booking {
                 });
     
                 // Ambil schedules menggunakan itinerary
-                const schedules = await Promise.all(itinerary.map((it) => Schedule.getDTO(it.scheduleId)));
+                const schedules = await Promise.all(itinerary.map((it) => Schedule.getDTO(it.scheduleId, false)));
     
                 // Ambil data lain yang diperlukan
                 const passenger = await Passenger.getDTO(booking.id);

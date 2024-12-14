@@ -103,6 +103,10 @@ module.exports = {
                 id: itinerary.outbound
             }
         });
+        
+        if (!outboundSchedule) {
+            throw new HttpRequestError('Validasi gagal. Pastikan itinerary.outbound memiliki nilai scheduleId yang ada.', 400);
+        }
 
         // Disallow ticket booking purchase for 2 hours or less before departure time
         if (new Date(Date.now()) > new Date(outboundSchedule.departureDateTime) - (2 * 60 * 60 * 1000)) {
@@ -114,10 +118,6 @@ module.exports = {
                 id: itinerary.inbound ? itinerary.inbound : -1
             }
         });
-
-        if (!outboundSchedule) {
-            throw new HttpRequestError('Validasi gagal. Pastikan itinerary.outbound memiliki nilai scheduleId yang ada.', 400);
-        }
 
         if (itinerary.journeyType === 'Round-trip') {
             if (itinerary.inbound === null) {

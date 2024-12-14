@@ -115,7 +115,7 @@ class Schedule {
         return result;
     }
 
-    static async getDTO(id) {
+    static async getDTO(id, seat = true) {
         const schedule = await prisma.schedule.findUnique({
             where: {
                 id: parseInt(id)
@@ -194,7 +194,7 @@ class Schedule {
 
         const daysOfWeek = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
 
-        const seatData = await this.getAvailableSeat(id);
+        const seatData = seat ? await this.getAvailableSeat(id) : null;
 
         return {
             scheduleId: schedule.id,
@@ -226,10 +226,10 @@ class Schedule {
                 meal: services.includes('In-Flight Meal'),
                 wifi: services.includes('WiFi')
             },
-            seat: {
+            seat: seat ? {
                 available: seatData.length,
                 map: seatData
-            }
+            } : null
         };
     }
 
