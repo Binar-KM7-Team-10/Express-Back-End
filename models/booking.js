@@ -200,6 +200,17 @@ class Booking {
             }
         }));
 
+        await prisma.schedule.update({
+            where: {
+                id: parseInt(itinerary.outbound)
+            },
+            data: {
+                seatAvailability: {
+                    decrement: outboundSeatData.length
+                }
+            }
+        });
+
         // Passenger -> BookedSeat -> Seat -> Schedule
         passenger.data.map(async (p) => {
             await prisma.passenger.create({
@@ -260,6 +271,17 @@ class Booking {
                         expiryDate: new Date(p.expiryDate),
                     }
                 });
+            });
+
+            await prisma.schedule.update({
+                where: {
+                    id: parseInt(itinerary.inbound)
+                },
+                data: {
+                    seatAvailability: {
+                        decrement: inboundSeatData.length
+                    }
+                }
             });
         }
 

@@ -1,3 +1,4 @@
+const Schedule = require("../models/schedule");
 const HttpRequestError = require("../utils/error");
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
@@ -219,8 +220,10 @@ module.exports = {
         if (seat.outbound.length !== parseInt(passenger.total)) {
             throw new HttpRequestError('Validasi gagal. Pastikan jumlah data tempat duduk penumpang bernilai sama dengan total penumpang.', 400);
         }
+        
+        const seatData = await Schedule.getAvailableSeat(itinerary.outbound);
 
-        seat.outbound.map((s) => {
+        await Promise.all(seat.outbound.map(async (s) => {
             if (!s.label || typeof s.label !== 'string' || !s.label.match(/^P([1-9]|[1-6][0-9]|7[0-2])$/)) {
                 throw new HttpRequestError('Validasi gagal. Pastikan label pada seat.outbound yang Anda masukkan dalam format yang benar.', 400);
             }
@@ -228,7 +231,11 @@ module.exports = {
             if (!s.seatNumber || typeof s.seatNumber !== 'string' || !s.seatNumber.match(/^[A-F](?:1[0-2]|[1-9])$/)) {
                 throw new HttpRequestError('Validasi gagal. Pastikan seatNumber pada seat.outbound yang Anda masukkan dalam format yang benar.', 400);
             }
-        });
+
+            if (!seatData.includes(s.seatNumber)) {
+                throw new HttpRequestError(`Pemesanan ditolak. Kursi nomor ${s.seatNumber} tidak tersedia.`, 400);
+            }
+        }));
     },
     validateBookingId: async (params) => {
         const { id } = params;
@@ -246,7 +253,8 @@ module.exports = {
                 id: parseInt(id)
             },
             include: {
-                Invoice: true
+                Invoice: true,
+                Itinerary: true
             }
         });
 
@@ -269,6 +277,23 @@ module.exports = {
                 },
                 data: {
                     status: 'Cancelled'
+                }
+            });
+
+            const deletedBookedSeat = await prisma.bookedSeat.deleteMany({
+                where: {
+                    bookingId: parseInt(id)
+                }
+            });
+
+            await prisma.schedule.update({
+                where: {
+                    id: bookingData.Itinerary[0].scheduleId
+                },
+                data: {
+                    seatAvailability: {
+                        increment: deletedBookedSeat.count
+                    }
                 }
             });
 

@@ -115,13 +115,14 @@ Endpoints for listing flight schedules
 	{
 		"available": <available_seat_amount>,
 		"map": [
-			{ <seat_number>: <boolean> },
-			{ <seat_number>: <boolean> },
+			<seat_number>,
+			<seat_number>,
+			<seat_number>,
 			...
 		]
 	}
 	```
-	> For each seat_number, `true` means available to be booked, `false` means otherwise.
+> For each seatNumber element exists in `map`, that means they are available
 
 ### passenger_object
 	```
@@ -1603,9 +1604,9 @@ Endpoints for listing flight schedules
 				"seat": {
 					"available": 50,
 					"map": [
-						{ "A1": true },
-						{ "A2": false },
-						{ "A3": true },
+						"A1",
+						"A3",
+						"B2",
 						...
 					]
 				}

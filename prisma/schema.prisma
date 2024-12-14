@@ -151,7 +151,7 @@ model Passenger {
   issuingCountry String?
   expiryDate DateTime?
   booking Booking @relation(fields: [bookingId], references: [id])
-  bookedSeat BookedSeat? @relation(fields: [bookedSeatId], references: [id])
+  bookedSeat BookedSeat? @relation(fields: [bookedSeatId], references: [id], onDelete: SetNull)
 }
 
 model Invoice {
@@ -181,7 +181,7 @@ model Payment {
 model User {
   id Int @id @default(autoincrement())
   email String @unique
-  phoneNumber String @unique
+  phoneNumber String? @unique
   googleId String?
   password String?
   fullName String

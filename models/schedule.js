@@ -72,6 +72,49 @@ class Schedule {
         });
     }
 
+    static async getAvailableSeat(id) {
+        const data = await prisma.seat.findMany({
+            orderBy: {
+                id: 'asc'
+            },
+            where: {
+                scheduleId: parseInt(id),
+                OR: [
+                    {
+                        BookedSeat: null
+                    },
+                    {
+                        BookedSeat: {
+                            is: {
+                                booking: {
+                                    status: 'Cancelled',
+                                }
+                            }
+                        }
+                    },
+                    {
+                        BookedSeat: {
+                            is: {
+                                booking: {
+                                    status: 'Unpaid',
+                                    Invoice: {
+                                        paymentDueDateTime: {
+                                            lte: new Date(Date.now())
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+        });
+
+        const result = data.map((s) => s.seatNumber);
+
+        return result;
+    }
+
     static async getDTO(id) {
         const schedule = await prisma.schedule.findUnique({
             where: {
@@ -151,6 +194,8 @@ class Schedule {
 
         const daysOfWeek = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
 
+        const seatData = await this.getAvailableSeat(id);
+
         return {
             scheduleId: schedule.id,
             airlineName: schedule.flight.airline.name,
@@ -180,6 +225,10 @@ class Schedule {
                 entertainment: services.includes('In-Flight Entertainment'),
                 meal: services.includes('In-Flight Meal'),
                 wifi: services.includes('WiFi')
+            },
+            seat: {
+                available: seatData.length,
+                map: seatData
             }
         };
     }

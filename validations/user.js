@@ -21,6 +21,16 @@ module.exports = {
       throw new HttpRequestError("Validasi gagal. Nomor telepon harus dimulai dengan '628' dan memiliki panjang 11-15 digit.", 400);
     }
 
+    const isExistedPhone = await prisma.user.findUnique({
+        where: {
+            phoneNumber
+        }
+    });
+
+    if (isExistedPhone) {
+        throw new HttpRequestError('Nomor telepon sudah terdaftar. Silakan gunakan nomor telepon lain.', 400);
+    }
+
     const isExistedEmail = await User.findByEmail(email);
 
     if (isExistedEmail) {
