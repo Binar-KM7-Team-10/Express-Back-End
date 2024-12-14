@@ -92,6 +92,15 @@ class Homepage {
             }
         };
     }
+    static async getAllCities() {
+        try {
+          const cities = await prisma.city.findMany();
+          return cities;
+        } catch (error) {
+          console.error("Error:", error);
+          return error;
+        }
+      }
 }
 
 module.exports = Homepage;
