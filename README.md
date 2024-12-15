@@ -8,7 +8,18 @@ Flight ticket booking service.
 
 - [Tiketku API](#tiketku-api)
 	- [Table of Contents](#table-of-contents)
+	- [Enumerations](#enumerations)
 	- [Objects](#objects)
+		- [user\_object](#user_object)
+		- [schedule\_object](#schedule_object)
+		- [seat\_object](#seat_object)
+		- [passenger\_object](#passenger_object)
+		- [invoice\_object](#invoice_object)
+		- [payment\_object](#payment_object)
+		- [booking\_object](#booking_object)
+		- [card\_object](#card_object)
+		- [pagination\_object](#pagination_object)
+		- [city\_object](#city_object)
 	- [Endpoints](#endpoints)
 		- [POST /register](#post-register)
 		- [POST /register/otp](#post-registerotp)
@@ -33,13 +44,27 @@ Flight ticket booking service.
 		- [POST /bookings/{bookingId}/payments](#post-bookingsbookingidpayments)
 		- [GET /homepage](#get-homepage)
 		- [GET /auth](#get-auth)
+		- [GET /cities](#get-cities)
+		- [GET /cities/{cityId}](#get-citiescityid)
 
 
+
+## Enumerations
+
+| Object | Members |
+| --- | --- |
+| user_role_enum | `Buyer`, `Admin` |
+| seat_class_enum | `Economy`, `Premium Economy`, `Business`, `First Class` |
+| age_group_enum | `Adult`, `Child`, `Baby` |
+| continent_enum | `All`, `Asia`, `Africa`, `America`, `Australia`, `Europe` |
+| day_enum | `Minggu`, `Senin`, `Selasa`, `Rabu`, `Kamis`, `Jumat`, `Sabtu` |
+| booking_status_enum | `Unpaid`, `Issued`, `Cancelled` |
+| journey_type_enum | `One-way`, `Round-trip` |
 
 ## Objects
 Endpoints for listing flight schedules
 
-- user_object
+### user_object
 	```
 	{
 		"id": <user_id>,
@@ -50,7 +75,7 @@ Endpoints for listing flight schedules
 	}
 	```
 
-- schedule_object
+### schedule_object
 	```
 	{
 		"scheduleId": <schedule_id>,
@@ -61,7 +86,7 @@ Endpoints for listing flight schedules
 		"availableSeat": <available_seat_amount>,
 		"price": <ticket_price>,
 		"departure": {
-			"day": <departure_day>,
+			"day": <day_enum>,
 			"dateTime": <departure_datetime>,
 			"city": <city_name>,
 			"cityCode": <departure_city_code>,
@@ -69,7 +94,7 @@ Endpoints for listing flight schedules
 			"terminalGate": <terminal_gate>
 		},
 		"arrival": {
-			"day": <arrival_day>,
+			"day": <day_enum>,
 			"dateTime": <arrival_datetime>,
 			"city": <city_name>,
 			"cityCode": <arrival_city_code>,
@@ -85,7 +110,21 @@ Endpoints for listing flight schedules
 	}
 	```
 
-- passenger_object
+### seat_object
+	```
+	{
+		"available": <available_seat_amount>,
+		"map": [
+			<seat_number>,
+			<seat_number>,
+			<seat_number>,
+			...
+		]
+	}
+	```
+> For each seatNumber element exists in `map`, that means they are available
+
+### passenger_object
 	```
 	{
 		"passengerId": <passenger_id>,
@@ -94,11 +133,14 @@ Endpoints for listing flight schedules
 		"fullName": <passenger_full_name>,
 		"familyName": <passenger_family_name>,
 		"ageGroup": <passenger_age_group>,
-		"seatNumber": <seat_number>
+		"seatNumber": {
+			"outbound": <outbound_seat_number>,
+			"inbound": <inbound_seat_number>
+		}
 	}
 	```
 
-- invoice_object
+### invoice_object
 	```
 	{
 		"invoiceId": <invoice_id>,
@@ -109,16 +151,16 @@ Endpoints for listing flight schedules
 	}
 	```
 
-- payment_object
+### payment_object
 	```
 	{
 		"paymentId": <payment_id>,
 		"date": <payment_date_time>,
-		"method": <payment_method>
+		"method": <payment_method_enum>
 	}
 	```
 
-- booking_object
+### booking_object
 	```
 	{
 		"bookingId": <booking_id>,
@@ -146,7 +188,7 @@ Endpoints for listing flight schedules
 	}
 	```
 
-- card_object
+### card_object
 	```
 	{
 		"departureCity": <departure_city>,
@@ -159,7 +201,7 @@ Endpoints for listing flight schedules
 	}
 	```
 
-- pagination_object
+### pagination_object
 	```
 	{
 		"currentPage": <current_page_number>,
@@ -168,6 +210,18 @@ Endpoints for listing flight schedules
 		"total": <item_count_total>,
 		"hasNextPage": <boolean>,
 		"hasPreviousPage": <boolean>
+	}
+	```
+
+### city_object
+	```
+	{
+		"cityId": <city_id>,
+		"name": <city_name>,
+		"code": <city_iata_code>,
+		"country": <country>,
+		"continent": <continent>,
+		"imageUrl": <imageUrl>
 	}
 	```
 
@@ -199,6 +253,8 @@ Endpoints for listing flight schedules
 | POST | /bookings/{bookingId}/payments | Creates a payment for a booking | TRUE |
 | GET | /homepage | Retrieves homepage data | FALSE |
 | GET | /auth | Authenticate user | TRUE |
+| GET | /cities | Retrieves all cities data | FALSE |
+| GET | /cities/{cityId} | Retrieves a city details | FALSE |
 
 ---
 
@@ -317,7 +373,8 @@ Endpoints for listing flight schedules
 			"statusCode": 201,
 			"message": "Verifikasi OTP berhasil. Akun Anda sekarang aktif dan dapat digunakan.",
 			"data": {
-				"user": <user_object>
+				"user": <user_object>,
+				"accessToken": <jwt_token>
 			}
 		}
 		```
@@ -334,7 +391,8 @@ Endpoints for listing flight schedules
 					"email": "user@example.com",
 					"phoneNumber": "6281245678912",
 					"role": "Buyer"
-				}
+				},
+				"accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
 			}
 		}
 		```
@@ -1370,7 +1428,8 @@ Endpoints for listing flight schedules
 								"meal": true,
 								"wifi": true
 							}
-						}
+						},
+						...
 					],
 					"inbound": [
 						{
@@ -1434,7 +1493,8 @@ Endpoints for listing flight schedules
 								"meal": true,
 								"wifi": true
 							}
-						}
+						},
+						...
 					]
 				}
 			}
@@ -1449,6 +1509,14 @@ Endpoints for listing flight schedules
 			"status": "Success",
 			"statusCode": 200,
 			"message": "Tidak ada data jadwal penerbangan yang tersedia",
+			"pagination": {
+				"currentPage": 1,
+				"totalPage": 1,
+				"count": 0,
+				"total": 0,
+				"hasNextPage": false,
+				"hasPreviousPage": false
+			},
 			"data": []
 		}
 		```
@@ -1494,7 +1562,7 @@ Endpoints for listing flight schedules
 			"status": "Success",
 			"statusCode": 200,
 			"message": "Berhasil mendapatkan data jadwal penerbangan.",
-			"data": <schedule_object>
+			"data": <schedule_object, seat: <seat_object>>
 		}
 		```
 	- Example:
@@ -1532,6 +1600,15 @@ Endpoints for listing flight schedules
 					"entertainment": true,
 					"meal": true,
 					"wifi": true
+				},
+				"seat": {
+					"available": 50,
+					"map": [
+						"A1",
+						"A3",
+						"B2",
+						...
+					]
 				}
 			}
 		}
@@ -1915,7 +1992,7 @@ Endpoints for listing flight schedules
 		{
 			"status": "Success",
 			"statusCode": 200,
-			"message": "Data riwayat pemesanan berhasil diambil.",,
+			"message": "Data riwayat pemesanan berhasil diambil.",
 			"pagination": {
 				"total": <total_booking>
 			},
@@ -1993,7 +2070,10 @@ Endpoints for listing flight schedules
 									"fullName": "Tony Stark",
 									"familyName": "Downey",
 									"ageGroup": "Adult",
-									"seatNumber": "A7"
+									"seatNumber": {
+										"outbound": "A7",
+										"inbound": null
+									}
 								},
 								{
 									"passengerId": 101,
@@ -2002,7 +2082,10 @@ Endpoints for listing flight schedules
 									"fullName": "Justin",
 									"familyName": null,
 									"ageGroup": "Child",
-									"seatNumber": "A8"
+									"seatNumber": {
+										"outbound": "A8",
+										"inbound": null
+									}
 								},					
 							]
 						},
@@ -2219,7 +2302,10 @@ Endpoints for listing flight schedules
 							"fullName": "Steve",
 							"familyName": "Roger",
 							"ageGroup": "Adult",
-							"seatNumber": "B7"
+							"seatNumber": {
+								"outbound": "B7",
+								"inbound": "A1"
+							}
 						}				
 					]
 				},
@@ -2307,7 +2393,7 @@ Endpoints for listing flight schedules
 	- **Data params**:
 		```
 		{
-			"schedules": {
+			"itinerary": {
 				"journeyType": <journey_type>,
 				"outbound": <schedule_id>,
 				"inbound": <schedule_id>
@@ -2320,6 +2406,7 @@ Endpoints for listing flight schedules
 				"data": [
 					{
 						"label": <passenger_label>,
+						"ageGroup": <age_group_enum>,
 						"title": <passenger_title>,
 						"fullName": <passenger_full_name>,
 						"familyName": <passenger_family_name>,
@@ -2365,7 +2452,8 @@ Endpoints for listing flight schedules
 			"message": "Berhasil membuat pesanan tiket penerbangan. Silahkan selesaikan pembayaran Anda.",
 			"data": {
 				"bookingId": <booking_id>,
-				"bookingCode": <bookingCode>
+				"bookingCode": <bookingCode>,
+				"paymentDueDateTime": <payment_due_datetime>
 			}
 		}
 		```
@@ -2377,7 +2465,8 @@ Endpoints for listing flight schedules
 			"message": "Berhasil membuat pesanan tiket penerbangan. Silahkan selesaikan pembayaran Anda.",
 			"data": {
 				"bookingId": 333,
-				"bookingCode": "65Tu5EyzA"
+				"bookingCode": "65Tu5EyzA",
+				"paymentDueDateTime": "2024-12-14T19:05:00.000Z"
 			}
 		}
 		```
@@ -2398,6 +2487,13 @@ Endpoints for listing flight schedules
 			"status": "Failed",
 			"statusCode": 400,
 			"message": "seatNumber tidak valid. Pastikan seatNumber yang Anda masukkan dalam format yang benar."
+		}
+		```
+		```json
+		{
+			"status": "Failed",
+			"statusCode": 400,
+			"message": "Pesanan tiket penerbangan gagal dibuat. Pesanan tiket penerbangan harus berdasarkan jadwal penerbangan yang terdaftar."
 		}
 		```
 
@@ -2423,17 +2519,6 @@ Endpoints for listing flight schedules
 		}
 		```
 
-- **Fail Response (Schedule Does Not Exist)**:
-	- Code: 404
-	- Response Body:
-		```json
-		{
-			"status": "Failed",
-			"statusCode": 404,
-			"message": "Pesanan tiket penerbangan gagal dibuat. Pesanan tiket penerbangan harus berdasarkan jadwal penerbangan yang terdaftar."
-		}
-		```
-
 - **Fail Response (Server Failure)**:
 	- Code: 500
 	- Response Body:
@@ -2454,7 +2539,7 @@ Endpoints for listing flight schedules
 	- **Data params**:
 		```
 		{
-			"method": <payment_method>,
+			"method": <payment_method_enum>,
 			"accountNumber": <account_number>,
 			"holderName": <holder_name>,
 			"CVV": <card_verification_value>,
@@ -2550,7 +2635,7 @@ Endpoints for listing flight schedules
 
 | Parameter | Description | Type | Example | Option |
 | --- | --- | --- | --- | --- |
-| continent | Area of continent. Value is either "All", "Asia", "America", "Australia", "Europe", or "Africa". By default the value is "All" | string | _/homepage?continent=Asia_ | **Required** |
+| continent | Area of continent. Value is either "All", "Asia", "America", "Australia", "Europe", or "Africa". By default the value is "All" | string, continent_enum | _/homepage?continent=Asia_ | **Required** |
 | page | Current page number. Each page has at most 5 contents. The value is 1 by default | number | _/homepage?page=2_ | Optional |
 
 -   **Headers**:
@@ -2722,3 +2807,159 @@ Endpoints for listing flight schedules
 
 ---
 
+### GET /cities
+-   **Description**: Retrieves all cities data.
+-   **Parameters**:
+    -   **Data params**: None
+    -   **Path Params**: None
+    -   **Query Params**: None
+-   **Headers**:
+    -  Content-Type: application/json
+-   **Success Response**:
+    -   Code: 200
+    -   Response Body:
+		```
+		{
+			"status": "Success",
+			"statusCode": 200,
+			"message": "Data kota berhasil diambil.",
+			"pagination": {
+				total: <total_city>
+			},
+			"data": [
+				<city_object>,
+				<city_object>,
+				<city_object>,
+				...
+			]
+		}
+		```
+       - Example:
+			```json
+			{
+	        	"status": "Success",
+	        	"statusCode": 200,
+	        	"message": "Data kota berhasil diambil.",
+				"pagination": {
+					"total": 100 
+				},
+	        	"data": [
+					{
+						"cityId": 1,
+						"name": "Jakarta",
+						"code": "JKT",
+						"country": "Indonesia",
+						"continent": "Asia",
+						"imageUrl": "https://dummy.url/image.png"
+					},
+					...
+				]
+			}
+			```
+
+- **Success Response (Empty Data)**:
+    - Code: 200
+    - Response Body:
+		```json
+		{
+			"status": "Success",
+	        	"statusCode": 200,
+	        	"message": "Tidak ada data kota yang tersedia.",
+				"pagination": {
+					"total": 0
+				},
+	        	"data": []
+		}
+		```
+
+- **Fail Response (Server Failure)**:
+	- Code: 500
+	- Response Body:
+		```json
+		{
+			"status": "Failed",
+			"statusCode": 500,
+			"message": "Terjadi kesalahan pada server. Silakan coba lagi nanti."
+		}
+		```
+
+---
+
+### GET /cities/{cityId}
+-   **Description**: Retrieves a city details.
+-   **Parameters**:
+    -   **Data params**: None
+    -   **Path Params**: cityId (Required)
+    -   **Query Params**: None
+-   **Headers**:
+    -   Content-Type: application/json
+-   **Success Response**:
+    -   Code: 200
+    -   Response Body:
+		```
+		{
+			"status": "Success",
+			"statusCode": 200,
+			"message": "Data kota berhasil diambil.",
+			"data": <city_object>
+		}
+		```
+       - Example:
+			```json
+			{
+	        	"status": "Success",
+	        	"statusCode": 200,
+	        	"message": "Data kota berhasil diambil.",
+	        	"data": {
+					"cityId": 1,
+					"name": "Jakarta",
+					"code": "JKT",
+					"country": "Indonesia",
+					"continent": "Asia",
+					"imageUrl": "https://dummy.url/image.png"
+				}
+			}
+			```
+
+- **Fail Response (Validation Error)**:
+    - Code: 400
+    - Response Body:
+		```
+		{
+			"status": "Failed",
+			"statusCode": 400,
+			"message": <error_message>
+		}
+		```
+	- Example:
+		```json
+		{
+			"status": "Failed",
+			"statusCode": 400,
+			"message": "Validasi gagal. Pastikan cityId yang Anda masukkan dalam format yang benar."
+		}
+		```
+
+- **Fail Response (City Not Found)**:
+    - Code: 404
+    - Response Body:
+		```json
+		{
+			"status": "Failed",
+			"statusCode": 404,
+			"message": "Data kota tidak ditemukan."
+		}
+		```
+
+- **Fail Response (Server Failure)**:
+	- Code: 500
+	- Response Body:
+		```json
+		{
+			"status": "Failed",
+			"statusCode": 500,
+			"message": "Terjadi kesalahan pada server. Silakan coba lagi nanti."
+		}
+		```
+
+---

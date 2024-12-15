@@ -72,7 +72,50 @@ class Schedule {
         });
     }
 
-    static async getDTO(id) {
+    static async getAvailableSeat(id) {
+        const data = await prisma.seat.findMany({
+            orderBy: {
+                id: 'asc'
+            },
+            where: {
+                scheduleId: parseInt(id),
+                OR: [
+                    {
+                        BookedSeat: null
+                    },
+                    {
+                        BookedSeat: {
+                            is: {
+                                booking: {
+                                    status: 'Cancelled',
+                                }
+                            }
+                        }
+                    },
+                    {
+                        BookedSeat: {
+                            is: {
+                                booking: {
+                                    status: 'Unpaid',
+                                    Invoice: {
+                                        paymentDueDateTime: {
+                                            lte: new Date(Date.now())
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+        });
+
+        const result = data.map((s) => s.seatNumber);
+
+        return result;
+    }
+
+    static async getDTO(id, seat = true) {
         const schedule = await prisma.schedule.findUnique({
             where: {
                 id: parseInt(id)
@@ -150,8 +193,8 @@ class Schedule {
         });
 
         const daysOfWeek = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
-
-        return {
+        
+        const data = {
             scheduleId: schedule.id,
             airlineName: schedule.flight.airline.name,
             seatClass: schedule.seatClass,
@@ -182,6 +225,29 @@ class Schedule {
                 wifi: services.includes('WiFi')
             }
         };
+
+        const seatData = seat ? await this.getAvailableSeat(id) : null;
+        if (seat) {
+            data.seat = {
+                available: seatData.length,
+                map: seatData
+            }
+
+            if (data.availableSeat !== data.seat.available) {
+                const { seatAvailability } = await prisma.schedule.update({
+                    where: {
+                        id: parseInt(id)
+                    },
+                    data: {
+                        seatAvailability: data.seat.available
+                    }
+                });
+                
+                data.availableSeat = seatAvailability;
+            }
+        }
+
+        return data;
     }
 
     static async getManyDTO(query) {

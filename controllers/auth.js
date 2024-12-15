@@ -96,6 +96,13 @@ module.exports = {
     try {
       await UserValidation.otp(req.body);
       const user = await Auth.verifyOTP(req.body);
+      const accessToken = JwtHelper.generateToken({
+        id: user.id,
+        fullName: user.fullName,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+        role: user.role
+      });
 
       return res.status(201).json({ 
         status: 'Success',
@@ -107,7 +114,8 @@ module.exports = {
                 fullName: user.fullName,
                 email: user.email,
                 phoneNumber: user.phoneNumber
-            }
+            },
+            accessToken
         }
       });
     } catch (err) {
