@@ -24,13 +24,13 @@ class Passenger {
 
         return {
             passengerId: passenger.id,
-            label: passenger.label,
-            title: passenger.title,
-            fullName: passenger.fullName,
-            familyName: passenger.familyName,
+            label: passenger?.label,
+            title: passenger?.title,
+            fullName: passenger?.fullName,
+            familyName: passenger?.familyName,
             ageGroup: passenger.ageGroup,
             seatNumber: {
-                outbound: passenger.bookedSeat.seat.seatNumber,
+                outbound: passenger.bookedSeat?.seat.seatNumber,
                 inbound: null
             }
         };

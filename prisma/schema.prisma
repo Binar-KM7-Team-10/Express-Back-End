@@ -100,8 +100,8 @@ model Itinerary {
   bookingId Int
   scheduleId Int
   tripDirection String @default("Outbound")
-  Booking Booking @relation(fields: [bookingId], references: [id])
-  schedule Schedule @relation(fields: [scheduleId], references: [id])
+  Booking Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  schedule Schedule @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
 }
 
 model Booking {
@@ -111,7 +111,7 @@ model Booking {
   date DateTime @default(now())
   status String @default("Unpaid")
   journeyType String @default("One-way")
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   Passenger Passenger[]
   Itinerary Itinerary[]
   BookedSeat BookedSeat[]
@@ -132,7 +132,7 @@ model BookedSeat {
   seatId Int @unique
   bookingId Int
   seat Seat @relation(fields: [seatId], references: [id])
-  booking Booking @relation(fields: [bookingId], references: [id])
+  booking Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
   Passenger Passenger?
 }
 
@@ -150,7 +150,7 @@ model Passenger {
   identityNumber String?
   issuingCountry String?
   expiryDate DateTime?
-  booking Booking @relation(fields: [bookingId], references: [id])
+  booking Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
   bookedSeat BookedSeat? @relation(fields: [bookedSeatId], references: [id], onDelete: SetNull)
 }
 
@@ -161,7 +161,7 @@ model Invoice {
   taxAmount Int
   totalAmount Int
   paymentDueDateTime DateTime
-  booking Booking @relation(fields: [bookingId], references: [id])
+  booking Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
   Payment Payment?
 }
 
@@ -174,7 +174,7 @@ model Payment {
   holderName String?
   CVV String?
   expiryDate String?
-  invoice Invoice @relation(fields: [invoiceId], references: [id])
+  invoice Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
   Notification Notification[]
 }
 
@@ -204,8 +204,8 @@ model Notification {
   message String
   createdAt DateTime @default(now())
   readStatus Boolean @default(false)
-  user User @relation(fields: [userId], references: [id])
-  booking Booking? @relation(fields: [bookingId], references: [id])
-  schedule Schedule? @relation(fields: [scheduleId], references: [id])
-  payment Payment? @relation(fields: [paymentId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  booking Booking? @relation(fields: [bookingId], references: [id], onDelete: SetNull)
+  schedule Schedule? @relation(fields: [scheduleId], references: [id], onDelete: SetNull)
+  payment Payment? @relation(fields: [paymentId], references: [id], onDelete: SetNull)
 }

@@ -193,10 +193,8 @@ class Schedule {
         });
 
         const daysOfWeek = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
-
-        const seatData = seat ? await this.getAvailableSeat(id) : null;
-
-        return {
+        
+        const data = {
             scheduleId: schedule.id,
             airlineName: schedule.flight.airline.name,
             seatClass: schedule.seatClass,
@@ -225,12 +223,31 @@ class Schedule {
                 entertainment: services.includes('In-Flight Entertainment'),
                 meal: services.includes('In-Flight Meal'),
                 wifi: services.includes('WiFi')
-            },
-            seat: seat ? {
+            }
+        };
+
+        const seatData = seat ? await this.getAvailableSeat(id) : null;
+        if (seat) {
+            data.seat = {
                 available: seatData.length,
                 map: seatData
-            } : null
-        };
+            }
+
+            if (data.availableSeat !== data.seat.available) {
+                const { seatAvailability } = await prisma.schedule.update({
+                    where: {
+                        id: parseInt(id)
+                    },
+                    data: {
+                        seatAvailability: data.seat.available
+                    }
+                });
+                
+                data.availableSeat = seatAvailability;
+            }
+        }
+
+        return data;
     }
 
     static async getManyDTO(query) {

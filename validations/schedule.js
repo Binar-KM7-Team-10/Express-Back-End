@@ -196,7 +196,7 @@ module.exports = {
         const sortOptions = ['price', '-price', 'duration', '-duration', 'dpTime', '-dpTime', 'arTime', '-arTime'];
         const facilityOptions = ['wifi', 'meal', 'entertainment'];
         const seatClassOptions = ['Economy', 'Premium Economy', 'Business', 'First Class'];
-
+        
         if (dpCity && typeof dpCity !== 'string' ||
             dpCity && !isNaN(dpCity) ||
             arCity && typeof arCity !== 'string' ||
@@ -227,9 +227,19 @@ module.exports = {
             throw new HttpRequestError('Validasi gagal. Pastikan sort memiliki nilai \'price\', \'-price\', \'duration\', \'-duration\', \'dpTime\', \'-dpTime\', \'arTime\', atau \'-arTime\'.', 400);
         }
 
-        if (facility && !facilityOptions.includes(facility)) {
-            throw new HttpRequestError('Validasi gagal. Pastikan facility memiliki nilai \'wifi\', \'meal\', atau \'entertainment\'.', 400);
-        }
+        if (facility) {
+            if (!facility.match(/^([a-zA-Z]+)(\.[a-zA-Z]+){0,2}$/)) {
+                throw new HttpRequestError('Validasi gagal. Pastikan facility yang Anda masukkan dalam format yang benar.', 400);
+            }
+
+            const facilities = facility.split('.');
+
+            facilities.forEach((f) => {
+                if (!facilityOptions.includes(f)) {
+                    throw new HttpRequestError('Validasi gagal. Pastikan facility memiliki nilai \'wifi\', \'meal\', atau \'entertainment\'.', 400);
+                }
+            })
+        } 
 
         if (dpDate && !dpDate.match(/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/) ||
             retDate && !retDate.match(/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/)
@@ -239,10 +249,6 @@ module.exports = {
 
         if (psg && !psg.match(/^\d+\.\d+\.\d+$/)) {
             throw new HttpRequestError('Validasi gagal. Pastikan psg yang Anda masukkan dalam format yang benar.', 400);
-        }
-
-        if (facility && !facility.match(/^([a-zA-Z]+)(\.[a-zA-Z]+){0,2}$/)) {
-            throw new HttpRequestError('Validasi gagal. Pastikan facility yang Anda masukkan dalam format yang benar.', 400);
         }
 
         if (page && page <= 0) {

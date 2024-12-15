@@ -216,17 +216,17 @@ class Booking {
             await prisma.passenger.create({
                 data: {
                     bookingId: bookingData.id,
-                    bookedSeatId: outboundSeatData.find((s) => s.label === p.label).bookedSeatId || null,
+                    bookedSeatId: p.ageGroup !== 'Baby' ? outboundSeatData.find((s) => s.label === p.label).bookedSeatId : null,
                     label: p.label || null,
                     ageGroup: p.ageGroup,
                     title: p.title || null,
                     fullName: p.fullName || null,
                     familyName: p.familyName || null,
-                    birthDate: new Date(p.birthDate) || null,
+                    birthDate: p.ageGroup !== 'Baby' ? new Date(p.birthDate) : null,
                     nationality: p.nationality || null,
                     identityNumber: p.identityNumber || null,
                     issuingCountry: p.issuingCountry || null,
-                    expiryDate: new Date(p.expiryDate) || null
+                    expiryDate: p.ageGroup !== 'Baby' ? new Date(p.expiryDate) : null
                 }
             });
         });

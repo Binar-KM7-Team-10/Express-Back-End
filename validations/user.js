@@ -28,7 +28,7 @@ module.exports = {
     });
 
     if (isExistedPhone) {
-        throw new HttpRequestError('Nomor telepon sudah terdaftar. Silakan gunakan nomor telepon lain.', 400);
+        throw new HttpRequestError('Nomor telepon sudah terdaftar. Silakan gunakan nomor telepon lain.', 409);
     }
 
     const isExistedEmail = await User.findByEmail(email);

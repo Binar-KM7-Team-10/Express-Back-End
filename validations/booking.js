@@ -145,6 +145,10 @@ module.exports = {
             throw new HttpRequestError('Validasi gagal. Pastikan passenger.total, passenger.adult, passenger.child, dan passenger.baby yang Anda masukkan dalam format yang benar.', 400);
         }
 
+        if (passenger.total === 0) {
+            throw new HttpRequestError('Validasi gagal. Pastikan Anda memasukkan paling tidak satu penumpang pada pemesanan.', 400);
+        }
+
         if (passenger.total !== (parseInt(passenger.adult) + parseInt(passenger.child))) {
             throw new HttpRequestError('Validasi gagal. Pastikan passenger.total memiliki nilai jumlah dari passenger.adult dan passenger.child.', 400);
         }
@@ -157,10 +161,6 @@ module.exports = {
             const ageGroupOptions = ['Adult', 'Child', 'Baby'];
             if (!p.ageGroup || typeof p.ageGroup !== 'string' || !ageGroupOptions.includes(p.ageGroup)) {
                 throw new HttpRequestError('Validasi gagal. Pastikan ageGroup pada passenger.data yang Anda masukkan dalam format yang benar dan memiliki nilai \'Adult\', \'Child\', atau \'Baby\'.', 400);
-            }
-
-            if (!p.birthDate || typeof p.birthDate !== 'string' || !p.birthDate.match(/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/)) {
-                throw new HttpRequestError('Validasi gagal. Pastikan birthDate pada passenger.data yang Anda masukkan dalam format yang benar (YYYY-MM-DD).', 400);
             }
 
             if (p.ageGroup !== 'Baby') {
@@ -179,6 +179,10 @@ module.exports = {
 
                 if (p.familyName && (typeof p.familyName !== 'string' || !isNaN(p.familyName))) {
                     throw new HttpRequestError('Validasi gagal. Pastikan familyName pada passenger.data yang Anda masukkan dalam format yang benar.', 400);
+                }
+
+                if (!p.birthDate || typeof p.birthDate !== 'string' || !p.birthDate.match(/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/)) {
+                    throw new HttpRequestError('Validasi gagal. Pastikan birthDate pada passenger.data yang Anda masukkan dalam format yang benar (YYYY-MM-DD).', 400);
                 }
 
                 if (!p.nationality || typeof p.nationality !== 'string' || !isNaN(p.nationality)) {
@@ -222,10 +226,19 @@ module.exports = {
         }
         
         const seatData = await Schedule.getAvailableSeat(itinerary.outbound);
-
+        const labels = passenger.data.map((p) => {
+            if (p.ageGroup !== 'Baby') {
+                return p.label;
+            }
+        });
+        
         await Promise.all(seat.outbound.map(async (s) => {
             if (!s.label || typeof s.label !== 'string' || !s.label.match(/^P([1-9]|[1-6][0-9]|7[0-2])$/)) {
                 throw new HttpRequestError('Validasi gagal. Pastikan label pada seat.outbound yang Anda masukkan dalam format yang benar.', 400);
+            }
+
+            if (!labels.includes(s.label)) {
+                throw new HttpRequestError('Validasi gagal. Pastikan label pada seat.outbound yang Anda masukkan sesuai dengan data penumpang pada passenger.data.', 400);
             }
 
             if (!s.seatNumber || typeof s.seatNumber !== 'string' || !s.seatNumber.match(/^[A-F](?:1[0-2]|[1-9])$/)) {
