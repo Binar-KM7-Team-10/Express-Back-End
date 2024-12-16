@@ -190,7 +190,7 @@ module.exports = {
           return res.status (200).json({
               status: 'Success',
               statusCode: 200,
-              message: 'Permintaan reset password berhasil. Silakan cek email Anda untuk tautan reset password.',
+              message: 'Tautan reset password berhasil dikirim. Silahkan cek email Anda.',
           });
       } catch (err) {
           next(err)
@@ -205,7 +205,7 @@ module.exports = {
           return res.status (200).json({
               status: 'Success',
               statusCode: 200,
-              message: 'Password berhasil direset. Silakan login dengan password baru Anda.',
+              message: 'Reset password berhasil!',
           });
       } catch (err) {
           next(err);
