@@ -10,8 +10,15 @@ module.exports = {
             return res.status(200).json({
                 status: 'Success',
                 statusCode: 200,
-                message: 'Data homepage berhasil diambil.',
-                pagination: homepageData.pagination,
+                message: homepageData.data.length !== 0 ? 'Data homepage berhasil diambil.' : 'Tidak ada data homepage yang tersedia.',
+                pagination: homepageData.data.length !== 0 ? homepageData.pagination : {
+                    currentPage: 0,
+                    totalPage: 0,
+                    count: 0,
+                    total: 0,
+                    hasNextPage: false,
+                    hasPreviousPage: false
+                },
                 data: homepageData.data
             });
         } catch (err) {

@@ -58,6 +58,14 @@ module.exports = {
                     status: 'Success',
                     statusCode: 200,
                     message: 'Tidak ada data jadwal penerbangan yang tersedia',
+                    pagination: {
+                        currentPage: 1,
+                        totalPage: 1,
+                        count: 0,
+                        total: 0,
+                        hasNextPage: false,
+                        hasPreviousPage: false
+                    },
                     data: []
                 });
             }

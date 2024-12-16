@@ -25,7 +25,10 @@ class Homepage {
             skip: offset,
             take: limit,
             where: {
-                ...filters
+                ...filters,
+                Schedule: {
+                    some: {}
+                }
             },
             include: {
                 departureAirport: {
@@ -52,7 +55,10 @@ class Homepage {
             },
         });
 
+        flights.sort((a, b) => new Date(a.Schedule.departureDateTime) - new Date(b.Schedule.departureDateTime));
+
         const cards = flights.map((flight) => {
+            const sortedSchedule = flight.Schedule.sort((a, b) => new Date(a.departureDateTime) - new Date(b.departureDateTime));
             const minPrice = flight.Schedule.reduce((min, schedule) => Math.min(min, schedule.ticketPrice), Infinity);
 
             return {
@@ -60,21 +66,24 @@ class Homepage {
                 arrivalCity: flight.arrivalAirport.city.name,
                 arrivalCityImageUrl: flight.arrivalAirport.city.imageUrl,
                 airline: flight.airline.name,
-                startDate: flight.Schedule[0]?.departureDateTime,
-                endDate: flight.Schedule[flight.Schedule.length - 1]?.arrivalDateTime,
+                startDate: sortedSchedule[0]?.departureDateTime,
+                endDate: sortedSchedule[sortedSchedule.length - 1]?.arrivalDateTime,
                 minPrice: minPrice || null,
             };
         });
 
         const total = await prisma.flight.count({
             where: {
-                ...filters
+                ...filters,
+                Schedule: {
+                    some: {}
+                }
             }
         });
 
         const totalPage = Math.ceil(total / limit);
 
-        if (totalPage < page) {
+        if (totalPage !== 0 && totalPage < page) {
             throw new HttpRequestError('Validasi gagal. Pastikan page tidak melebih total halaman.', 400);
         }
 
