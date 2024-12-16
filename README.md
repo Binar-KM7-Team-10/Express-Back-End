@@ -2707,6 +2707,14 @@ Endpoints for listing flight schedules
 			"status": "Success",
 			"statusCode": 200,
 			"message": "Tidak ada data homepage yang tersedia.",
+			"pagination": {
+				"currentPage": 0,
+				"totalPage": 0,
+				"count": 0,
+				"total": 0,
+				"hasNextPage": false,
+				"hasPreviousPage": false
+			},
 			"data": {
 				"cards": []
         	}
