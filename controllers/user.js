@@ -66,7 +66,7 @@ module.exports = {
     update: async (req, res, next) => {
         try {
             await UserValidations.validateId(req.params);
-            await UserValidations.patch(req.body);
+            await UserValidations.patch(req.body, req.params.id);
             const editUser = await User.patchUser(req.params.id, req.body);
 
             return res.status(200).json({
