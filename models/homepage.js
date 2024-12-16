@@ -74,13 +74,16 @@ class Homepage {
 
         const total = await prisma.flight.count({
             where: {
-                ...filters
+                ...filters,
+                Schedule: {
+                    some: {}
+                }
             }
         });
 
         const totalPage = Math.ceil(total / limit);
 
-        if (totalPage < page) {
+        if (totalPage !== 0 && totalPage < page) {
             throw new HttpRequestError('Validasi gagal. Pastikan page tidak melebih total halaman.', 400);
         }
 

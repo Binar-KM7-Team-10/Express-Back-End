@@ -1,7 +1,7 @@
 const HttpRequestError = require('./error');
 
 module.exports = (err, req, res, next) => {
-    console.log(err);
+    // console.log(err);
     if (err instanceof HttpRequestError) {
         return res.status(err.statusCode).json({
             status: 'Failed',
