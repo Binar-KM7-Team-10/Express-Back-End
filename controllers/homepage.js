@@ -25,9 +25,9 @@ module.exports = {
             next(err);
         }
     },
-    getAll: async (req, res, next) => {
+    getCity: async (req, res, next) => {
         try {
-            const cities = await Homepage.getAllCities();
+            const cities = await Homepage.getCities();
             return res.status(200).json({
                 status: 'Success',
                 statusCode: 200,
@@ -40,6 +40,7 @@ module.exports = {
                 }
             });
         } catch (err) {
+            console.log(err, "ini error di controller getCity");
             next(err);
         }
     }

@@ -101,7 +101,7 @@ class Homepage {
             }
         };
     }
-    static async getAllCities() {
+    static async getCities() {
         try {
           const cities = await prisma.city.findMany();
           return cities;
