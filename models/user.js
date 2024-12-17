@@ -53,7 +53,10 @@ class User {
 
     static async patchUser(id, data){
         const { fullName = undefined, phoneNumber = undefined, email = undefined, password = undefined } = data;
-        const hashedPassword = await bcrypt.hash(password, 10);
+        let hashedPassword = undefined;
+        if (password) {
+            hashedPassword = await bcrypt.hash(password, 10);
+        }
 
         const user = await prisma.user.update({
             where: {id: parseInt(id)},

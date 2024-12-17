@@ -9,11 +9,11 @@ class Payment {
             }
         });
 
-        return {
+        return payment ? {
             paymentId: payment.id,
             date: payment.date,
             method: payment.method,
-        }
+        } : null;
     }
 }
 

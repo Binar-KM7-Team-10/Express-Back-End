@@ -21,6 +21,16 @@ module.exports = {
       throw new HttpRequestError("Validasi gagal. Nomor telepon harus dimulai dengan '628' dan memiliki panjang 11-15 digit.", 400);
     }
 
+    const isExistedPhone = await prisma.user.findUnique({
+        where: {
+            phoneNumber
+        }
+    });
+
+    if (isExistedPhone) {
+        throw new HttpRequestError('Nomor telepon sudah terdaftar. Silakan gunakan nomor telepon lain.', 409);
+    }
+
     const isExistedEmail = await User.findByEmail(email);
 
     if (isExistedEmail) {
@@ -198,8 +208,13 @@ module.exports = {
           throw new HttpRequestError("Pengguna tidak ditemukan. Pastikan userId yang Anda masukkan benar.", 404);
       }
   },
-  patch: async (data) => {
+  patch: async (data, userId) => {
       const { fullName, email, phoneNumber, password } = data;
+      const currentUserData = await prisma.user.findUnique({
+        where: {
+            id: parseInt(userId)
+        }
+      });
   
       //VALIDASI INPUT
       if(!fullName && !email && !phoneNumber && !password){
@@ -220,7 +235,7 @@ module.exports = {
               where: {email: email}
           })
   
-          if (findEmail){
+          if (findEmail && findEmail.email !== currentUserData.email){
               throw new HttpRequestError("Email sudah terdaftar. Silakan gunakan email lain.", 409);
           }
   
@@ -243,7 +258,7 @@ module.exports = {
               }
           });
   
-          if (isPhoneNumber) {
+          if (isPhoneNumber && isPhoneNumber.phoneNumber !== currentUserData.phoneNumber) {
               throw new HttpRequestError("Nomor telepon sudah terdaftar. Silakan gunakan nomor telepon lain.", 409);
           }
       }

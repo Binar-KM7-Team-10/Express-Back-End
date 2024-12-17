@@ -96,19 +96,27 @@ module.exports = {
     try {
       await UserValidation.otp(req.body);
       const user = await Auth.verifyOTP(req.body);
+      const accessToken = JwtHelper.generateToken({
+        id: user.id,
+        fullName: user.fullName,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+        role: user.role
+      });
 
       return res.status(201).json({
         status: "Success",
         message: "Verifikasi OTP berhasil. Akun Anda sekarang aktif dan dapat digunakan.",
         statusCode: 201,
         data: {
-          user: {
-            id: user.id,
-            fullName: user.fullName,
-            email: user.email,
-            phoneNumber: user.phoneNumber,
-          },
-        },
+            user: {
+                id: user.id,
+                fullName: user.fullName,
+                email: user.email,
+                phoneNumber: user.phoneNumber
+            },
+            accessToken
+        }
       });
     } catch (err) {
       next(err);
@@ -179,14 +187,14 @@ module.exports = {
               </div>`
       );
 
-      return res.status(200).json({
-        status: "Success",
-        statusCode: 200,
-        message: "Permintaan reset password berhasil. Silakan cek email Anda untuk tautan reset password.",
-      });
-    } catch (err) {
-      next(err);
-    }
+          return res.status (200).json({
+              status: 'Success',
+              statusCode: 200,
+              message: 'Tautan reset password berhasil dikirim. Silahkan cek email Anda.',
+          });
+      } catch (err) {
+          next(err)
+      }
   },
   resetPassword: async (req, res, next) => {
     try {
@@ -194,14 +202,14 @@ module.exports = {
       const { passwordResetToken, newPassword } = req.body;
       await Auth.resetPassword(passwordResetToken, newPassword);
 
-      return res.status(200).json({
-        status: "Success",
-        statusCode: 200,
-        message: "Password berhasil direset. Silakan login dengan password baru Anda.",
-      });
-    } catch (err) {
-      next(err);
-    }
+          return res.status (200).json({
+              status: 'Success',
+              statusCode: 200,
+              message: 'Reset password berhasil!',
+          });
+      } catch (err) {
+          next(err);
+      }
   },
   authenticate: async (req, res, next) => {
     try {
@@ -219,7 +227,6 @@ module.exports = {
       next(error);
     }
   },
-
   handleOauth: async (req, res, next) => {
     try {
       const {
@@ -233,6 +240,8 @@ module.exports = {
       const accessToken = JwtHelper.generateToken({ id, fullName, email, phoneNumber, role });
 
       res.status(200).json({
+        status: 'Success',
+        statusCode: 200,
         message: "Login Google berhasil.",
         data: {
           user: {
