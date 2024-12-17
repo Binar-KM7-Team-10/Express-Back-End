@@ -3,13 +3,12 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-
 passport.use(
     new GoogleStrategy(
         {
             clientID: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: 'http://127.0.0.1:3000/callback',
+            callbackURL: process.env.GOOGLE_CALLBACK_URL,
         },
         async (accessToken, refreshToken, profile, done) => {
             try {
@@ -33,9 +32,8 @@ passport.use(
                     },
                 });
 
-                return done(null, { email, fullName });
+                return done(null, user);
             } catch (err) {
-                console.error('Error in Google Strategy:', err);
                 return done(err, null);
             }
         }
@@ -46,4 +44,4 @@ passport.use(
 
 //prisma update or insert
 
-module.exports = { passport };
+module.exports = passport;

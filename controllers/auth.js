@@ -222,12 +222,28 @@ module.exports = {
 
   handleOauth: async (req, res, next) => {
     try {
-      const { email } = req.user;
-      console.log(email);
-      const result = await Auth.handleOauth(email);
+      const {
+        id,
+        fullName,
+        email,
+        phoneNumber,
+        role
+      } = req.user;
+
+      const accessToken = JwtHelper.generateToken({ id, fullName, email, phoneNumber, role });
+
       res.status(200).json({
-        message: "Login berhasil",
-        data: result,
+        message: "Login Google berhasil.",
+        data: {
+          user: {
+            id,
+            fullName,
+            email,
+            phoneNumber,
+            role
+          },
+          accessToken,
+        },
       });
     } catch (error) {
       next(error);

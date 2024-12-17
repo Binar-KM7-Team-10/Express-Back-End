@@ -186,30 +186,6 @@ class Auth {
             role: user.role,
         };
     }
-
-    static async handleOauth(email){
-        const user = await prisma.user.findUnique({
-            where: { email },
-        });
-
-        if (!user) {
-            throw new HttpRequestError('Email tidak terdaftar. Silakan registrasi akun terlebih dahulu.', 400);
-        }
-
-        const accessToken = JwtHelper.generateToken(user);
-
-        console.log(user, accessToken);
-
-        return {
-            user: {
-                id: user.id,
-                fullName: user.fullName,
-                email: user.email,
-                phoneNumber: user.phoneNumber,
-            },
-            accessToken,
-        };
-    }
-
 }
+
 module.exports = Auth;
