@@ -24,3 +24,4 @@ app.listen(PORT, () => {
 });
 
 schedule.scheduleJob('0,30 * * * *', Job.checkPayment);
+module.exports = app; // Ekspor app
