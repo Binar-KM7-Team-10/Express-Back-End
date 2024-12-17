@@ -2,40 +2,17 @@ const Notification = require('../models/notification');
 const notificationValidation = require('../validations/notification');
 
 module.exports = {
-    create: async (req, res, next) => {
+    getAll: async (req, res, next) => {
         try {
-            await notificationValidation.validatePostData(req.body);
-            const create = await Notification.createNotification(req.body);
-
-            return res.status(201).json({
-                status: "Success",
-                statusCode: 201,
-                message: " ",
-                data: {
-                    notification: {
-                        userId: create.userId,                 
-                        bookingId: create.bookingId,   
-                        scheduleId: create.scheduleId, 
-                        paymentId: create.paymentId,   
-                        title: create.title,                   
-                        message: create.message,
-                    }
-                }
-            })
-        } catch (error) {
-            next(error);
-        };
-    },
-    get: async (req, res, next) => {
-        try {
-            await notificationValidation.validateId(req.params.id);
-            const get = await Notification.getNotification(req.params.id);
-
-            if (!get){
+            const { userId, page } = req.query;
+            await notificationValidation.validateUserId({userId});
+            const get = await Notification.getAllNotification(userId, { page });
+    
+            if (!get || get.notifications.length === 0) {
                 return res.status(200).json({
                     status: "Success",
                     statusCode: 200,
-                    message: " Tidak ada data ",
+                    message: "Tidak ada notifikasi yang tersedia",
                     data: []
                 });
             }
@@ -43,43 +20,45 @@ module.exports = {
             return res.status(200).json({
                 status: "Success",
                 statusCode: 200,
-                message: " ",
+                message: "Data notifikasi berhasil diambil",
                 data: get
             });
         } catch (error) {
             next(error);
-        };
+        }
     },
-    update: async (req, res, next) => {
+    getById: async (req, res, next) => {
         try {
-            await notificationValidation.validateId(req.params.id);
-            await notificationValidation.validateUpdateStatus(req.body);
-            const update = await Notification.updateReadStatus(req.params.id);
+            const { id } = req.params;
+            await notificationValidation.validateNotificationId(id);
+            const getById = await Notification.getNotificationById(id);
+    
+            return res.status(200).json({
+                status: "Success",
+                statusCode: 200,
+                message: "Data notifikasi berhasil diambil",
+                data: getById,
+            });
+        } catch (error) {
+            next(error);
+        }
+    },
+    patch: async (req, res, next) => {
+        try {
+            const { id } = req.params
+            await notificationValidation.validateNotificationId(id);
+            const update = await Notification.patchReadStatus(id);
 
             return res.status(200).json({
                 status: "Success",
                 statusCode: 200,
-                message: "Data notifikasi berhasil diperbarui.",
+                message: "Notifikasi telah berhasil dibaca",
                 data: {
                     notification: {
                         readStatus: update.readStatus
                     }
                 }
             });
-        } catch (error) {
-            next(error);
-        };
-    },
-    delete: async (req, res, next) => {
-        try {
-            await notificationValidation.validateId(req.params.id);
-            await Notification.deleteNotification(req.params.id);
-
-            return res.status(200).json({
-                status: "Success",
-                statusCode: 200,
-                message: "Notifikasi berhasil dihapus",
-            })
         } catch (error) {
             next(error);
         };
