@@ -1,0 +1,71 @@
+name: Deploy-to-EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to EC2 on main branch push
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the files
+        uses: actions/checkout@v2
+
+      - name: Deploy to Server 1
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.HOST_DNS }}
+          REMOTE_USER: ${{ secrets.USERNAME }}
+          TARGET: ${{ secrets.TARGET_DIR }}
+
+      - name: Executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@master
+        env:
+          NODE_ENV: production
+          PORT: ${{ secrets.PORT }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          EMAIL_HOST: ${{ secrets.EMAIL_HOST }}
+          CLIENT_URL: ${{ secrets.CLIENT_URL }}
+          DOMAIN_NAME: ${{ secrets.DOMAIN_NAME }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          GOOGLE_CALLBACK_URL: ${{ secrets.GOOGLE_CALLBACK_URL }}
+        with:
+          host: ${{ secrets.HOST_DNS }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          envs: NODE_ENV, PORT, DATABASE_URL, JWT_SECRET, EMAIL_PASS, EMAIL_USER, EMAIL_HOST, CLIENT_URL, DOMAIN_NAME, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_CALLBACK_URL
+          script: |
+            sudo apt-get -y update
+            sudo apt-get -y upgrade
+            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+            export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            nvm install 20.17.0
+            cd home
+            npm ci
+            npm i -g pm2
+            npx prisma migrate deploy
+            pm2 start -f app.js
+            pm2 startup -f ubuntu
+            sudo ufw --force enable
+            sudo ufw allow ssh
+            sudo ufw allow http
+            sudo ufw allow https
+            sudo apt-get -y install nginx
+            sudo rm /etc/nginx/sites-available/default
+            sudo mv -f ./configs/default /etc/nginx/sites-available/
+            sudo service nginx restart
+            sudo apt-get -y install snapd
+            sudo snap install certbot --classic
+            sudo snap install core; sudo snap refresh core
+            sudo ln -s /snap/bin/certbot /usr/bin/certbot
+            sudo certbot --nginx -d $DOMAIN_NAME -d www.$DOMAIN_NAME --non-interactive --agree-tos -m $EMAIL_USER
+            sudo certbot renew --dry-run

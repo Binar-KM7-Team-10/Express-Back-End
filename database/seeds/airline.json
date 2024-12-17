@@ -1,0 +1,602 @@
+[
+  {
+    "name": "American Airlines",
+    "iataCode": "AA",
+    "country": "United States",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Delta Air Lines",
+    "iataCode": "DL",
+    "country": "United States",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "United Airlines",
+    "iataCode": "UA",
+    "country": "United States",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Southwest Airlines Co.",
+    "iataCode": "WN",
+    "country": "United States Minor Outlying Islands",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "China Southern Airlines",
+    "iataCode": "CZ",
+    "country": "China",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "China Eastern",
+    "iataCode": "MU",
+    "country": "China",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "SkyWest Airlines",
+    "iataCode": "OO",
+    "country": "United States Minor Outlying Islands",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Air China Limited",
+    "iataCode": "CA",
+    "country": "China",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Federal Express",
+    "iataCode": "FX",
+    "country": "United States",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Ryanair Ltd.",
+    "iataCode": "FR",
+    "country": "Ireland",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Expressjet",
+    "iataCode": "XE",
+    "country": "United States Minor Outlying Islands",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "THY - Turkish Airlines",
+    "iataCode": "TK",
+    "country": "Turkey",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Lufthansa Cargo",
+    "iataCode": "LH",
+    "country": "Germany",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "British Airways",
+    "iataCode": "BA",
+    "country": "United Kingdom",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Emirates",
+    "iataCode": "EK",
+    "country": "United Arab Emirates",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "UPS Airlines",
+    "iataCode": "5X",
+    "country": "United States",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Easyjet Airline Company Limited",
+    "iataCode": "U2",
+    "country": "United Kingdom",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Air France",
+    "iataCode": "AF",
+    "country": "France",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "JetBlue",
+    "iataCode": "B6",
+    "country": "United States",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "All Nippon Airways",
+    "iataCode": "NH",
+    "country": "Japan",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Qatar Airways",
+    "iataCode": "QR",
+    "country": "Qatar",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Envoy Air Inc.",
+    "iataCode": "MQ",
+    "country": "United States Minor Outlying Islands",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Aeroflot",
+    "iataCode": "SU",
+    "country": "Russia",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Shenzhen Airlines",
+    "iataCode": "ZH",
+    "country": "China",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Air Canada",
+    "iataCode": "AC",
+    "country": "Canada",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "TAM Linhas Aereas",
+    "iataCode": "JJ",
+    "country": "Brazil",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Japan Airlines",
+    "iataCode": "JL",
+    "country": "Japan",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Korean Air",
+    "iataCode": "KE",
+    "country": "South Korea",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Alaska Airlines",
+    "iataCode": "AS",
+    "country": "United States",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Hainan Airlines",
+    "iataCode": "HU",
+    "country": "China",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "SAS",
+    "iataCode": "SK",
+    "country": "Sweden",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Garuda",
+    "iataCode": "GA",
+    "country": "Indonesia",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Cathay Pacific",
+    "iataCode": "CX",
+    "country": "Hong Kong",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Republic Airlines",
+    "iataCode": "RW",
+    "country": "United States",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Saudi Arabian Airlines",
+    "iataCode": "SV",
+    "country": "Saudi Arabia",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Azul Brazilian Airlines",
+    "iataCode": "AD",
+    "country": "Brazil",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Xiamen Airlines",
+    "iataCode": "MF",
+    "country": "China",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Gol Linhas Aéreas Inteligentes\nGol Linhas Aéreas Inteligentes\n",
+    "iataCode": "G3",
+    "country": "Brazil",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Jazz Aviation LP",
+    "iataCode": "QK",
+    "country": "Canada",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Etihad Airways",
+    "iataCode": "EY",
+    "country": "United Arab Emirates",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Lan Airlines",
+    "iataCode": "LA",
+    "country": "Chile",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Endeavor Air",
+    "iataCode": "9E",
+    "country": "United States Minor Outlying Islands",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Mesa Airlines, Inc.",
+    "iataCode": "YV",
+    "country": "United States Minor Outlying Islands",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Qantas",
+    "iataCode": "QF",
+    "country": "Australia",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Lion Airlines",
+    "iataCode": "JT",
+    "country": "Indonesia",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "WestJet",
+    "iataCode": "WS",
+    "country": "Canada",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "KLM",
+    "iataCode": "KL",
+    "country": "Netherlands",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "SIA Cargo",
+    "iataCode": "SQ",
+    "country": "Singapore",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "PSA Airlines",
+    "iataCode": "OH",
+    "country": "United States",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Air India",
+    "iataCode": "AI",
+    "country": "India",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Sichuan Airlines",
+    "iataCode": "3U",
+    "country": "China",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Interglobe Aviation Ltd. dba Indigo",
+    "iataCode": "6E",
+    "country": "India",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Vueling",
+    "iataCode": "VY",
+    "country": "Spain",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Alitalia",
+    "iataCode": "AZ",
+    "country": "Italy",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "AVIANCA",
+    "iataCode": "AV",
+    "country": "Colombia",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Virgin Australia",
+    "iataCode": "VA",
+    "country": "Australia",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Shuttle America",
+    "iataCode": "S5",
+    "country": "United States Minor Outlying Islands",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Shandong Airlines",
+    "iataCode": "SC",
+    "country": "China",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Jet Airways",
+    "iataCode": "9W",
+    "country": "India",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Tianjin Airlines",
+    "iataCode": "GS",
+    "country": "China",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Vietnam Airlines",
+    "iataCode": "VN",
+    "country": "Vietnam",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "COPA Airlines",
+    "iataCode": "CM",
+    "country": "Panama",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Shanghai Airlines",
+    "iataCode": "FM",
+    "country": "China",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Air Berlin",
+    "iataCode": "AB",
+    "country": "Germany",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Austrian",
+    "iataCode": "OS",
+    "country": "Austria",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Spirit Airlines",
+    "iataCode": "NK",
+    "country": "United States Minor Outlying Islands",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Asiana",
+    "iataCode": "OZ",
+    "country": "South Korea",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "China Airlines",
+    "iataCode": "CI",
+    "country": "Chinese Taipei",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Allegiant Air LLC",
+    "iataCode": "G4",
+    "country": "United States Minor Outlying Islands",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Malaysia Airlines",
+    "iataCode": "MH",
+    "country": "Malaysia",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "AirAsia Berhad dba AirAsia",
+    "iataCode": "AK",
+    "country": "Malaysia",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Thai Airways International",
+    "iataCode": "TG",
+    "country": "Thailand",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "IBERIA",
+    "iataCode": "IB",
+    "country": "Spain",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "flybe",
+    "iataCode": "BE",
+    "country": "United Kingdom",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Ethiopian Airlines",
+    "iataCode": "ET",
+    "country": "Ethiopia",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Jetstar Airways Pty Limited",
+    "iataCode": "JQ",
+    "country": "Australia",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Wizz Air Hungary Ltd.",
+    "iataCode": "W6",
+    "country": "Hungary",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Air Wisconsin Airlines Corporation (AWAC)",
+    "iataCode": "ZW",
+    "country": "United States Minor Outlying Islands",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "SWISS",
+    "iataCode": "LX",
+    "country": "Switzerland",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Trans States Airlines, LLC",
+    "iataCode": "AX",
+    "country": "United States",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "EVA Air",
+    "iataCode": "BR",
+    "country": "Chinese Taipei",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "S7 Airlines",
+    "iataCode": "S7",
+    "country": "Russia",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Aeromexico",
+    "iataCode": "AM",
+    "country": "Mexico",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Interjet",
+    "iataCode": "4O",
+    "country": "Mexico",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Aerolitoral S.A. de C.V.",
+    "iataCode": "5D",
+    "country": "Mexico",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Capital Airlines",
+    "iataCode": "JD",
+    "country": "China",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Pegasus Airlines",
+    "iataCode": "PC",
+    "country": "Turkey",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "UTair",
+    "iataCode": "UT",
+    "country": "Russia",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "TUI Airways Limited",
+    "iataCode": "BY",
+    "country": "United Kingdom",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Compass Airlines LLC",
+    "iataCode": "CP",
+    "country": "United States Minor Outlying Islands",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "TAP Portugal",
+    "iataCode": "TP",
+    "country": "Portugal",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Virgin America",
+    "iataCode": "VX",
+    "country": "United States",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Volaris",
+    "iataCode": "Y4",
+    "country": "Mexico",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Germanwings GmbH",
+    "iataCode": "4U",
+    "country": "Germany",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Jet2.com Limited",
+    "iataCode": "LS",
+    "country": "United Kingdom",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Philippine Airlines",
+    "iataCode": "PR",
+    "country": "Philippines",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Spring Airlines Limited Corporation",
+    "iataCode": "9C",
+    "country": "China",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Frontier Airlines, Inc.",
+    "iataCode": "F9",
+    "country": "United States Minor Outlying Islands",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Cebu Pacific Air",
+    "iataCode": "5J",
+    "country": "Philippines",
+    "logoUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "Norwegian Air Shuttle A.S.",
+    "iataCode": "DY",
+    "country": "Norway",
+    "logoUrl": "https://via.placeholder.com/150"
+  }
+]
