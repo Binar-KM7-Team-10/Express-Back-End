@@ -15,5 +15,10 @@ module.exports = {
         if (isNaN(id)) {
             throw new HttpRequestError('bookingId tidak valid. Pastikan bookingId yang Anda masukkan dalam format yang benar.', 400);
         }
+    },
+    bookingCode: ({ bookingCode }) => {
+        if (typeof bookingCode !== 'string' || !bookingCode.match(/^[A-Za-z0-9]{10}$/)) {
+            throw new HttpRequestError('bookingCode tidak valid. Pastikan bookingCode yang Anda masukkan dalam format yang benar.', 400);
+        }
     }
 };
