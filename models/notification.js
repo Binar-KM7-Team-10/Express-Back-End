@@ -28,7 +28,8 @@ class Notification {
         }
     }
 
-    static async getNotificationById(id){
+    static async getNotificationById(params){
+        const { id } = params;
         const notification = await prisma.notification.findUnique({
             where: {id: parseInt(id)}
         });

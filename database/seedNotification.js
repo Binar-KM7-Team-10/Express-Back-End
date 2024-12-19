@@ -1,4 +1,3 @@
-require('dotenv').config();
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
@@ -14,7 +13,7 @@ const notification = [
         "readStatus": false
     },
     {
-        "userId": 5,
+        "userId": 22,
         "bookingId": null,
         "scheduleId": 2,
         "paymentId": null,
@@ -24,7 +23,7 @@ const notification = [
         "readStatus": false
     },
     {
-        "userId": 5,
+        "userId": 22,
         "bookingId": 5,
         "scheduleId": 2,
         "paymentId": 5,
@@ -34,7 +33,7 @@ const notification = [
         "readStatus": true
     },
     {
-        "userId": 5,
+        "userId": 4,
         "bookingId": 5,
         "scheduleId": null,
         "paymentId": null,
@@ -44,7 +43,7 @@ const notification = [
         "readStatus": false
     },
     {
-        "userId": 5,
+        "userId": 1,
         "bookingId": null,
         "scheduleId": 2,
         "paymentId": 5,

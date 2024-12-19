@@ -233,7 +233,7 @@ Endpoints for listing flight schedules
 ### notification_object
 ```
 {
-	"notificationId": <notification_id>,
+	"id": <notification_id>,
 	"userId": <user_id>,
 	"bookingId": <booking_id>,
 	"scheduleId": <schedule_id>,
@@ -3024,7 +3024,7 @@ Endpoints for listing flight schedules
 				},
 	        	"data": [
 					{
-						"notificationId": 1,
+						"id": 1,
 						"userId": 5,
 						"bookingId": 30,
 						"scheduleId": null,
@@ -3112,7 +3112,7 @@ Endpoints for listing flight schedules
 	        	"statusCode": 200,
 	        	"message": "Data notifikasi berhasil diambil.",
 	        	"data": {
-					"notificationId": 1,
+					"id": 1,
 					"userId": 5,
 					"bookingId": 30,
 					"scheduleId": null,

@@ -186,5 +186,43 @@ module.exports = {
         } catch (err) {
             next(err);
         }
-    }
+    },
+    sameUserParamNotification: async (req, res, next) => {
+        try {
+            AuthValidation.headers(req.headers);
+
+            const token = req.headers.authorization.split(' ')[1];
+            let decoded;
+
+            try {
+                decoded = jwt.verify(token, JWT_SECRET);
+            } catch (err) {
+                if (err.name === 'JsonWebTokenError' || err.name === 'TokenExpiredError') {
+                    throw new HttpRequestError('Token tidak valid atau telah kedaluwarsa. Silakan login kembali untuk mendapatkan token baru.', 401);
+                }
+                throw err;
+            }
+
+            AuthValidation.notificationId(req.params);
+            const notification = await prisma.notification.findUnique({
+                where: {
+                    id: parseInt(req.params.id)
+                }
+            });
+
+            if (!notification) {
+                throw new HttpRequestError('Notifikasi tidak ditemukan.', 404);
+            }
+
+            if (!(decoded.role === 'Buyer' || decoded.role === 'Admin') ||
+                (decoded.id !== parseInt(notification.userId) && decoded.role === 'Buyer')
+            ) {
+                throw new HttpRequestError('Akses ditolak. Anda tidak memiliki izin untuk mengakses endpoint ini.', 403);
+            }
+
+            next();
+        } catch (err) {
+            next(err);
+        }
+    },
 };

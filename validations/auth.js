@@ -20,5 +20,10 @@ module.exports = {
         if (typeof bookingCode !== 'string' || !bookingCode.match(/^[A-Za-z0-9]{10}$/)) {
             throw new HttpRequestError('bookingCode tidak valid. Pastikan bookingCode yang Anda masukkan dalam format yang benar.', 400);
         }
+    },
+    notificationId: ({ id }) => {
+        if (!id || isNaN(id)) {
+            throw new HttpRequestError('Validasi gagal. Pastikan notificationId yang Anda masukkan dalam format yang benar.', 400);
+        }
     }
 };

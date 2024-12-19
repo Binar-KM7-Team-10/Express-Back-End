@@ -24,21 +24,13 @@ module.exports = {
         }
     
     },
-    validateNotificationId: async (id) => {
+    validateNotificationId: async (params) => {
+        const { id } = params;
+
         if (!id) {
             throw new HttpRequestError("Validasi gagal. Pastikan notificationId telah diisi.", 400);
         } else if (isNaN(id)) {
             throw new HttpRequestError("Validasi gagal. Pastikan notificationId yang Anda masukkan dalam format yang benar.", 400);
-        }
-    
-        const findNotificationId = await prisma.notification.findUnique({
-            where: {
-                id: parseInt(id),
-            },
-        });
-    
-        if (!findNotificationId) {
-            throw new HttpRequestError("Notifikasi tidak ditemukan.", 404);
         }
     },    
 }

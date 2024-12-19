@@ -20,9 +20,8 @@ module.exports = {
     },
     getById: async (req, res, next) => {
         try {
-            const { id } = req.params;
-            await notificationValidation.validateNotificationId(id);
-            const getById = await Notification.getNotificationById(id);
+            await notificationValidation.validateNotificationId(req.params);
+            const getById = await Notification.getNotificationById(req.params);
     
             return res.status(200).json({
                 status: "Success",
