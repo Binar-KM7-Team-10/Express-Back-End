@@ -20,11 +20,13 @@ Flight ticket booking service.
 		- [card\_object](#card_object)
 		- [pagination\_object](#pagination_object)
 		- [city\_object](#city_object)
+		- [notification\_object](#notification_object)
 	- [Endpoints](#endpoints)
 		- [POST /register](#post-register)
 		- [POST /register/otp](#post-registerotp)
 		- [POST /register/otp/resend](#post-registerotpresend)
 		- [POST /login](#post-login)
+		- [GET /login/google](#get-logingoogle)
 		- [GET /logout](#get-logout)
 		- [POST /forgot-password](#post-forgot-password)
 		- [POST /reset-password](#post-reset-password)
@@ -45,7 +47,9 @@ Flight ticket booking service.
 		- [GET /homepage](#get-homepage)
 		- [GET /auth](#get-auth)
 		- [GET /cities](#get-cities)
-		- [GET /cities/{cityId}](#get-citiescityid)
+		- [GET /notifications](#get-notifications)
+		- [GET /notifications/{notificationId}](#get-notificationsnotificationid)
+		- [PATCH /notifications/{notificationId}](#patch-notificationsnotificationid)
 
 
 
@@ -60,170 +64,187 @@ Flight ticket booking service.
 | day_enum | `Minggu`, `Senin`, `Selasa`, `Rabu`, `Kamis`, `Jumat`, `Sabtu` |
 | booking_status_enum | `Unpaid`, `Issued`, `Cancelled` |
 | journey_type_enum | `One-way`, `Round-trip` |
+| payment_method_enum | `Credit Card`, `Virtual Account`, `Gopay` |
 
 ## Objects
 Endpoints for listing flight schedules
 
 ### user_object
-	```
-	{
-		"id": <user_id>,
-		"fullName": <full_name>,
-		"email": <email>,
-		"phoneNumber": <phone_number>,
-		"role": <user_role_enum>
-	}
-	```
+```
+{
+	"id": <user_id>,
+	"fullName": <full_name>,
+	"email": <email>,
+	"phoneNumber": <phone_number>,
+	"role": <user_role_enum>
+}
+```
 
 ### schedule_object
-	```
-	{
-		"scheduleId": <schedule_id>,
-		"airlineName": <airline_name>,
-		"seatClass": <seat_class_enum>,
-		"duration": <flight_duration>,
-		"flightNumber": <flight_number>,
-		"availableSeat": <available_seat_amount>,
-		"price": <ticket_price>,
-		"departure": {
-			"day": <day_enum>,
-			"dateTime": <departure_datetime>,
-			"city": <city_name>,
-			"cityCode": <departure_city_code>,
-			"airportName": <airport_name>,
-			"terminalGate": <terminal_gate>
-		},
-		"arrival": {
-			"day": <day_enum>,
-			"dateTime": <arrival_datetime>,
-			"city": <city_name>,
-			"cityCode": <arrival_city_code>,
-			"airportName": <airport_name>
-		},
-		"facilities": {
-			"baggage": <max_baggage_weight>,
-			"cabinBaggage": <max_cabin_baggage_weight>,
-			"entertainment": <boolean>,
-			"meal": <boolean>,
-			"wifi": <boolean>
-		}
+```
+{
+	"scheduleId": <schedule_id>,
+	"airlineName": <airline_name>,
+	"seatClass": <seat_class_enum>,
+	"duration": <flight_duration>,
+	"flightNumber": <flight_number>,
+	"availableSeat": <available_seat_amount>,
+	"price": <ticket_price>,
+	"departure": {
+		"day": <day_enum>,
+		"dateTime": <departure_datetime>,
+		"city": <city_name>,
+		"cityCode": <departure_city_code>,
+		"airportName": <airport_name>,
+		"terminalGate": <terminal_gate>
+	},
+	"arrival": {
+		"day": <day_enum>,
+		"dateTime": <arrival_datetime>,
+		"city": <city_name>,
+		"cityCode": <arrival_city_code>,
+		"airportName": <airport_name>
+	},
+	"facilities": {
+		"baggage": <max_baggage_weight>,
+		"cabinBaggage": <max_cabin_baggage_weight>,
+		"entertainment": <boolean>,
+		"meal": <boolean>,
+		"wifi": <boolean>
 	}
-	```
+}
+```
 
 ### seat_object
-	```
-	{
-		"available": <available_seat_amount>,
-		"map": [
-			<seat_number>,
-			<seat_number>,
-			<seat_number>,
-			...
-		]
-	}
-	```
+```
+{
+	"available": <available_seat_amount>,
+	"map": [
+		<seat_number>,
+		<seat_number>,
+		<seat_number>,
+		...
+	]
+}
+```
 > For each seatNumber element exists in `map`, that means they are available
 
 ### passenger_object
-	```
-	{
-		"passengerId": <passenger_id>,
-		"label": <passenger_label>,
-		"title": <passenger_title>,
-		"fullName": <passenger_full_name>,
-		"familyName": <passenger_family_name>,
-		"ageGroup": <passenger_age_group>,
-		"seatNumber": {
-			"outbound": <outbound_seat_number>,
-			"inbound": <inbound_seat_number>
-		}
+```
+{
+	"passengerId": <passenger_id>,
+	"label": <passenger_label>,
+	"title": <passenger_title>,
+	"fullName": <passenger_full_name>,
+	"familyName": <passenger_family_name>,
+	"ageGroup": <passenger_age_group>,
+	"seatNumber": {
+		"outbound": <outbound_seat_number>,
+		"inbound": <inbound_seat_number>
 	}
-	```
+}
+```
 
 ### invoice_object
-	```
-	{
-		"invoiceId": <invoice_id>,
-		"paymentDueDateTime": <payment_due_date_time>,
-		"subtotal": <subtotal_amount>,
-		"taxAmount": <tax_amount>,
-		"totalAmount": <total_amount>
-	}
-	```
+```
+{
+	"invoiceId": <invoice_id>,
+	"paymentDueDateTime": <payment_due_date_time>,
+	"subtotal": <subtotal_amount>,
+	"taxAmount": <tax_amount>,
+	"totalAmount": <total_amount>
+}
+```
 
 ### payment_object
-	```
-	{
-		"paymentId": <payment_id>,
-		"date": <payment_date_time>,
-		"method": <payment_method_enum>
-	}
-	```
+```
+{
+	"paymentId": <payment_id>,
+	"date": <payment_date_time>,
+	"method": <payment_method_enum>
+}
+```
 
 ### booking_object
-	```
-	{
-		"bookingId": <booking_id>,
-		"bookingCode": <booking_code>,
-		"date": <booking_date_time>,
-		"status": <booking_status_enum>,
-		"journeyType": <journey_type_enum>,
-		"itinerary": {
-			"outbound": <schedule_object>,
-			"inbound": <schedule_object>
-		},
-		"passenger": {
-			"total": <total_passenger>,
-			"adult": <total_adult_passenger>,
-			"child": <total_child_passenger>,
-			"baby": <total_baby_passenger>,
-			"data": [
-				<passenger_object>,
-				<passenger_object>,
-				...
-			]
-		},
-		"invoice": <invoice_object>,
-		"payment": <payment_object>
-	}
-	```
+```
+{
+	"bookingId": <booking_id>,
+	"bookingCode": <booking_code>,
+	"date": <booking_date_time>,
+	"status": <booking_status_enum>,
+	"journeyType": <journey_type_enum>,
+	"itinerary": {
+		"outbound": <schedule_object>,
+		"inbound": <schedule_object>
+	},
+	"passenger": {
+		"total": <total_passenger>,
+		"adult": <total_adult_passenger>,
+		"child": <total_child_passenger>,
+		"baby": <total_baby_passenger>,
+		"data": [
+			<passenger_object>,
+			<passenger_object>,
+			...
+		]
+	},
+	"invoice": <invoice_object>,
+	"payment": <payment_object>
+}
+```
 
 ### card_object
-	```
-	{
-		"departureCity": <departure_city>,
-		"arrivalCity": <arrival_city>,
-		"arrivalCityImageUrl": <image_url>,
-		"airline": <airline_name>,
-		"startDate": <start_datetime>,
-		"endDate": <end_datetime>,
-		"minPrice": <minimum_price>
-	}
-	```
+```
+{
+	"departureCity": <departure_city>,
+	"arrivalCity": <arrival_city>,
+	"arrivalCityImageUrl": <image_url>,
+	"airline": <airline_name>,
+	"startDate": <start_datetime>,
+	"endDate": <end_datetime>,
+	"minPrice": <minimum_price>
+}
+```
 
 ### pagination_object
-	```
-	{
-		"currentPage": <current_page_number>,
-		"totalPage": <total_page_amount>,
-		"count": <item_count_page>,
-		"total": <item_count_total>,
-		"hasNextPage": <boolean>,
-		"hasPreviousPage": <boolean>
-	}
-	```
+```
+{
+	"currentPage": <current_page_number>,
+	"totalPage": <total_page_amount>,
+	"count": <item_count_page>,
+	"total": <item_count_total>,
+	"hasNextPage": <boolean>,
+	"hasPreviousPage": <boolean>
+}
+```
 
 ### city_object
-	```
-	{
-		"cityId": <city_id>,
-		"name": <city_name>,
-		"code": <city_iata_code>,
-		"country": <country>,
-		"continent": <continent>,
-		"imageUrl": <imageUrl>
-	}
-	```
+```
+{
+	"cityId": <city_id>,
+	"name": <city_name>,
+	"code": <city_iata_code>,
+	"country": <country>,
+	"continent": <continent>,
+	"imageUrl": <imageUrl>
+}
+```
+
+### notification_object
+```
+{
+	"notificationId": <notification_id>,
+	"userId": <user_id>,
+	"bookingId": <booking_id>,
+	"scheduleId": <schedule_id>,
+	"paymentId": <payment_id>,
+	"title": <notification_title>,
+	"message": <notification_message>,
+	"createdAt": <notification_creation_datetime>,
+	"readStatus": <notification_read_status>
+}
+```
+
 
 ## Endpoints
 
@@ -254,7 +275,9 @@ Endpoints for listing flight schedules
 | GET | /homepage | Retrieves homepage data | FALSE |
 | GET | /auth | Authenticate user | TRUE |
 | GET | /cities | Retrieves all cities data | FALSE |
-| GET | /cities/{cityId} | Retrieves a city details | FALSE |
+| GET | /notifications | Retrieves all notifications data | TRUE |
+| GET | /notifications/{notificationId} | Retrieves a notification details | TRUE |
+| PATCH | /notifications/{notificationId} | Updates a notification details | TRUE |
 
 ---
 
@@ -588,6 +611,72 @@ Endpoints for listing flight schedules
 
 ---
 
+### GET /login/google
+
+- **Description**: Logs in/creates a user account with Google OAuth 2.0
+- **Parameters**:
+	- **Data params**: None
+	- **Path Params**: None
+	- **Query Params**: None
+- **Headers**:
+	- Content-Type: application/json
+- **Success Response**:
+	- Code: 200
+	- Response Body:
+		```
+		{
+			"status": "Success",
+			"statusCode": 200,
+			"message": "Login Google berhasil.",
+			"data": {
+				"user": <user_object>,
+			    "accessToken": <jwt_token>
+		  }
+		}
+		```
+	- Example
+		```json
+		{
+			"status": "Success",
+			"message": "Login Google berhasil.",
+			"statusCode": 200,
+			"data": {
+				"user": {
+					"id": 1,
+					"fullName": "John Doe",
+					"email": "user@example.com",
+					"phoneNumber": null,
+					"role": "Buyer"
+			    },
+			    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+		  }
+		}
+		```
+
+- **Fail Response (Invalid Credentials)**:
+	- Code: 401
+	- Response Body:
+		```json
+		{
+			"status": "Failed",
+			"statusCode": 401,
+			"message": "Token tidak valid atau telah kedaluwarsa. Silakan login kembali untuk mendapatkan token baru"
+		}
+		```
+
+- **Fail Response (Server Failure)**:
+	- Code: 500
+	- Response Body:
+		```json
+		{
+			"status": "Failed",
+			"statusCode": 500,
+			"message": "Terjadi kesalahan pada server. Silakan coba lagi nanti."
+		}
+		```
+
+---
+
 ### GET /logout
 
 - **Description**: Logs out a user by sending a very short-lived JWT token.
@@ -668,7 +757,7 @@ Endpoints for listing flight schedules
 		{
 			"status": "Success",
 			"statusCode": 200,
-			"message": "Permintaan reset password berhasil. Silakan cek email Anda untuk tautan reset password."
+			"message": "Tautan reset password berhasil dikirim. Silahkan cek email Anda."
 		}
 		```
 
@@ -738,7 +827,7 @@ Endpoints for listing flight schedules
 		{
 			"status": "Success",
 			"statusCode": 200,
-			"message": "Password berhasil direset. Silakan login dengan password baru Anda."
+			"message": "Reset password berhasil!"
 		}
 		```
 
@@ -1979,8 +2068,7 @@ Endpoints for listing flight schedules
 | --- | --- | --- | --- | --- |
 | userId | User unique identifier. | number | _/bookings?userId=2_ | **Required** |
 | bookingCode | Unique code identifier for flight booking ticket. | string | _/bookings?bookingCode=6723y2GHK_ | Optional |
-| dpDate | Date of departure/outbound. Date format in YYYY-MM-DD. | date | _/bookings?dpDate=2024-11-25_ | Optional |
-| retDate | Date of return/inbound. Date format in YYYY-MM-DD. | date | _/bookings?retDate=2024-11-27_ | Optional |
+| date | Date of booking. Date format in YYYY-MM-DD. | date | _/bookings?date=2024-11-25_ | Optional |
 
 - **Headers**:
 	- Content-Type: application/json
@@ -2893,14 +2981,19 @@ Endpoints for listing flight schedules
 
 ---
 
-### GET /cities/{cityId}
--   **Description**: Retrieves a city details.
+### GET /notifications
+-   **Description**: Retrieves all notifications data.
 -   **Parameters**:
     -   **Data params**: None
-    -   **Path Params**: cityId (Required)
-    -   **Query Params**: None
+    -   **Path Params**: None
+    -   **Query Params**:
+
+| Parameter | Description | Type | Example | Option |
+| --- | --- | --- | --- | --- |
+| userId | User unique identifier. | number | _/notifications?userId=2_ | **Required** |
+
 -   **Headers**:
-    -   Content-Type: application/json
+    -  Content-Type: application/json
 -   **Success Response**:
     -   Code: 200
     -   Response Body:
@@ -2908,8 +3001,16 @@ Endpoints for listing flight schedules
 		{
 			"status": "Success",
 			"statusCode": 200,
-			"message": "Data kota berhasil diambil.",
-			"data": <city_object>
+			"message": "Data notifikasi berhasil diambil.",
+			"pagination": {
+				"total": <total_notification>
+			},
+			"data": [
+				<notification_object>,
+				<notification_object>,
+				<notification_object>,
+				...
+			]
 		}
 		```
        - Example:
@@ -2917,17 +3018,41 @@ Endpoints for listing flight schedules
 			{
 	        	"status": "Success",
 	        	"statusCode": 200,
-	        	"message": "Data kota berhasil diambil.",
-	        	"data": {
-					"cityId": 1,
-					"name": "Jakarta",
-					"code": "JKT",
-					"country": "Indonesia",
-					"continent": "Asia",
-					"imageUrl": "https://dummy.url/image.png"
-				}
+	        	"message": "Data notifikasi berhasil diambil.",
+				"pagination": {
+					"total": 10
+				},
+	        	"data": [
+					{
+						"notificationId": 1,
+						"userId": 5,
+						"bookingId": 30,
+						"scheduleId": null,
+						"paymentId": null,
+						"title": "Notifikasi",
+						"message": "Pesanan tiket penerbangan dengan kode booking aWY61FAy1 berhasil dibuat. Selesaikan pembayaran Anda sebelum tanggal 31 Desember 2024 pada jam 23:59.",
+						"createdAt": "2024-12-31T18:00:00.000Z",
+						"readStatus": false
+					},
+					...
+				]
 			}
 			```
+
+- **Success Response (Empty Data)**:
+    - Code: 200
+    - Response Body:
+		```json
+		{
+			"status": "Success",
+	        	"statusCode": 200,
+	        	"message": "Tidak ada data notifikasi yang tersedia.",
+				"pagination": {
+					"total": 0
+				},
+	        	"data": []
+		}
+		```
 
 - **Fail Response (Validation Error)**:
     - Code: 400
@@ -2944,18 +3069,157 @@ Endpoints for listing flight schedules
 		{
 			"status": "Failed",
 			"statusCode": 400,
-			"message": "Validasi gagal. Pastikan cityId yang Anda masukkan dalam format yang benar."
+			"message": "Validasi gagal. Pastikan userId yang Anda masukkan dalam format yang benar."
 		}
 		```
 
-- **Fail Response (City Not Found)**:
+- **Fail Response (Server Failure)**:
+	- Code: 500
+	- Response Body:
+		```json
+		{
+			"status": "Failed",
+			"statusCode": 500,
+			"message": "Terjadi kesalahan pada server. Silakan coba lagi nanti."
+		}
+		```
+
+---
+
+### GET /notifications/{notificationId}
+-   **Description**: Retrieves a notification details.
+-   **Parameters**:
+    -   **Data params**: None
+    -   **Path Params**: None
+    -   **Query Params**: None
+-   **Headers**:
+    -  Content-Type: application/json
+-   **Success Response**:
+    -   Code: 200
+    -   Response Body:
+		```
+		{
+			"status": "Success",
+			"statusCode": 200,
+			"message": "Data notifikasi berhasil diambil.",
+			"data": <notification_object>
+		}
+		```
+       - Example:
+			```json
+			{
+	        	"status": "Success",
+	        	"statusCode": 200,
+	        	"message": "Data notifikasi berhasil diambil.",
+	        	"data": {
+					"notificationId": 1,
+					"userId": 5,
+					"bookingId": 30,
+					"scheduleId": null,
+					"paymentId": null,
+					"title": "Notifikasi",
+					"message": "Pesanan tiket penerbangan dengan kode booking aWY61FAy1 berhasil dibuat. Selesaikan pembayaran Anda sebelum tanggal 31 Desember 2024 pada jam 23:59.",
+					"createdAt": "2024-12-31T18:00:00.000Z",
+					"readStatus": false
+				}
+			}
+			```
+
+- **Fail Response (Not Found)**:
     - Code: 404
     - Response Body:
 		```json
 		{
 			"status": "Failed",
 			"statusCode": 404,
-			"message": "Data kota tidak ditemukan."
+			"message": "Notifikasi tidak ditemukan.",
+		}
+		```
+
+- **Fail Response (Validation Error)**:
+    - Code: 400
+    - Response Body:
+		```
+		{
+			"status": "Failed",
+			"statusCode": 400,
+			"message": <error_message>
+		}
+		```
+	- Example:
+		```json
+		{
+			"status": "Failed",
+			"statusCode": 400,
+			"message": "Validasi gagal. Pastikan notificationId yang Anda masukkan dalam format yang benar."
+		}
+		```
+
+- **Fail Response (Server Failure)**:
+	- Code: 500
+	- Response Body:
+		```json
+		{
+			"status": "Failed",
+			"statusCode": 500,
+			"message": "Terjadi kesalahan pada server. Silakan coba lagi nanti."
+		}
+		```
+
+---
+
+### PATCH /notifications/{notificationId}
+-   **Description**: Updates a notification data.
+-   **Parameters**:
+    -   **Data params**:
+		```
+		{
+			"readStatus": <boolean>
+		}
+		```
+    -   **Path Params**: None
+    -   **Query Params**: None
+
+-   **Headers**:
+    -  Content-Type: application/json
+-   **Success Response**:
+    -   Code: 200
+    -   Response Body:
+		```json
+		{
+			"status": "Success",
+			"statusCode": 200,
+			"message": "Notifikasi telah berhasil dibaca."
+		}
+		```
+
+- **Fail Response (Not Found)**:
+    - Code: 404
+    - Response Body:
+		```json
+		{
+			"status": "Failed",
+			"statusCode": 404,
+			"message": "Notifikasi tidak ditemukan.",
+		}
+		```
+
+- **Fail Response (Validation Error)**:
+    - Code: 400
+    - Response Body:
+		```
+		{
+			"status": "Failed",
+			"statusCode": 400,
+			"message": <error_message>
+		}
+		```
+	- Example:
+		```json
+		{
+			"status": "Failed",
+			"statusCode": 400,
+			"message": "Validasi gagal. Pastikan notificationId yang Anda masukkan dalam format yang benar."
 		}
 		```
 

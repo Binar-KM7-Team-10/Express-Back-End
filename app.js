@@ -7,6 +7,8 @@ const router = require('./routes/index');
 const errorHandler = require('./utils/errorHandler');
 const morgan = require('morgan');
 const cors = require('cors');
+const schedule = require('node-schedule');
+const Job = require('./utils/cronJob');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,3 +22,5 @@ app.use(errorHandler);
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
+
+schedule.scheduleJob('0,30 * * * *', Job.checkPayment);
