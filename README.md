@@ -233,7 +233,7 @@ Endpoints for listing flight schedules
 ### notification_object
 ```
 {
-	"notificationId": <notification_id>,
+	"id": <notification_id>,
 	"userId": <user_id>,
 	"bookingId": <booking_id>,
 	"scheduleId": <schedule_id>,
@@ -2068,8 +2068,7 @@ Endpoints for listing flight schedules
 | --- | --- | --- | --- | --- |
 | userId | User unique identifier. | number | _/bookings?userId=2_ | **Required** |
 | bookingCode | Unique code identifier for flight booking ticket. | string | _/bookings?bookingCode=6723y2GHK_ | Optional |
-| dpDate | Date of departure/outbound. Date format in YYYY-MM-DD. | date | _/bookings?dpDate=2024-11-25_ | Optional |
-| retDate | Date of return/inbound. Date format in YYYY-MM-DD. | date | _/bookings?retDate=2024-11-27_ | Optional |
+| date | Date of booking. Date format in YYYY-MM-DD. | date | _/bookings?date=2024-11-25_ | Optional |
 
 - **Headers**:
 	- Content-Type: application/json
@@ -3025,7 +3024,7 @@ Endpoints for listing flight schedules
 				},
 	        	"data": [
 					{
-						"notificationId": 1,
+						"id": 1,
 						"userId": 5,
 						"bookingId": 30,
 						"scheduleId": null,
@@ -3113,7 +3112,7 @@ Endpoints for listing flight schedules
 	        	"statusCode": 200,
 	        	"message": "Data notifikasi berhasil diambil.",
 	        	"data": {
-					"notificationId": 1,
+					"id": 1,
 					"userId": 5,
 					"bookingId": 30,
 					"scheduleId": null,

@@ -87,28 +87,49 @@ module.exports = {
             next(err);
         }
     },
-    sameUserQuery: (req, res, next) => {
+    sameUserQueryBooking: async (req, res, next) => {
         try {
             AuthValidation.headers(req.headers);
 
             const token = req.headers.authorization.split(' ')[1];
-            jwt.verify(token, JWT_SECRET, (err, decoded) => {
-                if (err) {
+            let decoded;
+
+            try {
+                decoded = jwt.verify(token, JWT_SECRET);
+            } catch (err) {
+                if (err.name === 'JsonWebTokenError' || err.name === 'TokenExpiredError') {
                     throw new HttpRequestError('Token tidak valid atau telah kedaluwarsa. Silakan login kembali untuk mendapatkan token baru.', 401);
                 }
+                throw err;
+            }
 
-                if (req.query.userId) {
-                    AuthValidation.userId(req.query);
+            if ((Object.keys(req.query).length === 0 || (Object.keys(req.query).length === 1 && req.query.date)) && decoded.role !== 'Admin') {
+                throw new HttpRequestError('Akses ditolak. Anda tidak memiliki izin untuk mengakses endpoint ini.', 403);
+            }
 
-                    if (decoded.role === 'Buyer' && decoded.id !== parseInt(req.query.userId)) {
-                        throw new HttpRequestError('Akses ditolak. Anda tidak memiliki izin untuk mengakses endpoint ini.', 403);
-                    }
-                } else if (!req.query.userId && decoded.role !== 'Admin') {
+            if (req.query.userId) {
+                AuthValidation.userId(req.query);
+
+                if (decoded.role === 'Buyer' && decoded.id !== parseInt(req.query.userId)) {
                     throw new HttpRequestError('Akses ditolak. Anda tidak memiliki izin untuk mengakses endpoint ini.', 403);
                 }
+            }
 
-                next();
-            });
+            if (req.query.bookingCode) {
+                AuthValidation.bookingCode(req.query);
+
+                const booking = await prisma.booking.findUnique({
+                    where: {
+                        bookingCode: req.query.bookingCode
+                    }
+                });
+
+                if (booking && booking.userId !== parseInt(decoded.id) && decoded.role !== 'Admin') {
+                    throw new HttpRequestError('Akses ditolak. Anda tidak memiliki izin untuk mengakses endpoint ini.', 403);
+                }
+            }
+
+            next();
         } catch (err) {
             next(err);
         }
@@ -129,6 +150,77 @@ module.exports = {
 
                 next();
             });
+        } catch (err) {
+            next(err);
+        }
+    },
+    sameUserQueryNotification: (req, res, next) => {
+        try {
+            AuthValidation.headers(req.headers);
+
+            const token = req.headers.authorization.split(' ')[1];
+            let decoded;
+
+            try {
+                decoded = jwt.verify(token, JWT_SECRET);
+            } catch (err) {
+                if (err.name === 'JsonWebTokenError' || err.name === 'TokenExpiredError') {
+                    throw new HttpRequestError('Token tidak valid atau telah kedaluwarsa. Silakan login kembali untuk mendapatkan token baru.', 401);
+                }
+                throw err;
+            }
+
+            if (Object.keys(req.query).length === 0 && decoded.role !== 'Admin') {
+                throw new HttpRequestError('Akses ditolak. Anda tidak memiliki izin untuk mengakses endpoint ini.', 403);
+            }
+
+            if (req.query.userId) {
+                AuthValidation.userId(req.query);
+
+                if (decoded.role === 'Buyer' && decoded.id !== parseInt(req.query.userId)) {
+                    throw new HttpRequestError('Akses ditolak. Anda tidak memiliki izin untuk mengakses endpoint ini.', 403);
+                }
+            }
+
+            next();
+        } catch (err) {
+            next(err);
+        }
+    },
+    sameUserParamNotification: async (req, res, next) => {
+        try {
+            AuthValidation.headers(req.headers);
+
+            const token = req.headers.authorization.split(' ')[1];
+            let decoded;
+
+            try {
+                decoded = jwt.verify(token, JWT_SECRET);
+            } catch (err) {
+                if (err.name === 'JsonWebTokenError' || err.name === 'TokenExpiredError') {
+                    throw new HttpRequestError('Token tidak valid atau telah kedaluwarsa. Silakan login kembali untuk mendapatkan token baru.', 401);
+                }
+                throw err;
+            }
+
+            AuthValidation.notificationId(req.params);
+            const notification = await prisma.notification.findUnique({
+                where: {
+                    id: parseInt(req.params.id)
+                }
+            });
+
+            if (!notification) {
+                throw new HttpRequestError('Notifikasi tidak ditemukan.', 404);
+            }
+
+            if (!(decoded.role === 'Buyer' || decoded.role === 'Admin') ||
+                (decoded.id !== parseInt(notification.userId) && decoded.role === 'Buyer')
+            ) {
+                throw new HttpRequestError('Akses ditolak. Anda tidak memiliki izin untuk mengakses endpoint ini.', 403);
+            }
+
+            next();
         } catch (err) {
             next(err);
         }

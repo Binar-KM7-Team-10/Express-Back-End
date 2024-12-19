@@ -11,7 +11,8 @@ class QueryParser {
             minPrice = 0,
             maxPrice,
             psg,
-            facility
+            facility,
+            airline
         } = query;
 
         const facilityMapping = {
@@ -68,6 +69,9 @@ class QueryParser {
                 } : undefined,
                 arrivalAirport: arCity ? {
                     cityId: arCityId
+                } : undefined,
+                airline: airline ? {
+                    name: airline
                 } : undefined,
                 AND: facilities.length ? facilities.map(f => ({
                     FlightService: {
@@ -129,21 +133,15 @@ class QueryParser {
     }
 
     static parseBookingFilters(query) {
-        const { userId, bookingCode, dpDate } = query;
+        const { userId, bookingCode, date } = query;
 
         return {
             bookingCode: bookingCode || undefined,
             userId: parseInt(userId) || undefined,
-            Itinerary: {
-                some: {
-                    schedule: {
-                        departureDateTime: dpDate ? {
-                            gte: new Date(`${dpDate}T00:00:00Z`),
-                            lte: new Date(`${dpDate}T23:59:59Z`),
-                        } : undefined
-                    }
-                }
-            }
+            date: date ? {
+                gte: new Date(`${date}T00:00:00Z`),
+                lte: new Date(`${date}T23:59:59Z`),
+            } : undefined
         }
     }
 };
