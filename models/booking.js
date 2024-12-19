@@ -304,6 +304,9 @@ class Booking {
         const invoice = await prisma.invoice.findUnique({
             where: {
                 bookingId: parseInt(bookingId)
+            },
+            include: {
+                booking: true
             }
         });
 
@@ -329,6 +332,12 @@ class Booking {
                 }
             });
         }
+
+        return {
+            bookingId: invoice.booking.id,
+            bookingCode: invoice.booking.bookingCode,
+            paymentId: payment.id
+        };
     }
 }
 
