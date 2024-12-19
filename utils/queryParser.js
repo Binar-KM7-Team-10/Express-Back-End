@@ -11,7 +11,8 @@ class QueryParser {
             minPrice = 0,
             maxPrice,
             psg,
-            facility
+            facility,
+            airline
         } = query;
 
         const facilityMapping = {
@@ -68,6 +69,9 @@ class QueryParser {
                 } : undefined,
                 arrivalAirport: arCity ? {
                     cityId: arCityId
+                } : undefined,
+                airline: airline ? {
+                    name: airline
                 } : undefined,
                 AND: facilities.length ? facilities.map(f => ({
                     FlightService: {

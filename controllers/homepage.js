@@ -24,5 +24,23 @@ module.exports = {
         } catch (err) {
             next(err);
         }
+    },
+    getCity: async (req, res, next) => {
+        try {
+            const cities = await Homepage.getCities();
+            return res.status(200).json({
+                status: 'Success',
+                statusCode: 200,
+                message: cities.length > 0 ? 'Data kota berhasil diambil.' : "Tidak ada kota yang tersedia.",
+                pagination : {
+                    total: cities.length
+                },
+                data: {
+                    cities
+                }
+            });
+        } catch (err) {
+            next(err);
+        }
     }
 };
