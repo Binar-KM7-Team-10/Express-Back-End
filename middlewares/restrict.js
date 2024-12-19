@@ -37,13 +37,14 @@ module.exports = {
                     throw new HttpRequestError('Token tidak valid atau telah kedaluwarsa. Silakan login kembali untuk mendapatkan token baru.', 401);
                 }
 
-                AuthValidation.userId(req.params);
+                AuthValidation.userIdParam(req.params);
 
                 if (!(decoded.role === 'Buyer' || decoded.role === 'Admin') ||
                     (decoded.id !== parseInt(req.params.id) && decoded.role === 'Buyer')) {
                     throw new HttpRequestError('Akses ditolak. Anda tidak memiliki izin untuk mengakses endpoint ini.', 403);
                 }
 
+                req.user = decoded;
                 next();
             });
         } catch (err) {
@@ -78,6 +79,7 @@ module.exports = {
                         throw new HttpRequestError('Akses ditolak. Anda tidak memiliki izin untuk mengakses endpoint ini.', 403);
                     }
     
+                    req.user = decoded;
                     next();
                 } catch (err) {
                     next(err);
@@ -108,7 +110,7 @@ module.exports = {
             }
 
             if (req.query.userId) {
-                AuthValidation.userId(req.query);
+                AuthValidation.userIdQuery(req.query);
 
                 if (decoded.role === 'Buyer' && decoded.id !== parseInt(req.query.userId)) {
                     throw new HttpRequestError('Akses ditolak. Anda tidak memiliki izin untuk mengakses endpoint ini.', 403);
@@ -175,7 +177,7 @@ module.exports = {
             }
 
             if (req.query.userId) {
-                AuthValidation.userId(req.query);
+                AuthValidation.userIdQuery(req.query);
 
                 if (decoded.role === 'Buyer' && decoded.id !== parseInt(req.query.userId)) {
                     throw new HttpRequestError('Akses ditolak. Anda tidak memiliki izin untuk mengakses endpoint ini.', 403);

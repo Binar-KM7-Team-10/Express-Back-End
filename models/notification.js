@@ -49,6 +49,26 @@ class Notification {
         });
     }
 
+    static async create(userId, title, message, data) {
+        const {
+            bookingId,
+            scheduleId,
+            paymentId
+        } = data;
+
+        await prisma.notification.create({
+            data: {
+                userId: parseInt(userId),
+                title,
+                message,
+                createdAt: new Date(Date.now()),
+                readStatus: false,
+                bookingId: bookingId ? parseInt(bookingId) : null,
+                scheduleId: scheduleId ? parseInt(scheduleId) : null,
+                paymentId: paymentId ? parseInt(paymentId) : null
+            }
+        });
+    }
 }
 
 module.exports = Notification;
