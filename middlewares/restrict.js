@@ -87,7 +87,7 @@ module.exports = {
             next(err);
         }
     },
-    sameUserQuery: async (req, res, next) => {
+    sameUserQueryBooking: async (req, res, next) => {
         try {
             AuthValidation.headers(req.headers);
 
@@ -154,4 +154,37 @@ module.exports = {
             next(err);
         }
     },
+    sameUserQueryNotification: (req, res, next) => {
+        try {
+            AuthValidation.headers(req.headers);
+
+            const token = req.headers.authorization.split(' ')[1];
+            let decoded;
+
+            try {
+                decoded = jwt.verify(token, JWT_SECRET);
+            } catch (err) {
+                if (err.name === 'JsonWebTokenError' || err.name === 'TokenExpiredError') {
+                    throw new HttpRequestError('Token tidak valid atau telah kedaluwarsa. Silakan login kembali untuk mendapatkan token baru.', 401);
+                }
+                throw err;
+            }
+
+            if (Object.keys(req.query).length === 0 && decoded.role !== 'Admin') {
+                throw new HttpRequestError('Akses ditolak. Anda tidak memiliki izin untuk mengakses endpoint ini.', 403);
+            }
+
+            if (req.query.userId) {
+                AuthValidation.userId(req.query);
+
+                if (decoded.role === 'Buyer' && decoded.id !== parseInt(req.query.userId)) {
+                    throw new HttpRequestError('Akses ditolak. Anda tidak memiliki izin untuk mengakses endpoint ini.', 403);
+                }
+            }
+
+            next();
+        } catch (err) {
+            next(err);
+        }
+    }
 };
