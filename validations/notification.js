@@ -32,5 +32,14 @@ module.exports = {
         } else if (isNaN(id)) {
             throw new HttpRequestError("Validasi gagal. Pastikan notificationId yang Anda masukkan dalam format yang benar.", 400);
         }
-    },    
+    },
+    validateBody: (body) => {
+        const { readStatus } = body;
+
+        if (!readStatus) {
+            throw new HttpRequestError('Validasi gagal. Pastikan readStatus telah diisi.', 400);
+        } else if (typeof readStatus !== 'boolean') {
+            throw new HttpRequestError('Validasi gagal. Pastikan readStatus bertipe boolean.', 400);
+        }
+    }
 }

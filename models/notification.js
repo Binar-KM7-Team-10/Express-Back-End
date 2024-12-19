@@ -37,15 +37,16 @@ class Notification {
         return notification;
     }
 
-    static async patchReadStatus(id){
-        const updateStatus = await prisma.notification.update({
+    static async patchReadStatus(params, body){
+        const { id } = params;
+        const { readStatus } = body;
+
+        await prisma.notification.update({
             where: {id: parseInt(id)},
             data: {
-                readStatus: true
+                readStatus
             }
         });
-
-        return updateStatus;
     }
 
 }

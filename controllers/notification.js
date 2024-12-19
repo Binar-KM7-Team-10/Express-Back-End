@@ -35,19 +35,14 @@ module.exports = {
     },
     patch: async (req, res, next) => {
         try {
-            const { id } = req.params
-            await notificationValidation.validateNotificationId(id);
-            const update = await Notification.patchReadStatus(id);
+            await notificationValidation.validateNotificationId(req.params);
+            notificationValidation.validateBody(req.body);
+            await Notification.patchReadStatus(req.params, req.body);
 
             return res.status(200).json({
                 status: "Success",
                 statusCode: 200,
-                message: "Notifikasi telah berhasil dibaca",
-                data: {
-                    notification: {
-                        readStatus: update.readStatus
-                    }
-                }
+                message: "Notifikasi telah berhasil dibaca."
             });
         } catch (error) {
             next(error);
