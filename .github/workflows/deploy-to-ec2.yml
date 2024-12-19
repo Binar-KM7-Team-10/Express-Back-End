@@ -34,11 +34,15 @@ jobs:
           EMAIL_HOST: ${{ secrets.EMAIL_HOST }}
           CLIENT_URL: ${{ secrets.CLIENT_URL }}
           DOMAIN_NAME: ${{ secrets.DOMAIN_NAME }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          GOOGLE_CALLBACK_URL: ${{ secrets.GOOGLE_CALLBACK_URL }}
         with:
           host: ${{ secrets.HOST_DNS }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
-          envs: NODE_ENV, PORT, DATABASE_URL, JWT_SECRET, EMAIL_PASS, EMAIL_USER, EMAIL_HOST, CLIENT_URL, DOMAIN_NAME
+          command_timeout: 30m
+          envs: NODE_ENV, PORT, DATABASE_URL, JWT_SECRET, EMAIL_PASS, EMAIL_USER, EMAIL_HOST, CLIENT_URL, DOMAIN_NAME, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_CALLBACK_URL
           script: |
             sudo apt-get -y update
             sudo apt-get -y upgrade

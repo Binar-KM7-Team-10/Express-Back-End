@@ -21,7 +21,7 @@ class Auth {
             },
         });
 
-        const otp = generateTOTP(otpSecret);
+        const otp = generateTOTP(otpSecret);        
 
         return { ...user, otp };
     }
@@ -187,4 +187,5 @@ class Auth {
         };
     }
 }
+
 module.exports = Auth;

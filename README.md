@@ -26,6 +26,7 @@ Flight ticket booking service.
 		- [POST /register/otp](#post-registerotp)
 		- [POST /register/otp/resend](#post-registerotpresend)
 		- [POST /login](#post-login)
+		- [GET /login/google](#get-logingoogle)
 		- [GET /logout](#get-logout)
 		- [POST /forgot-password](#post-forgot-password)
 		- [POST /reset-password](#post-reset-password)
@@ -63,6 +64,7 @@ Flight ticket booking service.
 | day_enum | `Minggu`, `Senin`, `Selasa`, `Rabu`, `Kamis`, `Jumat`, `Sabtu` |
 | booking_status_enum | `Unpaid`, `Issued`, `Cancelled` |
 | journey_type_enum | `One-way`, `Round-trip` |
+| payment_method_enum | `Credit Card`, `Virtual Account`, `Gopay` |
 
 ## Objects
 Endpoints for listing flight schedules
@@ -593,6 +595,72 @@ Endpoints for listing flight schedules
 			"status": "Failed",
 			"statusCode": 400,
 			"message": "Format email tidak valid. Pastikan Anda memasukkan email dengan format yang benar."
+		}
+		```
+
+- **Fail Response (Server Failure)**:
+	- Code: 500
+	- Response Body:
+		```json
+		{
+			"status": "Failed",
+			"statusCode": 500,
+			"message": "Terjadi kesalahan pada server. Silakan coba lagi nanti."
+		}
+		```
+
+---
+
+### GET /login/google
+
+- **Description**: Logs in/creates a user account with Google OAuth 2.0
+- **Parameters**:
+	- **Data params**: None
+	- **Path Params**: None
+	- **Query Params**: None
+- **Headers**:
+	- Content-Type: application/json
+- **Success Response**:
+	- Code: 200
+	- Response Body:
+		```
+		{
+			"status": "Success",
+			"statusCode": 200,
+			"message": "Login Google berhasil.",
+			"data": {
+				"user": <user_object>,
+			    "accessToken": <jwt_token>
+		  }
+		}
+		```
+	- Example
+		```json
+		{
+			"status": "Success",
+			"message": "Login Google berhasil.",
+			"statusCode": 200,
+			"data": {
+				"user": {
+					"id": 1,
+					"fullName": "John Doe",
+					"email": "user@example.com",
+					"phoneNumber": null,
+					"role": "Buyer"
+			    },
+			    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+		  }
+		}
+		```
+
+- **Fail Response (Invalid Credentials)**:
+	- Code: 401
+	- Response Body:
+		```json
+		{
+			"status": "Failed",
+			"statusCode": 401,
+			"message": "Token tidak valid atau telah kedaluwarsa. Silakan login kembali untuk mendapatkan token baru"
 		}
 		```
 
@@ -2000,8 +2068,7 @@ Endpoints for listing flight schedules
 | --- | --- | --- | --- | --- |
 | userId | User unique identifier. | number | _/bookings?userId=2_ | **Required** |
 | bookingCode | Unique code identifier for flight booking ticket. | string | _/bookings?bookingCode=6723y2GHK_ | Optional |
-| dpDate | Date of departure/outbound. Date format in YYYY-MM-DD. | date | _/bookings?dpDate=2024-11-25_ | Optional |
-| retDate | Date of return/inbound. Date format in YYYY-MM-DD. | date | _/bookings?retDate=2024-11-27_ | Optional |
+| date | Date of booking. Date format in YYYY-MM-DD. | date | _/bookings?date=2024-11-25_ | Optional |
 
 - **Headers**:
 	- Content-Type: application/json

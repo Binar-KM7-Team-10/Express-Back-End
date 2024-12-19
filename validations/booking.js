@@ -8,8 +8,7 @@ module.exports = {
         const {
             userId,
             bookingCode,
-            dpDate,
-            retDate
+            date
         } = query;
 
         if (userId && (typeof userId !== 'string' || isNaN(userId))) {
@@ -22,16 +21,8 @@ module.exports = {
 
         const dateRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
 
-        if (dpDate && (typeof dpDate !== 'string' || !dpDate.match(dateRegex))) {
-            throw new HttpRequestError('Validasi gagal. Pastikan dpDate yang Anda masukkan dalam format yang benar (YYYY-MM-DD).', 400);
-        }
-        
-        if (retDate && (typeof retDate !== 'string' || !retDate.match(dateRegex))) {
-            throw new HttpRequestError('Validasi gagal. Pastikan retDate yang Anda masukkan dalam format yang benar (YYYY-MM-DD).', 400);
-        }
-
-        if (dpDate && retDate && (new Date(dpDate) >= new Date(retDate))) {
-            throw new HttpRequestError('Validasi gagal. Pastikan dpDate lebih awal daripada retDate.', 400);
+        if (date && (typeof date !== 'string' || !date.match(dateRegex))) {
+            throw new HttpRequestError('Validasi gagal. Pastikan date yang Anda masukkan dalam format yang benar (YYYY-MM-DD).', 400);
         }
     },
     validatePathParams: async (params) => {
@@ -158,12 +149,26 @@ module.exports = {
         }
 
         passenger.data.map((p) => {
+            if (!p.hasOwnProperty('ageGroup')) {
+                throw new HttpRequestError('Validasi gagal. Pastikan setiap passenger.data memiliki properti ageGroup.', 400);
+            }
+
             const ageGroupOptions = ['Adult', 'Child', 'Baby'];
             if (!p.ageGroup || typeof p.ageGroup !== 'string' || !ageGroupOptions.includes(p.ageGroup)) {
                 throw new HttpRequestError('Validasi gagal. Pastikan ageGroup pada passenger.data yang Anda masukkan dalam format yang benar dan memiliki nilai \'Adult\', \'Child\', atau \'Baby\'.', 400);
             }
 
             if (p.ageGroup !== 'Baby') {
+                if (!p.hasOwnProperty('label') ||
+                    !p.hasOwnProperty('title') ||
+                    !p.hasOwnProperty('fullName') ||
+                    !p.hasOwnProperty('birthDate') ||
+                    !p.hasOwnProperty('nationality') ||
+                    !p.hasOwnProperty('identityNumber')
+                ) {
+                    throw new HttpRequestError('Validasi gagal. Pastikan Anda memasukkan label, title, fullName, birthDate, nationality, dan identityNumber pada setiap passenger.data.', 400);
+                }
+                
                 if (!p.label || typeof p.label !== 'string' || !p.label.match(/^P([1-9]|[1-6][0-9]|7[0-2])$/)) {
                     throw new HttpRequestError('Validasi gagal. Pastikan label pada passenger.data yang Anda masukkan dalam format yang benar.', 400);
                 }
