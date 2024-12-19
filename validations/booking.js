@@ -148,6 +148,10 @@ module.exports = {
             throw new HttpRequestError('Validasi gagal. Pastikan passenger.data memiliki jumlah data passenger.total ditambah passenger.baby.', 400);
         }
 
+        if (outboundSchedule.seatAvailability < parseInt(passenger.total)) {
+            throw new HttpRequestError('Pemesanan gagal. Kursi yang dipesan sedang tidak tersedia.', 400);
+        }
+
         passenger.data.map((p) => {
             if (!p.hasOwnProperty('ageGroup')) {
                 throw new HttpRequestError('Validasi gagal. Pastikan setiap passenger.data memiliki properti ageGroup.', 400);

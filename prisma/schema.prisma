@@ -89,6 +89,7 @@ model Schedule {
   seatAvailability Int
   seatClass String
   terminalGate String
+  version Int @default(1)
   flight Flight @relation(fields: [flightId], references: [id])
   Seat Seat[]
   Itinerary Itinerary[]
