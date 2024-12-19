@@ -6,22 +6,23 @@ const prisma = new PrismaClient();
 module.exports = {
     validateUserId: async (data) => {
         const { userId } = data;
-    
-        if(!userId){
-            throw new HttpRequestError("Validasi gagal. Pastikan userId telah diisi.", 400);
-        }else if (isNaN(userId)){
-            throw new HttpRequestError("Validasi gagal. Pastikan userId yang Anda masukkan dalam format yang benar.", 400);
-        }
-    
-        const findUserId = await prisma.user.findUnique({
-            where: {
-                id: parseInt(userId)
+        
+        if (userId) {
+            if (isNaN(userId)){
+                throw new HttpRequestError("Validasi gagal. Pastikan userId yang Anda masukkan dalam format yang benar.", 400);
             }
-        });
-    
-        if (!findUserId){
-            throw new HttpRequestError("Pengguna tidak ditemukan. Pastikan userId yang Anda masukkan benar.", 404);
+            
+            const findUserId = await prisma.user.findUnique({
+                where: {
+                    id: parseInt(userId)
+                }
+            });
+        
+            if (!findUserId){
+                throw new HttpRequestError("Pengguna tidak ditemukan. Pastikan userId yang Anda masukkan benar.", 404);
+            }
         }
+    
     },
     validateNotificationId: async (id) => {
         if (!id) {

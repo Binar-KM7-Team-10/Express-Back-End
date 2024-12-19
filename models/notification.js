@@ -2,30 +2,23 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 class Notification {
-    static async getAllNotification(userId, query) {
-        const {page = 1} = query;
-        const limit = 10;
-        const skip = (page - 1) * limit;
-
+    static async getAllNotification(query) {
+        const { userId } = query;
         const [notifications, count] = await Promise.all([
             prisma.notification.findMany({
                 where: {
-                    userId: parseInt(userId),
+                    userId: userId ? parseInt(userId) : undefined,
                 },
                 orderBy: {
                     createdAt: 'desc'
-                },
-                skip,
-                take: limit
+                }
             }),
             prisma.notification.count({
                 where: {
-                    userId: parseInt(userId)
+                    userId: userId ? parseInt(userId) : undefined
                 }
             })
         ]);
-
-        const totalPages = Math.ceil(count / limit);
 
         return {
             pagination: {

@@ -4,24 +4,15 @@ const notificationValidation = require('../validations/notification');
 module.exports = {
     getAll: async (req, res, next) => {
         try {
-            const { userId, page } = req.query;
-            await notificationValidation.validateUserId({userId});
-            const get = await Notification.getAllNotification(userId, { page });
-    
-            if (!get || get.notifications.length === 0) {
-                return res.status(200).json({
-                    status: "Success",
-                    statusCode: 200,
-                    message: "Tidak ada notifikasi yang tersedia",
-                    data: []
-                });
-            }
+            await notificationValidation.validateUserId(req.query);
+            const { pagination, notifications } = await Notification.getAllNotification(req.query);
 
             return res.status(200).json({
                 status: "Success",
                 statusCode: 200,
-                message: "Data notifikasi berhasil diambil",
-                data: get
+                message: notifications.length === 0 ? "Tidak ada notifikasi yang tersedia." : "Data notifikasi berhasil diambil.",
+                pagination,
+                data: notifications
             });
         } catch (error) {
             next(error);
