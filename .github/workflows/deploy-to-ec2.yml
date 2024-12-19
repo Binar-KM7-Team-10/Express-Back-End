@@ -69,4 +69,9 @@ jobs:
             sudo snap install core; sudo snap refresh core
             sudo ln -s /snap/bin/certbot /usr/bin/certbot
             sudo certbot --nginx -d $DOMAIN_NAME -d www.$DOMAIN_NAME --non-interactive --agree-tos -m $EMAIL_USER
-            sudo certbot renew --dry-run --non-interactive
+            if sudo certbot certificates | grep -q "VALID:"; then
+              echo "No renewal needed."
+            else
+              echo "Attempting renewal..."
+              sudo certbot renew --dry-run --non-interactive
+            fi
