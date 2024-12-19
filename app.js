@@ -19,9 +19,10 @@ app.use(express.json());
 app.use(router);
 app.use(errorHandler);
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 
 schedule.scheduleJob('0,30 * * * *', Job.checkPayment);
-module.exports = app; // Ekspor app
+
+module.exports = { app, server };
