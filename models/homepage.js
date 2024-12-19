@@ -102,13 +102,13 @@ class Homepage {
         };
     }
     static async getCities() {
-        try {
-          const cities = await prisma.city.findMany();
-          return cities;
-        } catch (error) {
-          console.error("Error:", error);
-          return error;
-        }
+        const cities = await prisma.city.findMany({
+            orderBy: {
+                name: 'asc'
+            }
+        });
+        
+        return cities;
       }
 }
 

@@ -31,7 +31,7 @@ module.exports = {
             return res.status(200).json({
                 status: 'Success',
                 statusCode: 200,
-                message: cities.length > 0 ? 'Data kota berhasil diambil.' : "Tidak ada kota yang tersedia",
+                message: cities.length > 0 ? 'Data kota berhasil diambil.' : "Tidak ada kota yang tersedia.",
                 pagination : {
                     total: cities.length
                 },
@@ -40,7 +40,6 @@ module.exports = {
                 }
             });
         } catch (err) {
-            console.log(err, "ini error di controller getCity");
             next(err);
         }
     }
