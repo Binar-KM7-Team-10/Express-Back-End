@@ -1,3 +1,4 @@
+const Notification = require('../models/notification');
 const User = require('../models/user');
 const UserValidations = require('../validations/user');
 
@@ -68,6 +69,12 @@ module.exports = {
             await UserValidations.validateId(req.params);
             await UserValidations.patch(req.body, req.params.id);
             const editUser = await User.patchUser(req.params.id, req.body);
+            await Notification.create(
+                req.user.id,
+                `Pembaruan Informasi Akun`,
+                `Informasi akun Anda telah berhasil diperbarui.`,
+                {}
+            );
 
             return res.status(200).json({
                 status: "Success",

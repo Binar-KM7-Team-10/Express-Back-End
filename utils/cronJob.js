@@ -1,9 +1,34 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+const Notification = require('../models/notification');
 
 class Job {
     static async checkPayment() {
-        const bookings = await prisma.booking.updateMany({
+        const updatedBookings = await prisma.booking.findMany({
+            where: {
+                AND: [
+                    {
+                        status: 'Unpaid'
+                    },
+                    {
+                        Invoice: {
+                            paymentDueDateTime: {
+                                lte: new Date(Date.now())
+                            }
+                        }
+                    },
+                    {
+                        Invoice: {
+                            Payment: {
+                                is: null
+                            }
+                        }
+                    }
+                ]
+            }
+        });
+
+        await prisma.booking.updateMany({
             where: {
                 AND: [
                     {
@@ -30,7 +55,7 @@ class Job {
             }
         });
 
-        const bookedSeats = await prisma.bookedSeat.deleteMany({
+        await prisma.bookedSeat.deleteMany({
             where: {
                 booking: {
                     status: 'Cancelled'
@@ -38,10 +63,14 @@ class Job {
             }
         });
 
-        // if (bookings.count !== 0) {
-        //     console.log(`Updated ${bookings.count} rows of Booking.`);
-        //     console.log(`Deleted ${bookedSeats.count} rows of BookedSeat.`);
-        // }
+        await Promise.all(updatedBookings.map(async (booking) => {
+            await Notification.create(
+                booking.userId,
+                `Pembayaran Melewati Batas Waktu`,
+                `Pemesanan tiket Anda dengan kode booking ${booking.bookingCode} telah dibatalkan karena pembayaran melewati batas waktu yang ditentukan. Mohon lakukan pemesanan ulang jika masih diperlukan. Terima kasih.`,
+                { bookingId: booking.id }
+            );
+        }));
     }
 }
 

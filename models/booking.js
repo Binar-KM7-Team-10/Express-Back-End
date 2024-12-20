@@ -5,6 +5,7 @@ const Passenger = require('./passenger');
 const Payment = require('./payment');
 const Invoice = require('./invoice');
 const { customAlphabet } = require('nanoid');
+const HttpRequestError = require('../utils/error');
 const prisma = new PrismaClient();
 
 class Booking {
@@ -200,16 +201,24 @@ class Booking {
             }
         }));
 
-        await prisma.schedule.update({
+        const updatedSchedule = await prisma.schedule.update({
             where: {
-                id: parseInt(itinerary.outbound)
+                id: parseInt(itinerary.outbound),
+                version: outboundSchedule.version
             },
             data: {
                 seatAvailability: {
                     decrement: outboundSeatData.length
+                },
+                version: {
+                    increment: 1
                 }
             }
         });
+
+        if (!updatedSchedule) {
+            throw new HttpRequestError('Pemesanan gagal. Pesanan Anda sedang tidak dapat diproses. Mohon coba lagi.', 400);
+        }
 
         // Passenger -> BookedSeat -> Seat -> Schedule
         passenger.data.map(async (p) => {
@@ -304,6 +313,9 @@ class Booking {
         const invoice = await prisma.invoice.findUnique({
             where: {
                 bookingId: parseInt(bookingId)
+            },
+            include: {
+                booking: true
             }
         });
 
@@ -329,6 +341,12 @@ class Booking {
                 }
             });
         }
+
+        return {
+            bookingId: invoice.booking.id,
+            bookingCode: invoice.booking.bookingCode,
+            paymentId: payment.id
+        };
     }
 }
 
