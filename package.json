@@ -25,7 +25,11 @@
     "seed:passenger": "node ./database/seedPassenger.js",
     "seed:notification": "node ./database/seedNotification.js",
     "seed:all": "node ./database/seedCity.js && node ./database/seedAirport.js && node ./database/seedAirline.js && node ./database/seedService.js && node ./database/seedUser.js && node ./database/seedFlight.js && node ./database/seedFlightService.js && node ./database/seedBaggage.js && node ./database/seedSchedule.js && node ./database/seedSeat.js && node ./database/seedBooking.js && node ./database/seedItinerary.js && node ./database/seedBookedSeat.js && node ./database/seedInvoice.js && node ./database/seedPayment.js && node ./database/seedPassenger.js",
-    "setup": "npm run db:reset && npm run seed:all && echo \"If there is no error above, then you have successfully setup the database.\""
+    "setup": "npm run db:reset && npm run seed:all && echo \"If there is no error above, then you have successfully setup the database.\"",
+    "test": "jest",
+    "test:unit": "jest --testPathPattern=unit",
+    "test:integration": "jest --testPathPattern=integration",
+    "test:integrationUser": "npx jest tests/integration/user.integration.test.js --detectOpenHandles --collect-coverage --coverage" 
   },
   "author": "Team 10 Back End",
   "license": "ISC",
@@ -34,6 +38,7 @@
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "express": "^4.21.2",
+    "jest": "^29.7.0",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "nanoid": "^3.3.8",
@@ -42,7 +47,8 @@
     "otplib": "^12.0.1",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
-    "prisma": "^6.0.1"
+    "prisma": "^6.0.1",
+    "supertest": "^7.0.0"
   },
   "devDependencies": {
     "dotenv": "^16.4.7",
