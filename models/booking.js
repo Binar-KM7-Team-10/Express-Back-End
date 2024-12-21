@@ -182,8 +182,10 @@ class Booking {
         const outboundSeatData = await Promise.all(seat.outbound.map(async (s) => {
             const seat = await prisma.seat.findUnique({
                 where: {
-                    scheduleId: parseInt(itinerary.outbound),
-                    seatNumber: s.seatNumber
+                    scheduleId_seatNumber: {
+                        scheduleId: parseInt(itinerary.outbound),
+                        seatNumber: s.seatNumber
+                    }
                 }
             });
 

@@ -1,12 +1,12 @@
 
 
-# Tiketku API
+# TiketGo API
 
 Flight ticket booking service.
 
 ## Table of Contents
 
-- [Tiketku API](#tiketku-api)
+- [TiketGo API](#tiketgo-api)
 	- [Table of Contents](#table-of-contents)
 	- [Enumerations](#enumerations)
 	- [Objects](#objects)

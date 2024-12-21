@@ -126,6 +126,7 @@ model Seat {
   seatNumber String
   schedule Schedule @relation(fields: [scheduleId], references: [id])
   BookedSeat BookedSeat?
+  @@unique([scheduleId, seatNumber])
 }
 
 model BookedSeat {

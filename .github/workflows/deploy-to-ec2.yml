@@ -54,6 +54,9 @@ jobs:
             npm ci
             npm i -g pm2
             npx prisma migrate deploy
+            pm2 stop all || true
+            pm2 delete all || true
+            fuser -k 3000/tcp || true
             pm2 start -f app.js
             pm2 startup -f ubuntu
             sudo ufw --force enable
