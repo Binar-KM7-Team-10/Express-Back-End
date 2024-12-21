@@ -1,6 +1,11 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
+const clearLastLine = () => {
+    process.stdout.moveCursor(0, -1) // up one line
+    process.stdout.clearLine(1) // from cursor to end
+}
+
 function getRandomInt(min, max) {
     const minCeiled = Math.ceil(min);
     const maxFloored = Math.floor(max);
@@ -9,8 +14,8 @@ function getRandomInt(min, max) {
 
 let total = 0;
 const seedDatabase = async () => {
-    const flightNumber = 100;
-    for (let i = 1; i <= flightNumber; i++) {
+    const flightSize = await prisma.flight.count();
+    for (let i = 1; i <= flightSize; i++) {
         try {
             await prisma.baggage.create({
                 data: {
@@ -20,6 +25,8 @@ const seedDatabase = async () => {
                 }
             });
             total++;
+            console.log(`Seeding Baggage: ${total}/${flightSize}`);
+            clearLastLine();
         } catch (err) {
             console.error(err);
         }
