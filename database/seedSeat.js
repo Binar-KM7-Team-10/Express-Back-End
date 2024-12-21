@@ -1,13 +1,17 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
+const clearLastLine = () => {
+    process.stdout.moveCursor(0, -1) // up one line
+    process.stdout.clearLine(1) // from cursor to end
+}
+
 function nextChar(c) {
     return String.fromCharCode(c.charCodeAt(0) + 1);
 }
 
 let total = 0;
 const seedDatabase = async () => {
-    console.log('Please wait, this might take a while to seed Seat table.');
     const scheduleNumber = await prisma.schedule.count();
 
     for (let i = 1; i <= scheduleNumber; i++) {
@@ -30,8 +34,8 @@ const seedDatabase = async () => {
                     }
                 });
                 total++;
-                // console.clear();
-                // console.log(`Inserted ${total}/${scheduleNumber * 72} rows on Seat table`);
+                console.log(`Seeding Seat: ${total}/${scheduleNumber * 72}`);
+                clearLastLine();
             } catch (err) {
                 console.error(err);
             }

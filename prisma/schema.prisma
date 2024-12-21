@@ -123,7 +123,7 @@ model Booking {
 model Seat {
   id Int @id @default(autoincrement())
   scheduleId Int
-  seatNumber String
+  seatNumber String @db.VarChar(3)
   schedule Schedule @relation(fields: [scheduleId], references: [id])
   BookedSeat BookedSeat?
   @@unique([scheduleId, seatNumber])
