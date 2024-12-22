@@ -29,7 +29,7 @@
     "test": "jest",
     "test:unit": "jest --testPathPattern=unit",
     "test:integration": "jest --testPathPattern=integration",
-    "test:integrationUser": "npx jest tests/integration/user.integration.test.js --detectOpenHandles --collect-coverage --coverage" 
+    "test:integrationUser": "npx jest tests/integration/user.integration.test.js --detectOpenHandles --collect-coverage --coverage"
   },
   "author": "Team 10 Back End",
   "license": "ISC",
