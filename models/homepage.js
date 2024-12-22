@@ -101,6 +101,15 @@ class Homepage {
             }
         };
     }
+    static async getCities() {
+        const cities = await prisma.city.findMany({
+            orderBy: {
+                name: 'asc'
+            }
+        });
+        
+        return cities;
+      }
 }
 
 module.exports = Homepage;

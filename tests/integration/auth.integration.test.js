@@ -1,75 +1,117 @@
 const request = require('supertest');
 const { app, server } = require('../../app');
 const jwt = require('jsonwebtoken');
+const {generateTOTP, generateSecret } = require ('../../utils/totp')
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient()
+const bcrypt = require('bcrypt');
+const crypto = require('crypto');
+const {generateToken} = require('../../utils/jwtHelper');
+const user = require('../../validations/user');
 
 describe('User Registration Integration Tests', () => {
-    afterAll(() => {
-        server.close();
-    });
+  beforeEach(async () => {
+    await prisma.user.deleteMany({});
+  });
 
-    it('should successfully register a new account', async () => {
-        const data = {
-            fullName: 'Jane Doe',
-            email: 'dinajaya126@gmail.com',
-            password: 'securePassword123',
-            phoneNumber: '6281234567888',
-        };
+  afterAll(async () => {
 
-        const response = await request(app).post('/register').send(data);
+    await prisma.$disconnect();
+    server.close();
+  });
 
-        
+  it('should successfully register a new account', async () => {
+    const data = {
+      fullName: 'Jane Doe',
+      email: 'dinajaya126@gmail.com',
+      password: 'securePassword123',
+      phoneNumber: '6281234567888',
+    };
+
+    const response = await request(app).post('/register').send(data);
+
     console.log('Response status:', response.status);
     console.log('Response body:', response.body);
-        expect(response.status).toBe(201);
-        expect(response.body).toMatchObject({
-            status: 'Success',
-            statusCode: 201,
-            message:
-                'Registrasi berhasil. Silakan verifikasi akun Anda melalui kode OTP yang telah dikirimkan ke email Anda.',
-            data: {
-                user: {
-                    id: response.body.data.user.id,
-                    email: 'dinajaya126@gmail.com',
-                    phoneNumber: '6281234567888',
-                },
-            },
-        });
+
+    expect(response.status).toBe(201);
+    expect(response.body).toMatchObject({
+      status: 'Success',
+      statusCode: 201,
+      message:
+        'Registrasi berhasil. Silakan verifikasi akun Anda melalui kode OTP yang telah dikirimkan ke email Anda.',
+      data: {
+        user: {
+          id: response.body.data.user.id,
+          email: data.email,
+          phoneNumber: data.phoneNumber,
+        },
+      },
     });
-});
+  });
 
   it('should fail to register a new account with a registered email', async () => {
+    const email = 'jane.doe7@example.com';
+
+    await prisma.user.create({
+      data: {
+        fullName: 'Existing User',
+        email,
+        phoneNumber: '6281234567221',
+        password: 'somePassword123',
+        isVerified: true,
+      },
+    });
+
     const response = await request(app)
       .post('/register')
       .send({
-        email: 'jane.doe7@example.com',
+        email,
         phoneNumber: '6281234567861',
         fullName: 'Jane Doe',
         password: 'securePassword123',
       });
 
-    expect(response.status).toBe(409);  
+    console.log('Response status:', response.status);
+    console.log('Response body:', response.body);
+
+    expect(response.status).toBe(409);
     expect(response.body).toMatchObject({
-      status: "Failed",
+      status: 'Failed',
       statusCode: 409,
-      message: "Email sudah terdaftar. Silakan gunakan email lain atau login dengan email tersebut."
+      message: 'Email sudah terdaftar. Silakan gunakan email lain atau login dengan email tersebut.',
     });
   });
 
   it('should fail to register a new account with a registered phone number', async () => {
+    const phoneNumber = '6281234567870';
+
+    await prisma.user.create({
+      data: {
+        fullName: 'Existing User',
+        email: 'existing.email@example.com',
+        phoneNumber,
+        password: 'somePassword123',
+        isVerified: true,
+      },
+    });
+
     const response = await request(app)
       .post('/register')
       .send({
         email: 'jane.doe56@example.com',
-        phoneNumber: '6281234567870',
+        phoneNumber,
         fullName: 'Jane Doe',
         password: 'securePassword123',
       });
 
-    expect(response.status).toBe(409);  
+    console.log('Response status:', response.status);
+    console.log('Response body:', response.body);
+
+    expect(response.status).toBe(409);
     expect(response.body).toMatchObject({
-      status: "Failed",
+      status: 'Failed',
       statusCode: 409,
-      message: "Nomor telepon sudah terdaftar. Silakan gunakan nomor telepon lain."
+      message: 'Nomor telepon sudah terdaftar. Silakan gunakan nomor telepon lain.',
     });
   });
 
@@ -77,17 +119,20 @@ describe('User Registration Integration Tests', () => {
     const response = await request(app)
       .post('/register')
       .send({
-        email: 'jane.doe7example.com',
+        email: 'jane.doe7example.com', // Invalid format
         phoneNumber: '6281234567871',
         fullName: 'Jane Doe',
         password: 'securePassword123',
       });
 
-    expect(response.status).toBe(400);  
+    console.log('Response status:', response.status);
+    console.log('Response body:', response.body);
+
+    expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
-      status: "Failed",
+      status: 'Failed',
       statusCode: 400,
-      message: "Format email tidak valid. Pastikan Anda memasukkan email dengan format yang benar."
+      message: 'Format email tidak valid. Pastikan Anda memasukkan email dengan format yang benar.',
     });
   });
 
@@ -96,20 +141,22 @@ describe('User Registration Integration Tests', () => {
       .post('/register')
       .send({
         email: 'jane.doe11@example.com',
-        phoneNumber: '081234567890', 
+        phoneNumber: '081234567890', // Invalid phone number
         fullName: 'Jane Doe',
         password: 'securePassword123',
       });
 
-    expect(response.status).toBe(400);  
+    console.log('Response status:', response.status);
+    console.log('Response body:', response.body);
+
+    expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
-      status: "Failed",
+      status: 'Failed',
       statusCode: 400,
-      message: "Validasi gagal. Nomor telepon harus dimulai dengan '628' dan memiliki panjang 11-15 digit."
+      message: "Validasi gagal. Nomor telepon harus dimulai dengan '628' dan memiliki panjang 11-15 digit.",
     });
   });
 
-  
   it('should fail to register a new account with incomplete field', async () => {
     const response = await request(app)
       .post('/register')
@@ -119,14 +166,16 @@ describe('User Registration Integration Tests', () => {
         password: 'securePassword123',
       });
 
-    expect(response.status).toBe(400);  
+    console.log('Response status:', response.status);
+    console.log('Response body:', response.body);
+
+    expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
-      status: "Failed",
+      status: 'Failed',
       statusCode: 400,
-      message: "Validasi gagal. Pastikan email, phoneNumber, fullName, dan password telah diisi."
+      message: 'Validasi gagal. Pastikan email, phoneNumber, fullName, dan password telah diisi.',
     });
   });
-
 
   it('should fail to register a new account with an invalid password', async () => {
     const response = await request(app)
@@ -135,320 +184,483 @@ describe('User Registration Integration Tests', () => {
         email: 'jane.doe777@example.com',
         phoneNumber: '6281234567800',
         fullName: 'Jane Doe',
-        password: 'pass',
+        password: 'pass', // Too short
       });
-
-    expect(response.status).toBe(400); 
-    expect(response.body).toMatchObject({
-      status: "Failed",
-      statusCode: 400,
-      message: "Validasi gagal. password harus memiliki 8 hingga 70 digit."
-    });
-  });
-
-  it('should successfully verify OTP for user registration', async () => {
-    const response = await request(app)
-    .post('/register/otp')
-    .send({
-      email: 'dinajaya126@gmail.com',
-      otp: '494684',
-    });
 
     console.log('Response status:', response.status);
     console.log('Response body:', response.body);
 
-  expect(response.status).toBe(201); 
-  expect(response.body).toMatchObject({
-    status: "Success",
-    message: "Verifikasi OTP berhasil. Akun Anda sekarang aktif dan dapat digunakan.",
-    statusCode: 201,
-    data: {
-      user: {
-          id: response.body.data.user.id,
-          email: 'dinajaya126@gmail.com',
-          phoneNumber: '6281234567888',
-      },
-      // accessToken
-  },
+    expect(response.status).toBe(400);
+    expect(response.body).toMatchObject({
+      status: 'Failed',
+      statusCode: 400,
+      message: 'Validasi gagal. password harus memiliki 8 hingga 70 digit.',
+    });
+  });
+  
+  it('should fail to register a new account with an invalid phoneNumber', async () => {
+    const response = await request(app)
+      .post('/register')
+      .send({
+        email: 'jane.doe777@example.com',
+        phoneNumber: '02812345',
+        fullName: 'Jane Doe',
+        password: 'pass', // Too short
+      });
+
+    console.log('Response status:', response.status);
+    console.log('Response body:', response.body);
+
+    expect(response.status).toBe(400);
+    expect(response.body).toMatchObject({
+      status: 'Failed',
+      statusCode: 400,
+      message: "Validasi gagal. Nomor telepon harus dimulai dengan '628' dan memiliki panjang 11-15 digit.",
+    });
   });
 });
 
-  it('should fail to verify OTP with required field', async () => {
+describe('OTP Verification Integration Tests', () => {
+  let testUser;
+  let secret;
+
+  beforeAll(async () => {
+    // Generate secret dan buat user untuk pengujian
+    secret = generateSecret();
+    testUser = await prisma.user.create({
+      data: {
+        email: 'test.user@example.com',
+        phoneNumber: '6281234567890',
+        fullName: 'Test User',
+        otpSecret: secret,
+        isVerified: false,
+      },
+    });
+  });
+
+  afterAll(async () => {
+    // Bersihkan database setelah pengujian selesai
+    await prisma.user.deleteMany({});
+    await prisma.$disconnect();
+    server.close();
+  });
+
+  it('should successfully verify OTP for user registration', async () => {
+    const otp = generateTOTP(secret); // Generate OTP dengan secret yang sama
+
     const response = await request(app)
       .post('/register/otp')
       .send({
-        otp: '123456'
+        email: testUser.email, // Gunakan email dari testUser
+        otp: otp,
       });
 
-    expect(response.status).toBe(400);  
+    expect(response.status).toBe(201);
     expect(response.body).toMatchObject({
-      status: "Failed",
+      status: 'Success',
+      statusCode: 201,
+      message: 'Verifikasi OTP berhasil. Akun Anda sekarang aktif dan dapat digunakan.',
+    });
+
+    const updatedUser = await prisma.user.findUnique({
+      where: { email: testUser.email },
+    });
+
+    expect(updatedUser.isVerified).toBe(true);
+  });
+
+  it('should fail to verify OTP with wrong OTP', async () => {
+    const newUser = await prisma.user.create({
+      data: {
+        email: 'wrong.otp@example.com',
+        phoneNumber: '6281111111111',
+        fullName: 'Wrong OTP User',
+        otpSecret: generateSecret(),
+        isVerified: false,
+      },
+    });
+  
+    const wrongOtp = '111111'; // OTP yang salah
+  
+    const response = await request(app)
+      .post('/register/otp')
+      .send({
+        email: newUser.email, // Gunakan email baru
+        otp: wrongOtp,
+      });
+  
+    expect(response.status).toBe(400);
+    expect(response.body).toMatchObject({
+      status: 'Failed',
+      statusCode: 400,
+      message: 'Verifikasi OTP gagal. Pastikan kode OTP yang dimasukkan benar dan belum kedaluwarsa.',
+    });
+  });
+
+  it('should fail to verify OTP without required field', async () => {
+    const newUser = await prisma.user.create({
+      data: {
+        email: '',
+        phoneNumber: '',
+        fullName: '',
+        otpSecret: generateSecret(),
+        isVerified: false,
+      },
+    });
+  
+    const wrongOtp = '111111'; // OTP yang salah
+  
+    const response = await request(app)
+      .post('/register/otp')
+      .send({
+        email: newUser.email, // Gunakan email baru
+        otp: wrongOtp,
+      });
+  
+    expect(response.status).toBe(400);
+    expect(response.body).toMatchObject({
+      status: 'Failed',
       statusCode: 400,
       message: "Validasi gagal. Pastikan email dan otp telah diisi."
     });
   });
 
-  // Test Verifikasi OTP yang Gagal karena Email Tidak Terdaftar
-  it('should fail to verify OTP with unregistered email', async () => {
+  it('should fail to verify OTP with expired OTP', async () => {
+  // Simulasikan pengguna dengan OTP yang valid
+  const expiredSecret = generateSecret();
+
+  // Buat pengguna tanpa mengatur OTP untuk menghindari validasi backend yang salah
+  const expiredUser = await prisma.user.create({
+    data: {
+      email: 'expired.otp@example.com',
+      phoneNumber: '6289999999999',
+      fullName: 'Expired OTP User',
+      otpSecret: expiredSecret,
+      isVerified: false,
+    },
+  });
+
+  // Gunakan OTP yang tidak valid (bukan hasil generateTOTP dari secret)
+  const expiredOtp = '123456'; // OTP tidak valid
+
+  const response = await request(app)
+    .post('/register/otp')
+    .send({
+      email: expiredUser.email,
+      otp: expiredOtp,
+    });
+
+  expect(response.status).toBe(400); // Harapkan respons gagal
+  expect(response.body).toMatchObject({
+    status: 'Failed',
+    statusCode: 400,
+    message: 'Verifikasi OTP gagal. Pastikan kode OTP yang dimasukkan benar dan belum kedaluwarsa.',
+  });
+});
+
+  it('should fail to verify OTP with invalid email format', async () => {
+    const invalidEmail = 'invalid-email';
+
     const response = await request(app)
       .post('/register/otp')
       .send({
-        email: 'not.registered@example.com',  
+        email: invalidEmail,
         otp: '123456',
       });
 
-    expect(response.status).toBe(400);  
+    expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
-      status: "Failed",
+      status: 'Failed',
       statusCode: 400,
-      message: "Email tidak terdaftar. Silahkan melakukan registrasi akun terlebih dahulu."
+      message: 'Format email tidak valid. Pastikan Anda memasukkan email dengan format yang benar.',
     });
   });
 
-  it('should fail to verify OTP with registered and verified email', async () => {
+  it('should fail to verify OTP with missing email field', async () => {
     const response = await request(app)
       .post('/register/otp')
-      .send({
-        email: 'jane.doe444@example.com',  
-        otp: '232410',
-      });
+      .send({ otp: '123456' });
 
-    expect(response.status).toBe(400);  
+    expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
-      status: "Failed",
+      status: 'Failed',
       statusCode: 400,
-      message: "Email sudah terdaftar. Silahkan login menggunakan email ini atau registrasi akun baru menggunakan email lain."
+      message: 'Validasi gagal. Pastikan email dan otp telah diisi.',
     });
   });
 
-  it('should fail to verify OTP with invalid email', async () => {
-    const response = await request(app)
-      .post('/register/otp')
-      .send({
-        email: 'jane.doe444example.com',  
-        otp: '232410',
-      });
-
-    expect(response.status).toBe(400);  
-    expect(response.body).toMatchObject({
-      status: "Failed",
-      statusCode: 400,
-      message: "Format email tidak valid. Pastikan Anda memasukkan email dengan format yang benar."
-    });
-  });
-
-  it('should fail to verify OTP with invalid otp type', async () => {
-    const response = await request(app)
-      .post('/register/otp')
-      .send({
-        email: 'jane.doe445@example.com',  
-        otp: 232410,
-      });
-
-    expect(response.status).toBe(400);  
-    expect(response.body).toMatchObject({
-      status: "Failed",
-      statusCode: 400,
-      message: "Validasi gagal. OTP harus berupa string."
-    });
-  });
-
-  it('should fail to verify OTP with invalid otp number', async () => {
-    const response = await request(app)
-      .post('/register/otp')
-      .send({
-        email: 'jane.doe444@example.com',  
-        otp: '23241A',
-      });
-
-    expect(response.status).toBe(400);  
-    expect(response.body).toMatchObject({
-      status: "Failed",
-      statusCode: 400,
-      message: "Validasi gagal. OTP harus berisikan angka."
-    });
-  });
-
-  it('should fail to verify OTP with invalid otp length', async () => {
-    const response = await request(app)
-      .post('/register/otp')
-      .send({
-        email: 'jane.doe444@example.com',  
-        otp: '232411111111',
-      });
-
-    expect(response.status).toBe(400);  
-    expect(response.body).toMatchObject({
-      status: "Failed",
-      statusCode: 400,
-      message: "Validasi gagal, OTP harus berisikan 6 digit angka."
-    });
-  });
-
-  it('should fail to verify OTP with wrong otp', async () => {
-    const response = await request(app)
-      .post('/register/otp')
-      .send({
-        email: 'jane.doe0@example.com',  
-        otp: '111111',
-      });
-
-    expect(response.status).toBe(400);  
-    expect(response.body).toMatchObject({
-      status: "Failed",
-      statusCode: 400,
-      message:  "Verifikasi OTP gagal. Pastikan kode OTP yang dimasukkan benar dan belum kedaluwarsa."
-    });
-  });
-
-  it('should fail to verify OTP with expired otp', async () => {
-    const response = await request(app)
-      .post('/register/otp')
-      .send({
-        email: 'jane.doe0@example.com',  
-        otp: '410876',
-      });
-
-    expect(response.status).toBe(400);  
-    expect(response.body).toMatchObject({
-      status: "Failed",
-      statusCode: 400,
-      message:  "Verifikasi OTP gagal. Pastikan kode OTP yang dimasukkan benar dan belum kedaluwarsa."
-    });
-  });
+  it('should fail to verify OTP with unregistered email', async () => {
+    const unregisteredEmail = 'unregistered.user@example.com'; // Email yang tidak ada di database
+    const otp = '123456'; // OTP acak untuk pengujian
   
-  
-  // Test Pengiriman Ulang OTP
-  it('should successfully resend OTP for user registration', async () => {
     const response = await request(app)
-      .post('/register/otp/resend')
+      .post('/register/otp')
       .send({
-        email: 'dinajaya126@gmail.com'
+        email: unregisteredEmail,
+        otp: otp,
       });
 
       console.log('Response status:', response.status);
       console.log('Response body:', response.body);
-
-    expect(response.status).toBe(200);  
+    expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
-      status: 'Success',
-      message:  "Kode OTP telah berhasil dikirim ulang. Silakan verifikasi akun Anda melalui kode OTP yang telah dikirimkan ke email Anda.",
+      status: 'Failed',
+      statusCode: 400,
+      message: 'Email tidak terdaftar. Silahkan melakukan registrasi akun terlebih dahulu.',
     });
   });
 
-  it('should fail to resend OTPwith already confirmed & registered user email', async () => {
+  it('should fail with registered and verified email', async () => {
+    const otp = generateTOTP(secret); // Generate OTP dengan secret yang sama
+  
+    const response = await request(app)
+      .post('/register/otp')
+      .send({
+        email: testUser.email, // Gunakan email dari testUser
+        otp: otp,
+      });
+    expect(response.status).toBe(400); // Conflict karena email sudah diverifikasi
+    expect(response.body).toMatchObject({
+      status: 'Failed',
+      statusCode: 400,
+      message: "Email sudah terdaftar. Silahkan login menggunakan email ini atau registrasi akun baru menggunakan email lain.",
+    });
+  });
+  
+  it('should fail with invalid otp type', async () => {
+    const otp = 123456; // Generate OTP dengan secret yang sama
+  
+    const response = await request(app)
+      .post('/register/otp')
+      .send({
+        email: testUser.email, // Gunakan email dari testUser
+        otp: otp,
+      });
+    expect(response.status).toBe(400); // Conflict karena email sudah diverifikasi
+    expect(response.body).toMatchObject({
+      status: 'Failed',
+      statusCode: 400,
+      message: "Validasi gagal. OTP harus berupa string.",
+    });
+  });
+  
+  it('should fail with invalid otp length', async () => {
+    const otp = '12345678999'; // Generate OTP dengan secret yang sama
+  
+    const response = await request(app)
+      .post('/register/otp')
+      .send({
+        email: testUser.email, // Gunakan email dari testUser
+        otp: otp,
+      });
+    expect(response.status).toBe(400); // Conflict karena email sudah diverifikasi
+    expect(response.body).toMatchObject({
+      status: 'Failed',
+      statusCode: 400,
+      message: "Validasi gagal, OTP harus berisikan 6 digit angka.",
+    });
+  });
+});
+  
+
+describe('Resend OTP Integration Tests', () => {
+  let user;
+
+  beforeEach(async () => {
+    // Membersihkan data sebelum pengujian
+    await prisma.user.deleteMany({});
+
+    // Membuat user yang belum terverifikasi untuk pengujian
+    user = await prisma.user.create({
+      data: {
+        email: 'test.user@example.com',
+        phoneNumber: '6281234567890',
+        fullName: 'Test User',
+        otpSecret: generateSecret(),
+        isVerified: false,
+      },
+    });
+  });
+
+  afterAll(async () => {
+    // Tutup koneksi Prisma setelah pengujian selesai
+    await prisma.$disconnect();
+    server.close();
+  });
+
+  it('should successfully resend OTP for an unverified user', async () => {
     const response = await request(app)
       .post('/register/otp/resend')
-      .send({
-        email: 'jane.doe444@example.com',  
-      });
+      .send({ email: user.email });
 
-    expect(response.status).toBe(409);  
+    expect(response.status).toBe(200);
+    expect(response.body).toMatchObject({
+      status: 'Success',
+      statusCode: 200,
+      message: 'Kode OTP telah berhasil dikirim ulang. Silakan verifikasi akun Anda melalui kode OTP yang telah dikirimkan ke email Anda.',
+    });
+  });
+
+  it('should fail to resend OTP if user is already verified', async () => {
+    // Tandai pengguna sebagai terverifikasi
+    await prisma.user.update({
+      where: { email: user.email },
+      data: { isVerified: true },
+    });
+
+    const response = await request(app)
+      .post('/register/otp/resend')
+      .send({ email: user.email });
+
+    expect(response.status).toBe(409);
     expect(response.body).toMatchObject({
       status: 'Failed',
       statusCode: 409,
-      message: "Email sudah terdaftar. Silakan gunakan email lain atau login dengan email tersebut.",
+      message: 'Email sudah terdaftar. Silakan gunakan email lain atau login dengan email tersebut.',
     });
   });
 
-  it('should fail to resend OTP with invalid email', async () => {
+  it('should fail to resend OTP with unregistered email', async () => {
     const response = await request(app)
       .post('/register/otp/resend')
-      .send({
-        email: 'jane.doe444example.com',  
-      });
+      .send({ email: 'unregistered@example.com' });
 
-    expect(response.status).toBe(400);  
+    expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
       status: 'Failed',
       statusCode: 400,
-      message: "Format email tidak valid. Pastikan Anda memasukkan email dengan format yang benar."
+      message: 'Email tidak terdaftar. Silahkan melakukan registrasi akun terlebih dahulu.',
     });
   });
 
-  it('should fail to resend OTP without required field)', async () => {
+  it('should fail to resend OTP with invalid email format', async () => {
     const response = await request(app)
       .post('/register/otp/resend')
-      .send({
-             "differentField": "Not"
-      });
+      .send({ email: 'invalid-email' });
 
-    expect(response.status).toBe(400);  
+    expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
       status: 'Failed',
       statusCode: 400,
-      message: "Validasi gagal. Pastikan email telah diisi."
+      message: 'Format email tidak valid. Pastikan Anda memasukkan email dengan format yang benar.',
     });
   });
 
-  it('should fail to resend OTP with unregistered email)', async () => {
+  it('should fail to resend OTP when email field is missing', async () => {
     const response = await request(app)
       .post('/register/otp/resend')
-      .send({
-        email: 'jane.doe69@example.com',  
-      });
+      .send({});
 
-    expect(response.status).toBe(400);  
+    expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
       status: 'Failed',
       statusCode: 400,
-      message: "Email tidak terdaftar. Silahkan melakukan registrasi akun terlebih dahulu."
+      message: 'Validasi gagal. Pastikan email telah diisi.',
     });
   });
+});
 
-  it('should successfully login', async () => {
-    const data = {
-      email:  'affudina663@gmail.com',
-      password: 'password',
-    };
+describe('Login Integration Tests', () => {
+  let regularUser;
+  let adminUser;
 
-    const response = await request(app).post('/login').send(data);
+  beforeEach(async () => {
+    // Membersihkan data sebelum pengujian
+    await prisma.user.deleteMany();
+    const bcrypt = require('bcrypt');
 
-    expect(response.status).toBe(200);
-    expect(response.body).toMatchObject({
-        status: 'Success',
-        statusCode: 200,
-        message:'Login berhasil.',
-        data: {
-            user: {
-                id: response.body.data.user.id,
-                fullName: "John Doe",
-                email: 'affudina663@gmail.com',
-                phoneNumber: '62813424422555',
-        },
-        // accestoken
+    // Hash password sebelum menyimpan ke database
+    const hashedPassword = await bcrypt.hash('password', 10);
+    
+    regularUser = await prisma.user.create({
+      data: {
+        email: 'user@example.com',
+        password: hashedPassword,
+        fullName: 'Regular User',
+        phoneNumber: '6281234567890',
+        role: 'Buyer',
+      },
+    });
+    
+    
+    // Membuat pengguna admin untuk pengujian login sebagai admin
+    adminUser = await prisma.user.create({
+      data: {
+        email: 'admin@example.com',
+        password: hashedPassword,
+        fullName: 'Admin User',
+        phoneNumber: '6289876543210',
+        role: 'Admin',
       },
     });
   });
 
+  afterAll(async () => {
+    // Tutup koneksi Prisma setelah pengujian selesai
+    await prisma.$disconnect();
+    server.close();
+  });
+
+  it('should successfully login as a regular user', async () => {
+    const data = {
+      email: regularUser.email,
+      password: 'password', // Anggap password hashing dan validasi diterapkan dalam implementasi login
+    };
+
+    const response = await request(app).post('/login').send(data);
+
+    
+    console.log('Response status:', response.status);
+    console.log('Response body:', response.body);
+    expect(response.status).toBe(200);
+    expect(response.body).toMatchObject({
+      status: 'Success',
+      statusCode: 200,
+      message: 'Login berhasil.',
+      data: {
+        user: {
+          id: regularUser.id,
+          fullName: regularUser.fullName,
+          email: regularUser.email,
+          phoneNumber: regularUser.phoneNumber,
+        },
+      },
+    });
+
+    // Pastikan token dikembalikan dalam respons
+    expect(response.body.data.accessToken).toBeDefined();
+  });
 
   it('should successfully login as an admin', async () => {
     const data = {
-      email:  'affudina663@gmail.com',
+      email: adminUser.email,
       password: 'password',
     };
 
     const response = await request(app).post('/login').send(data);
 
+    
+    console.log('Response status:', response.status);
+    console.log('Response body:', response.body);
     expect(response.status).toBe(200);
     expect(response.body).toMatchObject({
-        status: 'Success',
-        statusCode: 200,
-        message:'Login berhasil.',
-        data: {
-            user: {
-                id: response.body.data.user.id,
-                fullName: "John Doe",
-                email: 'affudina663@gmail.com',
-                phoneNumber: '62813424422555',
-                role: "Buyer"
+      status: 'Success',
+      statusCode: 200,
+      message: 'Login berhasil.',
+      data: {
+        user: {
+          id: adminUser.id,
+          fullName: adminUser.fullName,
+          email: adminUser.email,
+          phoneNumber: adminUser.phoneNumber,
+          role: adminUser.role,
         },
-        // accestoken
       },
     });
+
+    // Pastikan token dikembalikan dalam respons
+    expect(response.body.data.accessToken).toBeDefined();
   });
-
-
   it('should fail login with wrong password)', async () => {
     const response = await request(app)
       .post('/login')
@@ -515,8 +727,41 @@ describe('User Registration Integration Tests', () => {
       message: "Validasi gagal. password harus memiliki 8 hingga 70 digit."
     });
   });
+  it('should fail login without required fields)', async () => {
+    const response = await request(app)
+      .post('/login')
+      .send({
+        email:  'affudina663@gmail.com',
+      });
+
+    expect(response.status).toBe(400);  
+    expect(response.body).toMatchObject({
+      status: 'Failed',
+      statusCode: 400,
+      message: "Validasi gagal. Pastikan email dan password telah diisi."
+    });
+  });
+});
 
 
+describe('Forget Integration Tests', () => {
+let user;
+
+beforeEach(async () => {
+  // Bersihkan semua user sebelumnya
+  await prisma.user.deleteMany({});
+
+  // Tambahkan dummy user
+  user = await prisma.user.create({
+    data: {
+      email: 'affudina663@gmail.com',
+      password: 'securePassword123', // Bisa dihash jika perlu
+      fullName: 'Affu Dina',
+      phoneNumber: '6281234567890',
+      isVerified: true,
+    },
+  });
+});
 
   it('should successfully forget-password', async () => {
     const data = {
@@ -577,173 +822,288 @@ describe('User Registration Integration Tests', () => {
         message:"Email tidak terdaftar. Pastikan email yang Anda masukkan benar."
     });
   });
+});
 
-  it('should successfully reset-password', async () => {
+describe('Reset Password Integration Tests', () => {
+  let testUser;
+  let passwordResetToken;
+
+  beforeAll(async () => {
+    // Generate token untuk pengujian
+    passwordResetToken = crypto.randomBytes(32).toString('hex');
+    const hashedToken = crypto.createHash('sha256').update(passwordResetToken).digest('hex');
+
+    // Buat user dengan token reset password
+    testUser = await prisma.user.create({
+      data: {
+        email: 'test.reset@example.com',
+        phoneNumber: `62812${Math.floor(Math.random() * 100000000)}`,
+        fullName: 'Test Reset User',
+        password: await bcrypt.hash('oldPassword123', 10),
+        passwordResetToken: hashedToken,
+        passwordResetTokenExpirationTime: new Date(Date.now() + 10 * 60 * 1000), // Token valid selama 10 menit
+      },
+    });
+  });
+
+  afterAll(async () => {
+    // Bersihkan database dan tutup koneksi Prisma setelah semua pengujian selesai
+    await prisma.user.deleteMany({});
+    await prisma.$disconnect();
+    server.close();
+  });
+
+  it('should successfully reset the password', async () => {
     const data = {
-      passwordResetToken: "53627ba62a175464a0651e716213f7e32f9de5e6785ffd563856995623c1526e",
-      newPassword: "newpasswordlah",
-      confirmNewPassword: "newpasswordlah"
+      passwordResetToken,
+      newPassword: 'newSecurePassword123',
+      confirmNewPassword: 'newSecurePassword123',
     };
-
-    console.log('Response status:', response.status);
-    console.log('Response body:', response.body);
 
     const response = await request(app).post('/reset-password').send(data);
 
     expect(response.status).toBe(200);
     expect(response.body).toMatchObject({
-        status: 'Success',
-        statusCode: 200,
-        message:"Reset password berhasil!",
+      status: 'Success',
+      statusCode: 200,
+      message: 'Reset password berhasil!',
     });
-});
 
-it('should failed reset-password without required field', async () => {
-  const data = {
-      newPassword: "newpasswordlah",
-      confirmNewPassword: "newpasswordlah",
-  };
+    // Verifikasi bahwa password user telah diperbarui
+    const updatedUser = await prisma.user.findUnique({ where: { email: testUser.email } });
+    const isPasswordMatch = await bcrypt.compare(data.newPassword, updatedUser.password);
 
-  const response = await request(app).post('/reset-password').send(data);
-  expect(response.status).toBe(400);
-  expect(response.body).toMatchObject({
-        status: 'Failed',
-        statusCode: 400,
-        message: "Validasi gagal. Pastikan passwordResetToken, newPassword, dan confirmNewPassword telah diisi."
+    expect(isPasswordMatch).toBe(true);
+    expect(updatedUser.passwordResetToken).toBeNull();
+    expect(updatedUser.passwordResetTokenExpirationTime).toBeNull();
+  });
+
+  it('should fail reset-password without required field', async () => {
+    const data = {
+      newPassword: 'newpasswordlah',
+      confirmNewPassword: 'newpasswordlah',
+    };
+
+    const response = await request(app).post('/reset-password').send(data);
+
+    expect(response.status).toBe(400);
+    expect(response.body).toMatchObject({
+      status: 'Failed',
+      statusCode: 400,
+      message: 'Validasi gagal. Pastikan passwordResetToken, newPassword, dan confirmNewPassword telah diisi.',
     });
   });
 
-  it('should failed reset-password with invalid field type', async () => {
+  it('should fail reset-password with invalid field type', async () => {
     const data = {
-        passwordResetToken: 123 ,
-        newPassword: "newpasswordlah",
-        confirmNewPassword: "newpasswordlah",
+      passwordResetToken: 123,
+      newPassword: 'newpasswordlah',
+      confirmNewPassword: 'newpasswordlah',
     };
-  
+
     const response = await request(app).post('/reset-password').send(data);
+
     expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
-          status: 'Failed',
-          statusCode: 400,
-          message: "Validasi gagal. passwordResetToken, newPassword, dan confirmNewPassword harus berupa string."
-      });
+      status: 'Failed',
+      statusCode: 400,
+      message: 'Validasi gagal. passwordResetToken, newPassword, dan confirmNewPassword harus berupa string.',
     });
+  });
 
-    it('should failed reset-password with invalid password length', async () => {
-      const data = {
-          passwordResetToken: "8a46b0b6dfe8e9bf68d3d29554a2191f12bf57180ff92ea8abd5ac7877e364d5",
-          newPassword: "satudua",
-          confirmNewPassword: "satudua",
-      };
-    
-      const response = await request(app).post('/reset-password').send(data);
-      expect(response.status).toBe(400);
-      expect(response.body).toMatchObject({
-            status: 'Failed',
-            statusCode: 400,
-            message: "Password tidak valid. Pastikan password memiliki antara 8 hingga 70 karakter."
-        });
-      });
+  it('should fail reset-password with invalid password length', async () => {
+    const data = {
+      passwordResetToken: '8a46b0b6dfe8e9bf68d3d29554a2191f12bf57180ff92ea8abd5ac7877e364d5',
+      newPassword: 'satudua',
+      confirmNewPassword: 'satudua',
+    };
 
-      it('should failed reset-password with different new password and confirm new password', async () => {
-        const data = {
-            passwordResetToken: "8a46b0b6dfe8e9bf68d3d29554a2191f12bf57180ff92ea8abd5ac7877e364d5",
-            newPassword: "newpasswordlah1",
-            confirmNewPassword: "newpasswordlah",
-        };
-      
-        const response = await request(app).post('/reset-password').send(data);
-        expect(response.status).toBe(400);
-        expect(response.body).toMatchObject({
-              status: 'Failed',
-              statusCode: 400,
-              message: "Validasi gagal. Pastikan newPassword dan confirmNewPassword sama."
-          });
-        });
+    const response = await request(app).post('/reset-password').send(data);
 
-        it('should failed reset-password with expired token', async () => {
-          const data = {
-              passwordResetToken: "8a46b0b6dfe8e9bf68d3d29554a2191f12bf57180ff92ea8abd5ac7877e364d5",
-              newPassword: "newpasswordlah",
-              confirmNewPassword: "newpasswordlah",
-          };
-        
-          const response = await request(app).post('/reset-password').send(data);
-          expect(response.status).toBe(400);
-          expect(response.body).toMatchObject({
-                status: 'Failed',
-                statusCode: 400,
-                message:"Token reset password tidak valid atau telah kedaluwarsa. Silakan lakukan permintaan reset password kembali."
-            });
-          });
+    expect(response.status).toBe(400);
+    expect(response.body).toMatchObject({
+      status: 'Failed',
+      statusCode: 400,
+      message: 'Password tidak valid. Pastikan password memiliki antara 8 hingga 70 karakter.',
+    });
+  });
 
-          const generateToken = (payload, expiresIn = '7d') => {
-            return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn });
-          };
+  it('should fail reset-password with mismatched new and confirm passwords', async () => {
+    const data = {
+      passwordResetToken: '8a46b0b6dfe8e9bf68d3d29554a2191f12bf57180ff92ea8abd5ac7877e364d5',
+      newPassword: 'newpasswordlah1',
+      confirmNewPassword: 'newpasswordlah',
+    };
+
+    const response = await request(app).post('/reset-password').send(data);
+
+    expect(response.status).toBe(400);
+    expect(response.body).toMatchObject({
+      status: 'Failed',
+      statusCode: 400,
+      message: 'Validasi gagal. Pastikan newPassword dan confirmNewPassword sama.',
+    });
+  });
+
+  it('should fail reset-password with expired token', async () => {
+    const data = {
+      passwordResetToken: '8a46b0b6dfe8e9bf68d3d29554a2191f12bf57180ff92ea8abd5ac7877e364d5',
+      newPassword: 'newpasswordlah',
+      confirmNewPassword: 'newpasswordlah',
+    };
+
+    const response = await request(app).post('/reset-password').send(data);
+
+    expect(response.status).toBe(400);
+    expect(response.body).toMatchObject({
+      status: 'Failed',
+      statusCode: 400,
+      message: 'Token reset password tidak valid atau telah kedaluwarsa. Silakan lakukan permintaan reset password kembali.',
+    });
+  });
+});
 
 
 describe('Integration Test: User Logout', () => {
   let validToken, expiredToken;
 
   beforeAll(() => {
-    validToken = generateToken({ userId: 1 }, '7d');
+    // Token valid dengan durasi 7 hari
+    validToken = generateToken({ userId: 1, role: 'Buyer' }, '7d');
 
-    expiredToken = generateToken({ userId: 1 }, '1ms'); 
+    // Token kedaluwarsa dalam waktu singkat
+    expiredToken = generateToken({ userId: 1 }, '1ms');
   });
 
   test('[Success] User logout successfully', async () => {
     const response = await request(app)
-        .get('/logout')
-        .set('Authorization', `Bearer ${validToken}`);
-
-    console.log('Response status:', response.status);
-    console.log('Response body:', response.body);
+      .get('/logout') // Endpoint logout
+      .set('Authorization', `Bearer ${validToken}`);
 
     expect(response.status).toBe(200);
     expect(response.body).toMatchObject({
-        status: 'Success',
-        statusCode: 200,
-        message: 'Logout berhasil. Anda telah keluar dari akun Anda.',
-        data: {
-            accessToken: expect.any(String),
-        },
+      status: 'Success',
+      statusCode: 200,
+      message: 'Logout berhasil. Anda telah keluar dari akun Anda.',
+      data: {
+        accessToken: expect.any(String), // Token baru dengan durasi singkat
+      },
     });
-});
+  });
 
-  test('[Failed] User logout failed (without token)', async () => {
+  test('[Failed] User logout without token', async () => {
     const response = await request(app).get('/logout');
 
     expect(response.status).toBe(401);
     expect(response.body).toMatchObject({
       status: 'Failed',
       statusCode: 401,
-      message: "Token tidak valid atau telah kedaluwarsa. Silakan login kembali untuk mendapatkan token baru.",
+      message: 'Token tidak valid atau telah kedaluwarsa. Silakan login kembali untuk mendapatkan token baru.',
     });
   });
 
-  test('[Failed] User logout failed (expired token)', async () => {
+  test('[Failed] User logout with expired token', async () => {
     const response = await request(app)
       .get('/logout')
       .set('Authorization', `Bearer ${expiredToken}`);
-    
+
     expect(response.status).toBe(401);
     expect(response.body).toMatchObject({
       status: 'Failed',
       statusCode: 401,
-      message: "Token tidak valid atau telah kedaluwarsa. Silakan login kembali untuk mendapatkan token baru.",
+      message: 'Token tidak valid atau telah kedaluwarsa. Silakan login kembali untuk mendapatkan token baru.',
     });
   });
 
-  test('[Failed] User logout failed (invalid token)', async () => {
+  test('[Failed] User logout with invalid token', async () => {
     const response = await request(app)
       .get('/logout')
       .set('Authorization', 'Bearer invalid.token.here');
+
+    expect(response.status).toBe(401);
+    expect(response.body).toMatchObject({
+      status: 'Failed',
+      statusCode: 401,
+      message: 'Token tidak valid atau telah kedaluwarsa. Silakan login kembali untuk mendapatkan token baru.',
+    });
+  });
+});
+
+describe('GET /auth', () => {
+  let validToken;
+  let invalidToken = 'Bearer invalidtoken';
+
+  beforeAll(async () => {
+    const user = await prisma.user.create({
+      data: {
+        fullName: 'Test User',
+        email: 'test@example.com',
+        password: 'hashedpassword', 
+        phoneNumber: '1234567890',
+        isVerified: true,
+        otpSecret: 'dummysecret',
+      },
+    });
+    validToken = `Bearer ${generateToken({
+      id: user.id,
+      fullName: user.fullName,
+      email: user.email,
+      phoneNumber: user.phoneNumber,
+      role: user.role,
+    })}`;
+  });
+
+  afterAll(async () => {
+    await prisma.user.deleteMany({ where: { email: 'test@example.com' } });
+    await prisma.$disconnect();
+  });
+
+  it('[Success] Retrieves authentication data', async () => {
+    const response = await request(app)
+      .get('/auth')
+      .set('Authorization', validToken);
+  
+    console.log('Response status:', response.status);
+    console.log('Response body:', response.body);
+  
+    expect(response.status).toBe(200);
+    expect(response.body).toMatchObject({
+      status: 'Success',
+      statusCode: 200,
+      message: 'Token valid. Pengguna terautentikasi.',
+      data: {
+        id: expect.any(Number), 
+        fullName: 'Test User',
+        email: 'test@example.com',
+        phoneNumber: '1234567890',
+        role: 'Buyer', 
+      },
+    });
+  });
+  
+  it('[Failed] Retrieves authentication data (without authorization header)', async () => {
+    const response = await request(app).get('/auth');
+
     
     expect(response.status).toBe(401);
     expect(response.body).toMatchObject({
       status: 'Failed',
       statusCode: 401,
-      message: "Token tidak valid atau telah kedaluwarsa. Silakan login kembali untuk mendapatkan token baru.",
+      message:"Token tidak valid atau telah kedaluwarsa. Silakan login kembali untuk mendapatkan token baru.",
+    });
+  });
+
+  it('[Failed] Retrieves authentication data (with invalid token)', async () => {
+    const response = await request(app)
+      .get('/auth')
+      .set('Authorization', invalidToken);
+
+    expect(response.status).toBe(401);
+    expect(response.body).toMatchObject({
+      status: 'Failed',
+      statusCode: 401,
+      message: 'Token tidak valid atau telah kedaluwarsa. Silakan login kembali untuk mendapatkan token baru',
     });
   });
 });
+

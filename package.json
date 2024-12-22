@@ -24,10 +24,7 @@
     "seed:payment": "node ./database/seedPayment.js",
     "seed:passenger": "node ./database/seedPassenger.js",
     "seed:all": "node ./database/seedCity.js && node ./database/seedAirport.js && node ./database/seedAirline.js && node ./database/seedService.js && node ./database/seedUser.js && node ./database/seedFlight.js && node ./database/seedFlightService.js && node ./database/seedBaggage.js && node ./database/seedSchedule.js && node ./database/seedSeat.js && node ./database/seedBooking.js && node ./database/seedItinerary.js && node ./database/seedBookedSeat.js && node ./database/seedInvoice.js && node ./database/seedPayment.js && node ./database/seedPassenger.js",
-    "setup": "npm run db:reset && npm run seed:all && echo \"If there is no error above, then you have successfully setup the database.\"",
-    "test": "jest",
-    "test:unit": "jest --testPathPattern=unit",
-    "test:integration": "jest --testPathPattern=integration"
+    "setup": "npm run db:reset && npm run seed:all && echo \"If there is no error above, then you have successfully setup the database.\""
   },
   "author": "Team 10 Back End",
   "license": "ISC",

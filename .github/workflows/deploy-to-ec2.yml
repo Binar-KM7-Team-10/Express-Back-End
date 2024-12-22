@@ -41,6 +41,7 @@ jobs:
           host: ${{ secrets.HOST_DNS }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
+          command_timeout: 30m
           envs: NODE_ENV, PORT, DATABASE_URL, JWT_SECRET, EMAIL_PASS, EMAIL_USER, EMAIL_HOST, CLIENT_URL, DOMAIN_NAME, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_CALLBACK_URL
           script: |
             sudo apt-get -y update
@@ -53,6 +54,9 @@ jobs:
             npm ci
             npm i -g pm2
             npx prisma migrate deploy
+            pm2 stop all || true
+            pm2 delete all || true
+            fuser -k 3000/tcp || true
             pm2 start -f app.js
             pm2 startup -f ubuntu
             sudo ufw --force enable
@@ -68,4 +72,9 @@ jobs:
             sudo snap install core; sudo snap refresh core
             sudo ln -s /snap/bin/certbot /usr/bin/certbot
             sudo certbot --nginx -d $DOMAIN_NAME -d www.$DOMAIN_NAME --non-interactive --agree-tos -m $EMAIL_USER
-            sudo certbot renew --dry-run
+            if sudo certbot certificates | grep -q "VALID:"; then
+              echo "No renewal needed."
+            else
+              echo "Attempting renewal..."
+              sudo certbot renew --dry-run --non-interactive
+            fi

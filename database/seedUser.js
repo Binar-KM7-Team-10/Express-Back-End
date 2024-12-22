@@ -14,21 +14,29 @@ const seedDatabase = async () => {
         }
     }
 
-    // Create an account for admin access
-    // email    : admin@tiketku.com
-    // password : admin1234
     try {
-        const password = await bcrypt.hash('admin1234', 10);
-        await prisma.user.create({
-            data: {
-                email: 'admin@tiketku.com',
-                fullName: 'Admin 1',
-                password,
-                phoneNumber: '6281209981551',
-                isVerified: true,
-                role: 'Admin'
-            }
+        await prisma.user.createMany({
+            data: [
+                {
+                    email: 'buyer@tiketgo.com',
+                    fullName: 'Buyer 1',
+                    password: await bcrypt.hash('buyer1234', 10),
+                    phoneNumber: '6280000000000',
+                    isVerified: true,
+                    role: 'Buyer'
+                },
+                {
+                    email: 'admin@tiketgo.com',
+                    fullName: 'Admin 1',
+                    password: await bcrypt.hash('admin1234', 10),
+                    phoneNumber: '6280000000001',
+                    isVerified: true,
+                    role: 'Admin'
+                }
+            ]
         });
+        
+        total += 2;
     } catch (err) {
         console.error(err);
     }
