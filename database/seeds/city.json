@@ -1,32 +1,8 @@
 [
     {
-        "name": "Denpasar",
-        "code": "DPS",
-        "country": "Indonesia",
-        "continent": "Asia"
-    },
-    {
         "name": "Jakarta",
         "code": "JKT",
         "country": "Indonesia",
-        "continent": "Asia"
-    },
-    {
-        "name": "Surabaya",
-        "code": "SUB",
-        "country": "Indonesia",
-        "continent": "Asia"
-    },
-    {
-        "name": "Singapore",
-        "code": "SIN",
-        "country": "Singapore",
-        "continent": "Asia"
-    },
-    {
-        "name": "Tokyo",
-        "code": "TYO",
-        "country": "Japan",
         "continent": "Asia"
     },
     {
@@ -36,57 +12,9 @@
         "continent": "America"
     },
     {
-        "name": "Vancouver",
-        "code": "YVR",
-        "country": "Canada",
-        "continent": "America"
-    },
-    {
-        "name": "Mexico City",
-        "code": "MEX",
-        "country": "Mexico",
-        "continent": "America"
-    },
-    {
-        "name": "Rio de Janeiro",
-        "code": "RIO",
-        "country": "Brazil",
-        "continent": "America"
-    },
-    {
-        "name": "Buenos Aires",
-        "code": "BUE",
-        "country": "Argentina",
-        "continent": "America"
-    },
-    {
         "name": "Berlin",
         "code": "BER",
         "country": "Germany",
-        "continent": "Europe"
-    },
-    {
-        "name": "London",
-        "code": "LON",
-        "country": "United Kingdom",
-        "continent": "Europe"
-    },
-    {
-        "name": "Paris",
-        "code": "PAR",
-        "country": "France",
-        "continent": "Europe"
-    },
-    {
-        "name": "Madrid",
-        "code": "MAD",
-        "country": "Spain",
-        "continent": "Europe"
-    },
-    {
-        "name": "Lisbon",
-        "code": "LIS",
-        "country": "Portugal",
         "continent": "Europe"
     },
     {
@@ -96,57 +24,39 @@
         "continent": "Australia"
     },
     {
-        "name": "Melbourne",
-        "code": "MLB",
-        "country": "Australia",
-        "continent": "Australia"
-    },
-    {
-        "name": "Port Moresby",
-        "code": "POM",
-        "country": "Papua New Guinea",
-        "continent": "Australia"
-    },
-    {
-        "name": "Wellington",
-        "code": "WLG",
-        "country": "New Zealand",
-        "continent": "Australia"
-    },
-    {
-        "name": "Suva",
-        "code": "SUV",
-        "country": "Fiji",
-        "continent": "Australia"
-    },
-    {
         "name": "Cairo",
         "code": "CAI",
         "country": "Egypt",
         "continent": "Africa"
     },
     {
+        "name": "Denpasar",
+        "code": "DPS",
+        "country": "Indonesia",
+        "continent": "Asia"
+    },
+    {
+        "name": "Vancouver",
+        "code": "YVR",
+        "country": "Canada",
+        "continent": "America"
+    },
+    {
+        "name": "London",
+        "code": "LON",
+        "country": "United Kingdom",
+        "continent": "Europe"
+    },
+    {
+        "name": "Melbourne",
+        "code": "MLB",
+        "country": "Australia",
+        "continent": "Australia"
+    },
+    {
         "name": "Nairobi",
         "code": "NBO",
         "country": "Kenya",
-        "continent": "Africa"
-    },
-    {
-        "name": "Cape Town",
-        "code": "CPT",
-        "country": "South Africa",
-        "continent": "Africa"
-    },
-    {
-        "name": "Lagos",
-        "code": "LOS",
-        "country": "Nigeria",
-        "continent": "Africa"
-    },
-    {
-        "name": "Casablanca",
-        "code": "CAS",
-        "country": "Morocco",
         "continent": "Africa"
     }
 ]

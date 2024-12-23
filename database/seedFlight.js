@@ -28,7 +28,7 @@ function getRandomThreeDigitNumber() {
 const seedDatabase = async () => {
     let count = 0, total = 0;
     
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 2; i++) {
         try {
             for (let j = 0; j < airport.length; j++) {
                 if (airport[i].name !== airport[j].name) {
@@ -50,7 +50,7 @@ const seedDatabase = async () => {
                     });
 
                     total++;
-                    console.log(`Seeding Flight: ${total}/${10 * (airport.length - 1)}`);
+                    console.log(`Seeding Flight: ${total}/${2 * (airport.length - 1)}`);
                     clearLastLine();
                 }
             }

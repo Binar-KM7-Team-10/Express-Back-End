@@ -18,10 +18,10 @@ const seedDatabase = async () => {
         today.setHours(0, 0, 0, 0);
 
         for (let i = 1; i <= flightSize; i++) { // For each flight 
-            for (let j = 0; j < 4; j++) { // For each seat class (4 seat classes)
-                const seatClass = ['Economy', 'Premium Economy', 'Business', 'First Class'][j];
+            for (let j = 0; j < 2; j++) { // For each seat class (2 seat classes)
+                const seatClass = ['Economy', 'Business'][j];
 
-                for (let k = 0; k < 7; k++) { // For each day (7 days)
+                for (let k = 0; k < 5; k++) { // For each day (5 days)
                     const day = new Date(today);
                     day.setDate(day.getDate() + k);
 
@@ -57,7 +57,7 @@ const seedDatabase = async () => {
                         });
 
                         total++;
-                        console.log(`Seeding Schedule: ${total}/${flightSize * 4 * 7 * 5}`);
+                        console.log(`Seeding Schedule: ${total}/${flightSize * 2 * 5 * 5}`);
                         clearLastLine();
                     }
                 }

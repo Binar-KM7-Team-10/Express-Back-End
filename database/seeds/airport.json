@@ -1,33 +1,33 @@
 [
     {
         "cityId": 1,
-        "name": "Ngurah Rai International Airport",
-        "iataCode": "DPS"
-    },
-    {
-        "cityId": 2,
         "name": "Soekarno-Hatta International Airport",
         "iataCode": "CGK"
     },
     {
+        "cityId": 2,
+        "name": "Los Angeles International Airport",
+        "iataCode": "LAX"
+    },
+    {
         "cityId": 3,
-        "name": "Juanda International Airport",
-        "iataCode": "SUB"
+        "name": "Berlin Brandenburg Airport",
+        "iataCode": "BER"
     },
     {
         "cityId": 4,
-        "name": "Changi Airport",
-        "iataCode": "SIN"
+        "name": "Sydney Kingsford Smith Airport",
+        "iataCode": "SYD"
     },
     {
         "cityId": 5,
-        "name": "Narita International Airport",
-        "iataCode": "NRT"
+        "name": "Cairo International Airport",
+        "iataCode": "CAI"
     },
     {
         "cityId": 6,
-        "name": "Los Angeles International Airport",
-        "iataCode": "LAX"
+        "name": "Ngurah Rai International Airport",
+        "iataCode": "DPS"
     },
     {
         "cityId": 7,
@@ -36,92 +36,17 @@
     },
     {
         "cityId": 8,
-        "name": "Mexico City International Airport",
-        "iataCode": "MEX"
-    },
-    {
-        "cityId": 9,
-        "name": "Rio de Janeiro-Galeão International Airport",
-        "iataCode": "GIG"
-    },
-    {
-        "cityId": 10,
-        "name": "Ministro Pistarini International Airport",
-        "iataCode": "EZE"
-    },
-    {
-        "cityId": 11,
-        "name": "Berlin Brandenburg Airport",
-        "iataCode": "BER"
-    },
-    {
-        "cityId": 12,
         "name": "Heathrow Airport",
         "iataCode": "LHR"
     },
     {
-        "cityId": 13,
-        "name": "Charles de Gaulle Airport",
-        "iataCode": "CDG"
-    },
-    {
-        "cityId": 14,
-        "name": "Adolfo Suárez Madrid–Barajas Airport",
-        "iataCode": "MAD"
-    },
-    {
-        "cityId": 15,
-        "name": "Humberto Delgado Airport",
-        "iataCode": "LIS"
-    },
-    {
-        "cityId": 16,
-        "name": "Sydney Kingsford Smith Airport",
-        "iataCode": "SYD"
-    },
-    {
-        "cityId": 17,
+        "cityId": 9,
         "name": "Melbourne Airport",
         "iataCode": "MEL"
     },
     {
-        "cityId": 18,
-        "name": "Jacksons International Airport",
-        "iataCode": "POM"
-    },
-    {
-        "cityId": 19,
-        "name": "Wellington International Airport",
-        "iataCode": "WLG"
-    },
-    {
-        "cityId": 20,
-        "name": "Nadi International Airport",
-        "iataCode": "NAN"
-    },
-    {
-        "cityId": 21,
-        "name": "Cairo International Airport",
-        "iataCode": "CAI"
-    },
-    {
-        "cityId": 22,
+        "cityId": 10,
         "name": "Jomo Kenyatta International Airport",
         "iataCode": "NBO"
-    },
-    {
-        "cityId": 23,
-        "name": "Cape Town International Airport",
-        "iataCode": "CPT"
-    },
-    {
-        "cityId": 24,
-        "name": "Murtala Muhammed International Airport",
-        "iataCode": "LOS"
-    },
-    {
-        "cityId": 25,
-        "name": "Mohammed V International Airport",
-        "iataCode": "CMN"
     }
 ]
