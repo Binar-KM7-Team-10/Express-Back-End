@@ -14,13 +14,13 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
-// app.use(morgan('dev'));
+app.use(morgan('dev'));
 app.use(express.json());
 app.use(router);
 app.use(errorHandler);
 
 const server = app.listen(PORT, () => {
-    // console.log(`Server is running on port ${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });
 
 const job = schedule.scheduleJob('0,30 * * * *', Job.checkPayment);
