@@ -25,7 +25,7 @@ const generateToken = (payload, expiresIn = '7d') => {
     return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn });
 };
 
-describe('GET User Testing', () => {
+describe('GET /users & GET /users/{userId}', () => {
     let adminUser, buyerUser;
 
     beforeAll(async () => {
@@ -64,7 +64,7 @@ describe('GET User Testing', () => {
     });
 
     test("GET /users successed (200)", async () => {
-        const response = await request(app)
+        const response = await request(server)
         .get('/users')
         .set('Authorization', `Bearer ${adminToken}`)
 
@@ -90,7 +90,7 @@ describe('GET User Testing', () => {
 
     test("GET /users/:id successed (200)", async () => {
         const id =  adminUser.id;
-        const response = await request(app)
+        const response = await request(server)
         .get(`/users/${id}`)
         .set('Authorization', `Bearer ${adminToken || userToken}`);
 
@@ -104,7 +104,7 @@ describe('GET User Testing', () => {
     test("GET /users successed but data is empty (200)", async () => {
         await prisma.user.deleteMany();
 
-        const response = await request(app)
+        const response = await request(server)
         .get('/users')
         .set('Authorization', `Bearer ${adminToken}`);
         
@@ -116,7 +116,7 @@ describe('GET User Testing', () => {
     });
 
     test("GET /users failed due to no authorization headers (401)", async () => {
-        const response = await request(app)
+        const response = await request(server)
         .get('/users')
 
         expect(response.status).toBe(401);
@@ -125,7 +125,7 @@ describe('GET User Testing', () => {
     });
 
     test("GET /users failed due to invalid token (401)", async () => {
-        const response = await request(app)
+        const response = await request(server)
         .get('/users')
         .set('Authorization', `Bearer ${null}`);
 
@@ -136,7 +136,7 @@ describe('GET User Testing', () => {
 
     test("GET /users/:id failed due to no authorization headers (401)", async () => {
         const id =  adminUser.id;
-        const response = await request(app)
+        const response = await request(server)
         .get(`/users/${id}`)
 
         expect(response.status).toBe(401);
@@ -147,7 +147,7 @@ describe('GET User Testing', () => {
     });
 
     test("GET /users failed due to role isn't admin (403)", async () => {
-        const response = await request(app)
+        const response = await request(server)
         .get('/users')
         .set('Authorization', `Bearer ${userToken}`);
 
@@ -158,7 +158,7 @@ describe('GET User Testing', () => {
 
     test("GET /users/:id failed due to invalid token (401)", async () => {
         const id =  adminUser.id;
-        const response = await request(app)
+        const response = await request(server)
         .get(`/users/${id}`)
         .set('Authorization', `Bearer ${null}`);
 
@@ -172,7 +172,7 @@ describe('GET User Testing', () => {
     test("GET /users/:id failed due to invalid role (403)", async () => {
         const invalidToken = generateToken({ userId: adminUser.id, role: 'Intruder' }, '7d');
         const id =  adminUser.id;
-        const response = await request(app)
+        const response = await request(server)
         .get(`/users/${id}`)
         .set('Authorization', `Bearer ${invalidToken}`);
 
@@ -184,7 +184,7 @@ describe('GET User Testing', () => {
 
     test("GET /users/:id failed due to invalid id (400)", async () => {
         const id = 'w';
-        const response = await request(app)
+        const response = await request(server)
         .get(`/users/${id}`)
         .set('Authorization', `Bearer ${adminToken || userToken}`);
 
@@ -195,7 +195,7 @@ describe('GET User Testing', () => {
 
     test("GET /users/:id failed due to unexisted id (404)", async () => {
         const id = 9999;
-        const response = await request(app)
+        const response = await request(server)
         .get(`/users/${id}`)
         .set('Authorization', `Bearer ${adminToken || userToken}`);
 
@@ -206,7 +206,7 @@ describe('GET User Testing', () => {
 
 });
 
-describe('POST User Testing', () => {
+describe('POST /users', () => {
     let adminUser, buyerUser;
 
     beforeAll(async () => {
@@ -254,7 +254,7 @@ describe('POST User Testing', () => {
             role: "Buyer"
         };
 
-        const response = await request(app)
+        const response = await request(server)
         .post('/users')
         .set('Authorization', `Bearer ${adminToken}`)
         .send(user);
@@ -276,7 +276,7 @@ describe('POST User Testing', () => {
             role: "Buyer"
         };
 
-        const response = await request(app)
+        const response = await request(server)
         .post('/users')
         .send(user);
 
@@ -295,7 +295,7 @@ describe('POST User Testing', () => {
             role: "Buyer"
         };
 
-        const response = await request(app)
+        const response = await request(server)
         .post('/users')
         .set('Authorization', `Bearer ${null}`)
         .send(user);
@@ -315,7 +315,7 @@ describe('POST User Testing', () => {
             role: "Buyer"
         };
 
-        const response = await request(app)
+        const response = await request(server)
         .post('/users')
         .set('Authorization', `Bearer ${userToken}`)
         .send(user);
@@ -335,7 +335,7 @@ describe('POST User Testing', () => {
             role: "Buyer"
         };
 
-        const response = await request(app)
+        const response = await request(server)
         .post('/users')
         .set('Authorization', `Bearer ${adminToken}`)
         .send(user);
@@ -355,7 +355,7 @@ describe('POST User Testing', () => {
             role: "Buyer"
         };
 
-        const response = await request(app)
+        const response = await request(server)
         .post('/users')
         .set('Authorization', `Bearer ${adminToken}`)
         .send(user);
@@ -375,7 +375,7 @@ describe('POST User Testing', () => {
             role: "Buyer"
         };
 
-        const response = await request(app)
+        const response = await request(server)
         .post('/users')
         .set('Authorization', `Bearer ${adminToken}`)
         .send(user);
@@ -395,7 +395,7 @@ describe('POST User Testing', () => {
             role: "Buyer"
         };
 
-        const response = await request(app)
+        const response = await request(server)
         .post('/users')
         .set('Authorization', `Bearer ${adminToken}`)
         .send(user);
@@ -415,7 +415,7 @@ describe('POST User Testing', () => {
             role: "Buyer"
         };
 
-        const response = await request(app)
+        const response = await request(server)
         .post('/users')
         .set('Authorization', `Bearer ${adminToken}`)
         .send(user);
@@ -435,7 +435,7 @@ describe('POST User Testing', () => {
             role: "User"
         };
 
-        const response = await request(app)
+        const response = await request(server)
         .post('/users')
         .set('Authorization', `Bearer ${adminToken}`)
         .send(user);
@@ -457,7 +457,7 @@ describe('POST User Testing', () => {
             isVerified: false
         }
 
-        const response = await request(app)
+        const response = await request(server)
         .post('/users')
         .set('Authorization', `Bearer ${adminToken}`)
         .send(user);
@@ -478,7 +478,7 @@ describe('POST User Testing', () => {
             isVerified: false
         }
 
-        const response = await request(app).post('/users')
+        const response = await request(server).post('/users')
         .set('Authorization', `Bearer ${adminToken}`)
         .send(user);
 
@@ -488,7 +488,7 @@ describe('POST User Testing', () => {
     });
 });
 
-describe('PATCH User Testing', () => {
+describe('PATCH /users', () => {
     let adminUser, user;
 
     beforeAll(async () => {
@@ -536,7 +536,7 @@ describe('PATCH User Testing', () => {
             fullName: null,
         }
 
-        const response = await request(app)
+        const response = await request(server)
         .patch(`/users/${id}`)
         .send(patchUser)
         .set('Authorization', `Bearer ${userToken}`);
@@ -560,7 +560,7 @@ describe('PATCH User Testing', () => {
             phoneNumber: "628123456789"
         }
 
-        const response = await request(app)
+        const response = await request(server)
         .patch(`/users/${id}`)
         .set('Authorization', `Bearer ${userToken}`)
         .send(sameEmailUser);
@@ -581,7 +581,7 @@ describe('PATCH User Testing', () => {
             phoneNumber: "628144124265"
         }
 
-        const response = await request(app)
+        const response = await request(server)
         .patch(`/users/${id}`)
         .set('Authorization', `Bearer ${userToken}`)
         .send(patchUser);
@@ -603,7 +603,7 @@ describe('PATCH User Testing', () => {
             phoneNumber: "628123456789"
         }
 
-        const response = await request(app)
+        const response = await request(server)
         .patch(`/users/${id}`)
         .set('Authorization', `Bearer ${userToken}`)
         .send(patchUser);
@@ -625,7 +625,7 @@ describe('PATCH User Testing', () => {
             phoneNumber: "628123456789"
         }
 
-        const response = await request(app)
+        const response = await request(server)
         .patch(`/users/${id}`)
         .send(patchUser);
 
@@ -644,7 +644,7 @@ describe('PATCH User Testing', () => {
             phoneNumber: "628123456789"
         }
 
-        const response = await request(app)
+        const response = await request(server)
         .patch(`/users/${id}`)
         .set('Authorization', `Bearer ${null}`)
         .send(patchUser);
@@ -664,7 +664,7 @@ describe('PATCH User Testing', () => {
             phoneNumber: "628123456789"
         }
 
-        const response = await request(app)
+        const response = await request(server)
         .patch(`/users/${id}`)
         .set('Authorization', `Bearer ${userToken}`)
         .send(patchUser);
@@ -683,7 +683,7 @@ describe('PATCH User Testing', () => {
             phoneNumber: "000123"
         }
 
-        const response = await request(app)
+        const response = await request(server)
         .patch(`/users/${id}`)
         .set('Authorization', `Bearer ${userToken}`)
         .send(patchUser);
@@ -702,7 +702,7 @@ describe('PATCH User Testing', () => {
             phoneNumber: "628123456789"
         }
 
-        const response = await request(app)
+        const response = await request(server)
         .patch(`/users/${id}`)
         .set('Authorization', `Bearer ${userToken}`)
         .send(patchUser);
@@ -725,7 +725,7 @@ describe('PATCH User Testing', () => {
             phoneNumber: "628123477677"
         }
 
-        const response = await request(app)
+        const response = await request(server)
         .patch(`/users/${id}`)
         .set('Authorization', `Bearer ${userToken}`)
         .send(patchUser);
@@ -736,7 +736,7 @@ describe('PATCH User Testing', () => {
     });
 });
 
-describe('DELETE User Testing', () => {
+describe('DELETE /users', () => {
     let adminUser, buyerUser;
 
     beforeAll(async () => {
@@ -776,7 +776,7 @@ describe('DELETE User Testing', () => {
 
     test("DELETE /users/:id failed due to User not found (404)", async () => {
         const id = 9999;
-        const response = await request(app)
+        const response = await request(server)
         .delete(`/users/${id}`)
         .set('Authorization', `Bearer ${adminToken}`);
 
@@ -787,7 +787,7 @@ describe('DELETE User Testing', () => {
 
     test("DELETE /users/:id failed due to invalid id format (400)", async () => {
         const id = 'w';
-        const response = await request(app)
+        const response = await request(server)
         .delete(`/users/${id}`)
         .set('Authorization', `Bearer ${adminToken}`);
 
@@ -798,7 +798,7 @@ describe('DELETE User Testing', () => {
 
     test("DELETE /users/:id failed due to no authorization headers (401)", async () => {
         const id = adminUser.id;
-        const response = await request(app)
+        const response = await request(server)
         .delete(`/users/${id}`)
 
         expect(response.status).toBe(401);
@@ -808,7 +808,7 @@ describe('DELETE User Testing', () => {
 
     test("DELETE /users/:id failed due to invalid token (401)", async () => {
         const id = adminUser.id;
-        const response = await request(app)
+        const response = await request(server)
         .delete(`/users/${id}`)
         .set('Authorization', `Bearer ${null}`);
 
@@ -819,7 +819,7 @@ describe('DELETE User Testing', () => {
 
     test("DELETE /users/:id failed due to role isn't admin (403)", async () => {
         const id = buyerUser.id;
-        const response = await request(app)
+        const response = await request(server)
         .delete(`/users/${id}`)
         .set('Authorization', `Bearer ${userToken}`);
 
@@ -830,7 +830,7 @@ describe('DELETE User Testing', () => {
 
     test("DELETE /users/:id successed (200)", async () => {
         const id = adminUser.id;
-        const response = await request(app)
+        const response = await request(server)
         .delete(`/users/${id}`)
         .set('Authorization', `Bearer ${adminToken}`);
 

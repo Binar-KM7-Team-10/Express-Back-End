@@ -25,7 +25,8 @@
     "test:booking": "npx jest ./tests/integration/booking.integration.test.js --detectOpenHandles --coverage",
     "test:homepage": "npx jest ./tests/integration/homepage.integration.test.js --detectOpenHandles --coverage",
     "test:notification": "npx jest ./tests/integration/notification.integration.test.js --detectOpenHandles --coverage",
-    "test:all": "npx jest --detectOpenHandles --coverage"
+    "test:user": "npx jest ./tests/integration/user.integration.test.js --detectOpenHandles --coverage",
+    "test:all": "npx jest --silent --detectOpenHandles --coverage"
   },
   "author": "Team 10 Back End",
   "license": "ISC",
