@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1734928204611" clover="3.2.0">
-  <project timestamp="1734928204612" name="All files">
-    <metrics statements="1115" coveredstatements="727" conditionals="874" coveredconditionals="497" methods="143" coveredmethods="81" elements="2132" coveredelements="1305" complexity="0" loc="1115" ncloc="1115" packages="8" files="40" classes="40"/>
+<coverage generated="1734933291428" clover="3.2.0">
+  <project timestamp="1734933291429" name="All files">
+    <metrics statements="1117" coveredstatements="725" conditionals="874" coveredconditionals="497" methods="143" coveredmethods="80" elements="2134" coveredelements="1302" complexity="0" loc="1117" ncloc="1117" packages="8" files="40" classes="40"/>
     <package name="Express-Back-End">
-      <metrics statements="18" coveredstatements="18" conditionals="4" coveredconditionals="3" methods="1" coveredmethods="1"/>
+      <metrics statements="20" coveredstatements="20" conditionals="4" coveredconditionals="3" methods="1" coveredmethods="1"/>
       <file name="app.js" path="C:\binar-academy\fp-tiketku\Express-Back-End\app.js">
-        <metrics statements="18" coveredstatements="18" conditionals="4" coveredconditionals="3" methods="1" coveredmethods="1"/>
+        <metrics statements="20" coveredstatements="20" conditionals="4" coveredconditionals="3" methods="1" coveredmethods="1"/>
         <line num="1" count="4" type="cond" truecount="1" falsecount="1"/>
         <line num="2" count="4" type="stmt"/>
         <line num="5" count="4" type="stmt"/>
@@ -18,10 +18,12 @@
         <line num="13" count="4" type="stmt"/>
         <line num="14" count="4" type="cond" truecount="2" falsecount="0"/>
         <line num="16" count="4" type="stmt"/>
+        <line num="17" count="4" type="stmt"/>
         <line num="18" count="4" type="stmt"/>
         <line num="19" count="4" type="stmt"/>
         <line num="20" count="4" type="stmt"/>
         <line num="22" count="4" type="stmt"/>
+        <line num="23" count="4" type="stmt"/>
         <line num="26" count="4" type="stmt"/>
         <line num="28" count="4" type="stmt"/>
       </file>
@@ -739,16 +741,16 @@
       </file>
     </package>
     <package name="Express-Back-End.utils">
-      <metrics statements="100" coveredstatements="42" conditionals="63" coveredconditionals="8" methods="18" coveredmethods="5"/>
+      <metrics statements="100" coveredstatements="38" conditionals="63" coveredconditionals="8" methods="18" coveredmethods="4"/>
       <file name="cronJob.js" path="C:\binar-academy\fp-tiketku\Express-Back-End\utils\cronJob.js">
-        <metrics statements="9" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
+        <metrics statements="9" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="31" count="1" type="stmt"/>
-        <line num="58" count="1" type="stmt"/>
-        <line num="66" count="1" type="stmt"/>
+        <line num="7" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="58" count="0" type="stmt"/>
+        <line num="66" count="0" type="stmt"/>
         <line num="67" count="0" type="stmt"/>
         <line num="77" count="4" type="stmt"/>
       </file>

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.88% </span>
+                <span class="strong">44.44% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/9</span>
+                <span class='fraction'>4/9</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.88% </span>
+                <span class="strong">44.44% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/9</span>
+                <span class='fraction'>4/9</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -145,7 +145,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -169,7 +169,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -196,7 +196,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -204,7 +204,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -220,8 +220,8 @@ const prisma = new PrismaClient();
 const Notification = require('../models/notification');
 &nbsp;
 class Job {
-    static async checkPayment() {
-        const updatedBookings = await prisma.booking.findMany({
+<span class="fstat-no" title="function not covered" >    st</span>atic async checkPayment() {
+        const updatedBookings = <span class="cstat-no" title="statement not covered" >await prisma.booking.findMany({</span>
             where: {
                 AND: [
                     {
@@ -245,7 +245,7 @@ class Job {
             }
         });
 &nbsp;
-        await prisma.booking.updateMany({
+<span class="cstat-no" title="statement not covered" >        await prisma.booking.updateMany({</span>
             where: {
                 AND: [
                     {
@@ -272,7 +272,7 @@ class Job {
             }
         });
 &nbsp;
-        await prisma.bookedSeat.deleteMany({
+<span class="cstat-no" title="statement not covered" >        await prisma.bookedSeat.deleteMany({</span>
             where: {
                 booking: {
                     status: 'Cancelled'
@@ -280,7 +280,7 @@ class Job {
             }
         });
 &nbsp;
-        await Promise.all(updatedBookings.map(<span class="fstat-no" title="function not covered" >as</span>ync (booking) =&gt; {
+<span class="cstat-no" title="statement not covered" >        await Promise.all(updatedBookings.map(<span class="fstat-no" title="function not covered" >as</span>ync (booking) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >            await Notification.create(</span>
                 booking.userId,
                 `Pembayaran Melewati Batas Waktu`,
@@ -298,7 +298,7 @@ module.exports = Job;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-12-23T04:30:04.298Z
+                at 2024-12-23T05:54:51.202Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
