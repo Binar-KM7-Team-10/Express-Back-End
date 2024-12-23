@@ -7,11 +7,7 @@ module.exports = {
     validateUserId: async (data) => {
         const { userId } = data;
         
-        if (userId) {
-            if (isNaN(userId)){
-                throw new HttpRequestError("Validasi gagal. Pastikan userId yang Anda masukkan dalam format yang benar.", 400);
-            }
-            
+        if (userId) {            
             const findUserId = await prisma.user.findUnique({
                 where: {
                     id: parseInt(userId)
@@ -23,15 +19,6 @@ module.exports = {
             }
         }
     
-    },
-    validateNotificationId: async (params) => {
-        const { id } = params;
-
-        if (!id) {
-            throw new HttpRequestError("Validasi gagal. Pastikan notificationId telah diisi.", 400);
-        } else if (isNaN(id)) {
-            throw new HttpRequestError("Validasi gagal. Pastikan notificationId yang Anda masukkan dalam format yang benar.", 400);
-        }
     },
     validateBody: (body) => {
         const { readStatus } = body;

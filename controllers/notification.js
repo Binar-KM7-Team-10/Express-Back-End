@@ -20,7 +20,6 @@ module.exports = {
     },
     getById: async (req, res, next) => {
         try {
-            await notificationValidation.validateNotificationId(req.params);
             const getById = await Notification.getNotificationById(req.params);
     
             return res.status(200).json({
@@ -35,7 +34,6 @@ module.exports = {
     },
     patch: async (req, res, next) => {
         try {
-            await notificationValidation.validateNotificationId(req.params);
             notificationValidation.validateBody(req.body);
             await Notification.patchReadStatus(req.params, req.body);
 
