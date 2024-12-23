@@ -6,192 +6,47 @@
     },
     {
         "cityId": 2,
-        "name": "Supadio International Airport",
-        "iataCode": "PNK"
-    },
-    {
-        "cityId": 3,
-        "name": "Ngurah Rai International Airport",
-        "iataCode": "DPS"
-    },
-    {
-        "cityId": 4,
-        "name": "Charles de Gaulle Airport",
-        "iataCode": "CDG"
-    },
-    {
-        "cityId": 5,
-        "name": "Lyon-Saint Exupéry Airport",
-        "iataCode": "LYS"
-    },
-    {
-        "cityId": 6,
-        "name": "John F. Kennedy International Airport",
-        "iataCode": "JFK"
-    },
-    {
-        "cityId": 6,
-        "name": "LaGuardia Airport",
-        "iataCode": "LGA"
-    },
-    {
-        "cityId": 7,
         "name": "Los Angeles International Airport",
         "iataCode": "LAX"
     },
     {
-        "cityId": 8,
-        "name": "O'Hare International Airport",
-        "iataCode": "ORD"
-    },
-    {
-        "cityId": 9,
-        "name": "Sydney Kingsford Smith Airport",
-        "iataCode": "SYD"
-    },
-    {
-        "cityId": 10,
-        "name": "Melbourne Airport",
-        "iataCode": "MEL"
-    },
-    {
-        "cityId": 11,
-        "name": "Narita International Airport",
-        "iataCode": "NRT"
-    },
-    {
-        "cityId": 11,
-        "name": "Haneda Airport",
-        "iataCode": "HND"
-    },
-    {
-        "cityId": 12,
-        "name": "Kansai International Airport",
-        "iataCode": "KIX"
-    },
-    {
-        "cityId": 13,
-        "name": "Cape Town International Airport",
-        "iataCode": "CPT"
-    },
-    {
-        "cityId": 14,
-        "name": "Cairo International Airport",
-        "iataCode": "CAI"
-    },
-    {
-        "cityId": 15,
+        "cityId": 3,
         "name": "Berlin Brandenburg Airport",
         "iataCode": "BER"
     },
     {
-        "cityId": 16,
-        "name": "Munich Airport",
-        "iataCode": "MUC"
+        "cityId": 4,
+        "name": "Sydney Kingsford Smith Airport",
+        "iataCode": "SYD"
     },
     {
-        "cityId": 17,
-        "name": "Ministro Pistarini International Airport",
-        "iataCode": "EZE"
+        "cityId": 5,
+        "name": "Cairo International Airport",
+        "iataCode": "CAI"
     },
     {
-        "cityId": 18,
-        "name": "Chhatrapati Shivaji Maharaj International Airport",
-        "iataCode": "BOM"
+        "cityId": 6,
+        "name": "Ngurah Rai International Airport",
+        "iataCode": "DPS"
     },
     {
-        "cityId": 19,
-        "name": "Indira Gandhi International Airport",
-        "iataCode": "DEL"
+        "cityId": 7,
+        "name": "Vancouver International Airport",
+        "iataCode": "YVR"
     },
     {
-        "cityId": 20,
-        "name": "Suvarnabhumi Airport",
-        "iataCode": "BKK"
+        "cityId": 8,
+        "name": "Heathrow Airport",
+        "iataCode": "LHR"
     },
     {
-        "cityId": 21,
-        "name": "Phuket International Airport",
-        "iataCode": "HKT"
+        "cityId": 9,
+        "name": "Melbourne Airport",
+        "iataCode": "MEL"
     },
     {
-        "cityId": 22,
-        "name": "Ninoy Aquino International Airport",
-        "iataCode": "MNL"
-    },
-    {
-        "cityId": 23,
-        "name": "Mactan-Cebu International Airport",
-        "iataCode": "CEB"
-    },
-    {
-        "cityId": 24,
-        "name": "Kuala Lumpur International Airport",
-        "iataCode": "KUL"
-    },
-    {
-        "cityId": 25,
-        "name": "Penang International Airport",
-        "iataCode": "PEN"
-    },
-    {
-        "cityId": 26,
-        "name": "Adisutjipto International Airport",
-        "iataCode": "JOG"
-    },
-    {
-        "cityId": 27,
-        "name": "Juanda International Airport",
-        "iataCode": "SUB"
-    },
-    {
-        "cityId": 28,
-        "name": "Sultan Hasanuddin International Airport",
-        "iataCode": "UPG"
-    },
-    {
-        "cityId": 29,
-        "name": "Da Nang International Airport",
-        "iataCode": "DAD"
-    },
-    {
-        "cityId": 30,
-        "name": "Tan Son Nhat International Airport",
-        "iataCode": "SGN"
-    },
-    {
-        "cityId": 31,
-        "name": "Noi Bai International Airport",
-        "iataCode": "HAN"
-    },
-    {
-        "cityId": 32,
-        "name": "Wattay International Airport",
-        "iataCode": "VTE"
-    },
-    {
-        "cityId": 33,
-        "name": "Siem Reap International Airport",
-        "iataCode": "REP"
-    },
-    {
-        "cityId": 34,
-        "name": "Phnom Penh International Airport",
-        "iataCode": "PNH"
-    },
-    {
-        "cityId": 35,
-        "name": "Brunei International Airport",
-        "iataCode": "BWN"
-    },
-    {
-        "cityId": 36,
-        "name": "Naypyidaw Airport",
-        "iataCode": "NYT"
-    },
-    {
-        "cityId": 37,
-        "name": "Yangon International Airport",
-        "iataCode": "RGN"
+        "cityId": 10,
+        "name": "Jomo Kenyatta International Airport",
+        "iataCode": "NBO"
     }
 ]

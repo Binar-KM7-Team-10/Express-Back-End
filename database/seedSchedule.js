@@ -1,54 +1,71 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
+const clearLastLine = () => {
+    process.stdout.moveCursor(0, -1) // up one line
+    process.stdout.clearLine(1) // from cursor to end
+}
+
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 let total = 0;
 const seedDatabase = async () => {
-    const today = new Date();
+    try {
+        const flightSize = await prisma.flight.count();
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
 
-    // Generate schedules for 15 rows for each day from today to the next 14 days
-    for (let dayOffset = 0; dayOffset < 15; dayOffset++) {
-        const currentDay = new Date(today);
-        currentDay.setDate(today.getDate() + dayOffset);
+        for (let i = 1; i <= flightSize; i++) { // For each flight 
+            for (let j = 0; j < 2; j++) { // For each seat class (2 seat classes)
+                const seatClass = ['Economy', 'Business'][j];
 
-        for (let i = 0; i < 15; i++) {
-            const flightId = getRandomInt(1, 100);
+                for (let k = 0; k < 5; k++) { // For each day (5 days)
+                    const day = new Date(today);
+                    day.setDate(day.getDate() + k);
 
-            const departureDateTime = new Date(currentDay);
-            departureDateTime.setHours(getRandomInt(0, 23), getRandomInt(0, 59), 0, 0);
+                    for (let l = 0; l < 5; l++) { // For each schedule (5 schedules per day)
+                        const departureDateTime = new Date(day);
+    
+                        departureDateTime.setHours(
+                            parseInt(getRandomInt(0, 23)),
+                            parseInt(getRandomInt(0, 59)),
+                            parseInt(getRandomInt(0, 59)),
+                            parseInt(getRandomInt(0, 999))
+                        );
+    
+                        const duration = parseInt(getRandomInt(45, 300));
+                        const arrivalDateTime = new Date(departureDateTime);
+                        arrivalDateTime.setMinutes(arrivalDateTime.getMinutes() + duration);
+    
+                        const ticketPrice = getRandomInt(1000, 9900) * 1000;
+                        const seatAvailability = 72;
+                        const terminalGate = ["1A", "1B", "1C", "2A", "2B", "2C", "3A", "3B", "3C"][getRandomInt(0, 8)];
 
-            const arrivalDateTime = new Date(departureDateTime);
-            arrivalDateTime.setMinutes(departureDateTime.getMinutes() + getRandomInt(60, 300));
+                        await prisma.schedule.create({
+                            data: {
+                                flightId: i,
+                                departureDateTime: departureDateTime.toISOString(),
+                                arrivalDateTime: arrivalDateTime.toISOString(),
+                                duration,
+                                ticketPrice,
+                                seatAvailability,
+                                seatClass,
+                                terminalGate
+                            }
+                        });
 
-            const duration = Math.round((arrivalDateTime - departureDateTime) / (1000 * 60));
-            const ticketPrice = getRandomInt(1000, 9900) * 1000;
-            const seatAvailability = 72;
+                        total++;
+                        console.log(`Seeding Schedule: ${total}/${flightSize * 2 * 5 * 5}`);
+                        clearLastLine();
+                    }
+                }
 
-            const seatClass = ["Economy", "Premium Economy", "Business", "First Class"][
-                getRandomInt(0, 3)
-            ];
-
-            const terminalGate = ["1A", "1B", "1C", "2A", "2B", "2C", "3A", "3B", "3C"][
-                getRandomInt(0, 8)
-            ];
-
-            const data = {
-                flightId,
-                departureDateTime: departureDateTime.toISOString(),
-                arrivalDateTime: arrivalDateTime.toISOString(),
-                duration,
-                ticketPrice,
-                seatAvailability,
-                seatClass,
-                terminalGate,
-            };
-
-            await prisma.schedule.create({ data });
-            total++;
+            }
         }
+    } catch (err) {
+        console.error(err);
     }
 }
 

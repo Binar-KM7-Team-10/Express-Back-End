@@ -1,6 +1,11 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
+const clearLastLine = () => {
+    process.stdout.moveCursor(0, -1) // up one line
+    process.stdout.clearLine(1) // from cursor to end
+}
+
 function getRandomInt(min, max, exclude) {
     const minCeiled = Math.ceil(min);
     const maxFloored = Math.floor(max);
@@ -32,6 +37,8 @@ const seedDatabase = async () => {
                 });
 
                 total++;
+                console.log(`Seeding FlightService: ${total}`);
+                clearLastLine();
             } catch (err) {
                 console.error(err);
             }
