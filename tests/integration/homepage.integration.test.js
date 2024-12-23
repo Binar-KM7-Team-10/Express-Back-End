@@ -875,3 +875,69 @@ describe('GET /homepage', () => {
         expect(response.body.message).toBe('Validasi gagal. Pastikan page tidak melebih total halaman.');
     });
 });
+
+describe('GET /cities', () => {
+    let buyerAccessToken, adminAccessToken;
+
+    beforeAll(() => {
+        buyerAccessToken = generateToken({
+            id: 1,
+            fullName: 'Buyer 1',
+            email: 'buyer@tiketgo.com',
+            phoneNumber: '6280000000000',
+            role: 'Buyer'
+        });
+
+        adminAccessToken = generateToken({
+            id: 2,
+            fullName: 'Admin 1',
+            email: 'admin@tiketgo.com',
+            phoneNumber: '6280000000001',
+            role: 'Admin'
+        });
+    });
+
+    afterAll(() => {
+        server.close();
+
+        if (job) {
+            job.cancel();
+        }
+    });
+
+    beforeEach(async () => {
+        await resetDatabase();
+        await seedDatabase();
+    });
+
+    afterEach(async() => await resetDatabase());
+
+    it('should successfully retrieves all cities with 200 status code', async () => {
+        const response = await request(server)
+            .get('/cities');
+
+        expect(response.status).toBe(200);
+
+        expect(response.body.status).toBe('Success');
+        expect(response.body.statusCode).toBe(200);
+        expect(response.body.message).toBe('Data kota berhasil diambil.');
+
+        expect(response.body.pagination).toHaveProperty('total');
+        expect(response.body.data).toHaveProperty('cities');
+        expect(response.body.pagination.total).toBe(response.body.data.cities.length);
+
+        expect(Array.isArray(response.body.data.cities)).toBe(true);
+
+        const { cities } = response.body.data;
+        if (cities.length) {
+            cities.forEach((c) => {
+                expect(c).toHaveProperty('id');
+                expect(c).toHaveProperty('name');
+                expect(c).toHaveProperty('country');
+                expect(c).toHaveProperty('code');
+                expect(c).toHaveProperty('continent');
+                expect(c).toHaveProperty('imageUrl');
+            });
+        }
+    });
+});

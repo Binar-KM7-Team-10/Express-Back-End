@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1734918109777" clover="3.2.0">
-  <project timestamp="1734918109778" name="All files">
-    <metrics statements="1125" coveredstatements="251" conditionals="880" coveredconditionals="30" methods="144" coveredmethods="10" elements="2149" coveredelements="291" complexity="0" loc="1125" ncloc="1125" packages="8" files="40" classes="40"/>
+<coverage generated="1734918483101" clover="3.2.0">
+  <project timestamp="1734918483102" name="All files">
+    <metrics statements="1124" coveredstatements="256" conditionals="880" coveredconditionals="31" methods="144" coveredmethods="12" elements="2148" coveredelements="299" complexity="0" loc="1124" ncloc="1124" packages="8" files="40" classes="40"/>
     <package name="Express-Back-End">
       <metrics statements="18" coveredstatements="18" conditionals="4" coveredconditionals="3" methods="1" coveredmethods="1"/>
       <file name="app.js" path="C:\binar-academy\fp-tiketku\Express-Back-End\app.js">
@@ -39,7 +39,7 @@
       </file>
     </package>
     <package name="Express-Back-End.controllers">
-      <metrics statements="178" coveredstatements="28" conditionals="14" coveredconditionals="2" methods="28" coveredmethods="1"/>
+      <metrics statements="178" coveredstatements="31" conditionals="14" coveredconditionals="3" methods="28" coveredmethods="2"/>
       <file name="auth.js" path="C:\binar-academy\fp-tiketku\Express-Back-End\controllers\auth.js">
         <metrics statements="57" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
@@ -131,7 +131,7 @@
         <line num="88" count="0" type="stmt"/>
       </file>
       <file name="homepage.js" path="C:\binar-academy\fp-tiketku\Express-Back-End\controllers\homepage.js">
-        <metrics statements="12" coveredstatements="8" conditionals="6" coveredconditionals="2" methods="2" coveredmethods="1"/>
+        <metrics statements="12" coveredstatements="11" conditionals="6" coveredconditionals="3" methods="2" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
@@ -140,9 +140,9 @@
         <line num="8" count="9" type="stmt"/>
         <line num="10" count="8" type="stmt"/>
         <line num="25" count="4" type="stmt"/>
-        <line num="29" count="0" type="stmt"/>
-        <line num="30" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
         <line num="43" count="0" type="stmt"/>
       </file>
       <file name="notification.js" path="C:\binar-academy\fp-tiketku\Express-Back-End\controllers\notification.js">
@@ -354,7 +354,7 @@
       </file>
     </package>
     <package name="Express-Back-End.models">
-      <metrics statements="266" coveredstatements="59" conditionals="146" coveredconditionals="9" methods="54" coveredmethods="4"/>
+      <metrics statements="266" coveredstatements="61" conditionals="146" coveredconditionals="9" methods="54" coveredmethods="5"/>
       <file name="auth.js" path="C:\binar-academy\fp-tiketku\Express-Back-End\models\auth.js">
         <metrics statements="53" coveredstatements="8" conditionals="20" coveredconditionals="0" methods="9" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
@@ -492,7 +492,7 @@
         <line num="354" count="1" type="stmt"/>
       </file>
       <file name="homepage.js" path="C:\binar-academy\fp-tiketku\Express-Back-End\models\homepage.js">
-        <metrics statements="22" coveredstatements="20" conditionals="10" coveredconditionals="9" methods="6" coveredmethods="4"/>
+        <metrics statements="22" coveredstatements="22" conditionals="10" coveredconditionals="9" methods="6" coveredmethods="5"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -512,8 +512,8 @@
         <line num="86" count="9" type="cond" truecount="4" falsecount="0"/>
         <line num="87" count="1" type="stmt"/>
         <line num="90" count="8" type="stmt"/>
-        <line num="105" count="0" type="stmt"/>
-        <line num="111" count="0" type="stmt"/>
+        <line num="105" count="1" type="stmt"/>
+        <line num="111" count="1" type="stmt"/>
         <line num="115" count="1" type="stmt"/>
       </file>
       <file name="invoice.js" path="C:\binar-academy\fp-tiketku\Express-Back-End\models\invoice.js">
@@ -741,7 +741,7 @@
       </file>
     </package>
     <package name="Express-Back-End.utils">
-      <metrics statements="101" coveredstatements="36" conditionals="63" coveredconditionals="2" methods="18" coveredmethods="3"/>
+      <metrics statements="100" coveredstatements="36" conditionals="63" coveredconditionals="2" methods="18" coveredmethods="3"/>
       <file name="cronJob.js" path="C:\binar-academy\fp-tiketku\Express-Back-End\utils\cronJob.js">
         <metrics statements="9" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
@@ -761,12 +761,11 @@
         <line num="8" count="1" type="stmt"/>
       </file>
       <file name="errorHandler.js" path="C:\binar-academy\fp-tiketku\Express-Back-End\utils\errorHandler.js">
-        <metrics statements="6" coveredstatements="4" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+        <metrics statements="5" coveredstatements="4" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
-        <line num="4" count="4" type="cond" truecount="1" falsecount="1"/>
-        <line num="5" count="4" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
+        <line num="5" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="6" count="4" type="stmt"/>
         <line num="13" count="0" type="stmt"/>
       </file>
       <file name="jwtHelper.js" path="C:\binar-academy\fp-tiketku\Express-Back-End\utils\jwtHelper.js">
@@ -774,7 +773,7 @@
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="4" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="5" count="2" type="stmt"/>
+        <line num="5" count="4" type="stmt"/>
         <line num="8" count="1" type="stmt"/>
         <line num="9" count="0" type="stmt"/>
         <line num="10" count="0" type="cond" truecount="0" falsecount="2"/>
