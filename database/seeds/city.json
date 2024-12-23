@@ -1,261 +1,152 @@
 [
     {
+        "name": "Denpasar",
+        "code": "DPS",
+        "country": "Indonesia",
+        "continent": "Asia"
+    },
+    {
         "name": "Jakarta",
         "code": "JKT",
         "country": "Indonesia",
-        "continent": "Asia",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
-    },
-    {
-        "name": "Pontianak",
-        "code": "PNK",
-        "country": "Indonesia",
-        "continent": "Asia",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
-    },
-    {
-        "name": "Bali",
-        "code": "DPS",
-        "country": "Indonesia",
-        "continent": "Asia",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
-    },
-    {
-        "name": "Paris",
-        "code": "PAR",
-        "country": "France",
-        "continent": "Europe",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
-    },
-    {
-        "name": "Lyon",
-        "code": "LYS",
-        "country": "France",
-        "continent": "Europe",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
-    },
-    {
-        "name": "New York",
-        "code": "NYC",
-        "country": "USA",
-        "continent": "America",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
-    },
-    {
-        "name": "Los Angeles",
-        "code": "LAX",
-        "country": "USA",
-        "continent": "America",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
-    },
-    {
-        "name": "Chicago",
-        "code": "ORD",
-        "country": "USA",
-        "continent": "America",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
-    },
-    {
-        "name": "Sydney",
-        "code": "SYD",
-        "country": "Australia",
-        "continent": "Australia",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
-    },
-    {
-        "name": "Melbourne",
-        "code": "MEL",
-        "country": "Australia",
-        "continent": "Australia",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
-    },
-    {
-        "name": "Tokyo",
-        "code": "TYO",
-        "country": "Japan",
-        "continent": "Asia",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
-    },
-    {
-        "name": "Osaka",
-        "code": "OSA",
-        "country": "Japan",
-        "continent": "Asia",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
-    },
-    {
-        "name": "Cape Town",
-        "code": "CPT",
-        "country": "South Africa",
-        "continent": "Africa",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
-    },
-    {
-        "name": "Cairo",
-        "code": "CAI",
-        "country": "Egypt",
-        "continent": "Africa",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
-    },
-    {
-        "name": "Berlin",
-        "code": "BER",
-        "country": "Germany",
-        "continent": "Europe",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
-    },
-    {
-        "name": "Munich",
-        "code": "MUC",
-        "country": "Germany",
-        "continent": "Europe",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
-    },
-    {
-        "name": "Buenos Aires",
-        "code": "BUE",
-        "country": "Argentina",
-        "continent": "America",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
-    },
-    {
-        "name": "Mumbai",
-        "code": "BOM",
-        "country": "India",
-        "continent": "Asia",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
-    },
-    {
-        "name": "Delhi",
-        "code": "DEL",
-        "country": "India",
-        "continent": "Asia",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
-    },
-    {
-        "name": "Bangkok",
-        "code": "BKK",
-        "country": "Thailand",
-        "continent": "Asia",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
-    },
-    {
-        "name": "Phuket",
-        "code": "HKT",
-        "country": "Thailand",
-        "continent": "Asia",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
-    },
-    {
-        "name": "Manila",
-        "code": "MNL",
-        "country": "Philippines",
-        "continent": "Asia",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
-    },
-    {
-        "name": "Cebu",
-        "code": "CEB",
-        "country": "Philippines",
-        "continent": "Asia",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
-    },
-    {
-        "name": "Kuala Lumpur",
-        "code": "KUL",
-        "country": "Malaysia",
-        "continent": "Asia",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
-    },
-    {
-        "name": "Penang",
-        "code": "PEN",
-        "country": "Malaysia",
-        "continent": "Asia",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
-    },
-    {
-        "name": "Yogyakarta",
-        "code": "JOG",
-        "country": "Indonesia",
-        "continent": "Asia",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
+        "continent": "Asia"
     },
     {
         "name": "Surabaya",
         "code": "SUB",
         "country": "Indonesia",
-        "continent": "Asia",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
+        "continent": "Asia"
     },
     {
-        "name": "Makassar",
-        "code": "UPG",
-        "country": "Indonesia",
-        "continent": "Asia",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
+        "name": "Singapore",
+        "code": "SIN",
+        "country": "Singapore",
+        "continent": "Asia"
     },
     {
-        "name": "Da Nang",
-        "code": "DAD",
-        "country": "Vietnam",
-        "continent": "Asia",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
+        "name": "Tokyo",
+        "code": "TYO",
+        "country": "Japan",
+        "continent": "Asia"
     },
     {
-        "name": "Ho Chi Minh City",
-        "code": "SGN",
-        "country": "Vietnam",
-        "continent": "Asia",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
+        "name": "Los Angeles",
+        "code": "LAX",
+        "country": "United States",
+        "continent": "America"
     },
     {
-        "name": "Hanoi",
-        "code": "HAN",
-        "country": "Vietnam",
-        "continent": "Asia",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
+        "name": "Vancouver",
+        "code": "YVR",
+        "country": "Canada",
+        "continent": "America"
     },
     {
-        "name": "Vientiane",
-        "code": "VTE",
-        "country": "Laos",
-        "continent": "Asia",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
+        "name": "Mexico City",
+        "code": "MEX",
+        "country": "Mexico",
+        "continent": "America"
     },
     {
-        "name": "Siem Reap",
-        "code": "REP",
-        "country": "Cambodia",
-        "continent": "Asia",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
+        "name": "Rio de Janeiro",
+        "code": "RIO",
+        "country": "Brazil",
+        "continent": "America"
     },
     {
-        "name": "Phnom Penh",
-        "code": "PNH",
-        "country": "Cambodia",
-        "continent": "Asia",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
+        "name": "Buenos Aires",
+        "code": "BUE",
+        "country": "Argentina",
+        "continent": "America"
     },
     {
-        "name": "Bandar Seri Begawan",
-        "code": "BWN",
-        "country": "Brunei",
-        "continent": "Asia",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
+        "name": "Berlin",
+        "code": "BER",
+        "country": "Germany",
+        "continent": "Europe"
     },
     {
-        "name": "Naypyidaw",
-        "code": "NYT",
-        "country": "Myanmar",
-        "continent": "Asia",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
+        "name": "London",
+        "code": "LON",
+        "country": "United Kingdom",
+        "continent": "Europe"
     },
     {
-        "name": "Yangon",
-        "code": "RGN",
-        "country": "Myanmar",
-        "continent": "Asia",
-        "imageUrl": "https://dummysite.url/dummy-image.jpg"
+        "name": "Paris",
+        "code": "PAR",
+        "country": "France",
+        "continent": "Europe"
+    },
+    {
+        "name": "Madrid",
+        "code": "MAD",
+        "country": "Spain",
+        "continent": "Europe"
+    },
+    {
+        "name": "Lisbon",
+        "code": "LIS",
+        "country": "Portugal",
+        "continent": "Europe"
+    },
+    {
+        "name": "Sydney",
+        "code": "SYD",
+        "country": "Australia",
+        "continent": "Australia"
+    },
+    {
+        "name": "Melbourne",
+        "code": "MLB",
+        "country": "Australia",
+        "continent": "Australia"
+    },
+    {
+        "name": "Port Moresby",
+        "code": "POM",
+        "country": "Papua New Guinea",
+        "continent": "Australia"
+    },
+    {
+        "name": "Wellington",
+        "code": "WLG",
+        "country": "New Zealand",
+        "continent": "Australia"
+    },
+    {
+        "name": "Suva",
+        "code": "SUV",
+        "country": "Fiji",
+        "continent": "Australia"
+    },
+    {
+        "name": "Cairo",
+        "code": "CAI",
+        "country": "Egypt",
+        "continent": "Africa"
+    },
+    {
+        "name": "Nairobi",
+        "code": "NBO",
+        "country": "Kenya",
+        "continent": "Africa"
+    },
+    {
+        "name": "Cape Town",
+        "code": "CPT",
+        "country": "South Africa",
+        "continent": "Africa"
+    },
+    {
+        "name": "Lagos",
+        "code": "LOS",
+        "country": "Nigeria",
+        "continent": "Africa"
+    },
+    {
+        "name": "Casablanca",
+        "code": "CAS",
+        "country": "Morocco",
+        "continent": "Africa"
     }
 ]

@@ -1,55 +1,118 @@
+<p align="center"><img src="https://ik.imagekit.io/itsbibbb/TiketGo/logo.png?updatedAt=1734801819539" width="280" height="100" alt="TiketGo API ✈️"></p>
+<p align="center">✨ Flight ticket booking API built with Express.js and Prisma ORM ✨</p>
+<p align="center"><a href="https://documenter.getpostman.com/view/37947000/2sAYHwH4HA" target="_blank">Postman Documentation</a></p>
+
+<div align="center"><img src="https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" /> 
+<img src="https://img.shields.io/badge/Express%20js-000000?style=for-the-badge&logo=express&logoColor=white" />
+<img src="https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white" />
+<img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" /></div>
+
+<div align="center"><img src="https://img.shields.io/badge/Supabase-181818?style=for-the-badge&logo=supabase&logoColor=white" />
+<img src="https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white" />
+<img src="https://img.shields.io/badge/Amazon_AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white" />
+<img src="https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white" /></div>
+
+<div align="center"><img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white" />
+<img src="https://img.shields.io/badge/Visual_Studio_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white" />
+<img src="https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white" />
+<img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" />
+<img src="https://img.shields.io/badge/Github%20Actions-282a2e?style=for-the-badge&logo=githubactions&logoColor=367cfe" /></div>
 
 
-# Tiketku API
+<h2>Getting Started 🛠️</h2>
 
-Flight ticket booking service.
+**1. Clone the project 📂**
 
-## Table of Contents
+```bash
+# Clone the repository
+git clone https://github.com/Binar-KM7-Team-10/Express-Back-End
 
-- [Tiketku API](#tiketku-api)
-	- [Table of Contents](#table-of-contents)
-	- [Enumerations](#enumerations)
-	- [Objects](#objects)
-		- [user\_object](#user_object)
-		- [schedule\_object](#schedule_object)
-		- [seat\_object](#seat_object)
-		- [passenger\_object](#passenger_object)
-		- [invoice\_object](#invoice_object)
-		- [payment\_object](#payment_object)
-		- [booking\_object](#booking_object)
-		- [card\_object](#card_object)
-		- [pagination\_object](#pagination_object)
-		- [city\_object](#city_object)
-		- [notification\_object](#notification_object)
-	- [Endpoints](#endpoints)
-		- [POST /register](#post-register)
-		- [POST /register/otp](#post-registerotp)
-		- [POST /register/otp/resend](#post-registerotpresend)
-		- [POST /login](#post-login)
-		- [GET /login/google](#get-logingoogle)
-		- [GET /logout](#get-logout)
-		- [POST /forgot-password](#post-forgot-password)
-		- [POST /reset-password](#post-reset-password)
-		- [GET /users](#get-users)
-		- [GET /users/{userId}](#get-usersuserid)
-		- [POST /users](#post-users)
-		- [PATCH /users/{userId}](#patch-usersuserid)
-		- [DELETE /users/{userId}](#delete-usersuserid)
-		- [GET /schedules](#get-schedules)
-		- [GET /schedules/{scheduleId}](#get-schedulesscheduleid)
-		- [POST /schedules](#post-schedules)
-		- [PATCH /schedules/{scheduleId}](#patch-schedulesscheduleid)
-		- [DELETE /schedules/{scheduleId}](#delete-schedulesscheduleid)
-		- [GET /bookings](#get-bookings)
-		- [GET /bookings/{bookingId}](#get-bookingsbookingid)
-		- [POST /bookings](#post-bookings)
-		- [POST /bookings/{bookingId}/payments](#post-bookingsbookingidpayments)
-		- [GET /homepage](#get-homepage)
-		- [GET /auth](#get-auth)
-		- [GET /cities](#get-cities)
-		- [GET /notifications](#get-notifications)
-		- [GET /notifications/{notificationId}](#get-notificationsnotificationid)
-		- [PATCH /notifications/{notificationId}](#patch-notificationsnotificationid)
+# Change directory to the project
+cd ./Express-Back-End
+```
+
+
+**2. Create a `.env` file and assign their values 🔑**
+
+Please refer to [.env.example](https://github.com/Binar-KM7-Team-10/Express-Back-End/blob/main/.env.example)
+
+```bash
+# UNIX Shells (Bash, Zsh, Ksh, Termux, etc.)
+touch .env
+```
+
+```pwsh
+# Powershell
+New-Item -Path ".\.env" -ItemType File
+```
+
+**3. Run the setup script ⚙️**
+
+```bash
+# Install packages and setup database
+npm run setup:all
+```
+
+**4. Start the project ✅**
+
+```bash
+# Run the program
+npm run start:dev
+```
+
+<h2 align="center">Developer Team 🧑‍💻</h2>
+
+- Muhammad Habib Al Farabi - [GitHub](https://github.com/Bibbeep)
+- Rafi Jauhari - [GitHub](https://github.com/Rafijoee)
+- Billy Thierry Maulana A. F. - [GitHub](https://github.com/billythierry)
+- Affu Dina Ilma Barkah - [GitHub](https://github.com/Affu321)
+
+
+## Table of Contents 
+
+- [Table of Contents](#table-of-contents)
+- [Enumerations](#enumerations)
+- [Objects](#objects)
+	- [user\_object](#user_object)
+	- [schedule\_object](#schedule_object)
+	- [seat\_object](#seat_object)
+	- [passenger\_object](#passenger_object)
+	- [invoice\_object](#invoice_object)
+	- [payment\_object](#payment_object)
+	- [booking\_object](#booking_object)
+	- [card\_object](#card_object)
+	- [pagination\_object](#pagination_object)
+	- [city\_object](#city_object)
+	- [notification\_object](#notification_object)
+- [Endpoints](#endpoints)
+	- [POST /register](#post-register)
+	- [POST /register/otp](#post-registerotp)
+	- [POST /register/otp/resend](#post-registerotpresend)
+	- [POST /login](#post-login)
+	- [GET /login/google](#get-logingoogle)
+	- [GET /logout](#get-logout)
+	- [POST /forgot-password](#post-forgot-password)
+	- [POST /reset-password](#post-reset-password)
+	- [GET /users](#get-users)
+	- [GET /users/{userId}](#get-usersuserid)
+	- [POST /users](#post-users)
+	- [PATCH /users/{userId}](#patch-usersuserid)
+	- [DELETE /users/{userId}](#delete-usersuserid)
+	- [GET /schedules](#get-schedules)
+	- [GET /schedules/{scheduleId}](#get-schedulesscheduleid)
+	- [POST /schedules](#post-schedules)
+	- [PATCH /schedules/{scheduleId}](#patch-schedulesscheduleid)
+	- [DELETE /schedules/{scheduleId}](#delete-schedulesscheduleid)
+	- [GET /bookings](#get-bookings)
+	- [GET /bookings/{bookingId}](#get-bookingsbookingid)
+	- [POST /bookings](#post-bookings)
+	- [POST /bookings/{bookingId}/payments](#post-bookingsbookingidpayments)
+	- [GET /homepage](#get-homepage)
+	- [GET /auth](#get-auth)
+	- [GET /cities](#get-cities)
+	- [GET /notifications](#get-notifications)
+	- [GET /notifications/{notificationId}](#get-notificationsnotificationid)
+	- [PATCH /notifications/{notificationId}](#patch-notificationsnotificationid)
 
 
 
@@ -127,7 +190,7 @@ Endpoints for listing flight schedules
 	]
 }
 ```
-> For each seatNumber element exists in `map`, that means they are available
+> For each seatNumber element exists in `map` is available to be booked
 
 ### passenger_object
 ```
@@ -250,34 +313,34 @@ Endpoints for listing flight schedules
 
 | Method | URL | Functionality | Authentication | 
 | --- | --- | --- | --- |
-| POST | /register | Creates a user account | FALSE |
-| POST | /register/otp | Verify a user account with OTP | FALSE |
-| POST | /register/otp/resend | Resend OTP to user's email | FALSE |
-| POST | /login | Logs in a user | FALSE |
-| GET | /login/google | Logs in/creates a user account with Google OAuth 2.0 | FALSE |
-| GET | /logout | Logs out a user | TRUE |
-| POST | /forgot-password | Sends an email with a url to reset password | FALSE |
-| POST| /reset-password | Resets a password of a user | TRUE |
-| GET | /users | Retrieves all users | ADMIN |
-| GET | /users/{userId} | Retrieves a user details | TRUE |
-| POST | /users | Creates a user account | ADMIN |
-| PATCH | /users/{userId} | Edits a user | TRUE |
-| DELETE | /users/{userId} | Deletes a user | ADMIN |
-| GET | /schedules | Retrieves all flight schedules | FALSE |
-| GET | /schedules/{scheduleId} | Retrieves a flight schedule details | FALSE |
-| POST | /schedules | Creates a flight schedule | ADMIN |
-| PATCH | /schedules/{scheduleId} | Edits a flight schedule | ADMIN |
-| DELETE | /schedules/{scheduleId} | Deletes a flight schedule | ADMIN |
-| GET | /bookings | Retrieves all bookings | TRUE |
-| GET | /bookings/{bookingId} | Retrieves a booking details | TRUE |
-| POST | /bookings | Creates a booking | TRUE |
-| POST | /bookings/{bookingId}/payments | Creates a payment for a booking | TRUE |
-| GET | /homepage | Retrieves homepage data | FALSE |
-| GET | /auth | Authenticate user | TRUE |
-| GET | /cities | Retrieves all cities data | FALSE |
-| GET | /notifications | Retrieves all notifications data | TRUE |
-| GET | /notifications/{notificationId} | Retrieves a notification details | TRUE |
-| PATCH | /notifications/{notificationId} | Updates a notification details | TRUE |
+| POST | [/register](#post-register) | Creates a user account | FALSE |
+| POST | [/register/otp](#post-registerotp) | Verify a user account with OTP | FALSE |
+| POST | [/register/otp/resend](#post-registerotpresend) | Resend OTP to user's email | FALSE |
+| POST | [/login](#post-login) | Logs in a user | FALSE |
+| GET | [/login/google](#get-logingoogle) | Logs in/creates a user account with Google OAuth 2.0 | FALSE |
+| GET | [/logout](#get-logout) | Logs out a user | TRUE |
+| POST | [/forgot-password](#post-forgot-password) | Sends an email with a url to reset password | FALSE |
+| POST| [/reset-password](#post-reset-password) | Resets a password of a user | TRUE |
+| GET | [/users](#get-users) | Retrieves all users | ADMIN |
+| GET | [/users/{userId}](#get-usersuserid) | Retrieves a user details | TRUE |
+| POST | [/users](#post-users) | Creates a user account | ADMIN |
+| PATCH | [/users/{userId}](#patch-usersuserid) | Edits a user | TRUE |
+| DELETE | [/users/{userId}](#delete-usersuserid) | Deletes a user | ADMIN |
+| GET | [/schedules](#get-schedules) | Retrieves all flight schedules | FALSE |
+| GET | [/schedules/{scheduleId}](#get-schedulesscheduleid) | Retrieves a flight schedule details | FALSE |
+| POST | [/schedules](#post-schedules) | Creates a flight schedule | ADMIN |
+| PATCH | [/schedules/{scheduleId}](#patch-schedulesscheduleid) | Edits a flight schedule | ADMIN |
+| DELETE | [/schedules/{scheduleId}](#delete-schedulesscheduleid) | Deletes a flight schedule | ADMIN |
+| GET | [/bookings](#get-bookings) | Retrieves all bookings | TRUE |
+| GET | [/bookings/{bookingId}](#get-bookingsbookingid) | Retrieves a booking details | TRUE |
+| POST | [/bookings](#post-bookings) | Creates a booking | TRUE |
+| POST | [/bookings/{bookingId}/payments](#post-bookingsbookingidpayments) | Creates a payment for a booking | TRUE |
+| GET | [/homepage](#get-homepage) | Retrieves homepage data | FALSE |
+| GET | [/auth](#get-auth) | Authenticate user | TRUE |
+| GET | [/cities](#get-cities) | Retrieves all cities data | FALSE |
+| GET | [/notifications](#get-notifications) | Retrieves all notifications data | TRUE |
+| GET | [/notifications/{notificationId}](#get-notificationsnotificationid) | Retrieves a notification details | TRUE |
+| PATCH | [/notifications/{notificationId}](#patch-notificationsnotificationid) | Updates a notification details | TRUE |
 
 ---
 

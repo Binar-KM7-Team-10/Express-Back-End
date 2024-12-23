@@ -18,18 +18,14 @@
     "seed:schedule": "node ./database/seedSchedule.js",
     "seed:seat": "node ./database/seedSeat.js",
     "seed:booking": "node ./database/seedBooking.js",
-    "seed:itinerary": "node ./database/seedItinerary.js",
-    "seed:bookedSeat": "node ./database/seedBookedSeat.js",
-    "seed:invoice": "node ./database/seedInvoice.js",
-    "seed:payment": "node ./database/seedPayment.js",
-    "seed:passenger": "node ./database/seedPassenger.js",
-    "seed:notification": "node ./database/seedNotification.js",
-    "seed:all": "node ./database/seedCity.js && node ./database/seedAirport.js && node ./database/seedAirline.js && node ./database/seedService.js && node ./database/seedUser.js && node ./database/seedFlight.js && node ./database/seedFlightService.js && node ./database/seedBaggage.js && node ./database/seedSchedule.js && node ./database/seedSeat.js && node ./database/seedBooking.js && node ./database/seedItinerary.js && node ./database/seedBookedSeat.js && node ./database/seedInvoice.js && node ./database/seedPayment.js && node ./database/seedPassenger.js",
-    "setup": "npm run db:reset && npm run seed:all && echo \"If there is no error above, then you have successfully setup the database.\"",
-    "test": "jest",
-    "test:unit": "jest --testPathPattern=unit",
-    "test:integration": "jest --testPathPattern=integration",
-    "test:integrationUser": "npx jest tests/integration/user.integration.test.js --detectOpenHandles --collect-coverage --coverage"
+    "seed:all": "node ./database/seedCity.js && node ./database/seedAirport.js && node ./database/seedAirline.js && node ./database/seedService.js && node ./database/seedUser.js && node ./database/seedFlight.js && node ./database/seedFlightService.js && node ./database/seedBaggage.js && node ./database/seedSchedule.js && node ./database/seedSeat.js && node ./database/seedBooking.js",
+    "setup:db": "npm run db:reset && npm run seed:all",
+    "setup:all": "npm install --yes && npm run db:reset && npm run seed:all",
+    "test:schedule": "npx jest ./tests/integration/schedule.integration.test.js --detectOpenHandles --coverage",
+    "test:booking": "npx jest ./tests/integration/booking.integration.test.js --detectOpenHandles --coverage",
+    "test:homepage": "npx jest ./tests/integration/homepage.integration.test.js --detectOpenHandles --coverage",
+    "test:notification": "npx jest ./tests/integration/notification.integration.test.js --detectOpenHandles --coverage",
+    "test:all": "npx jest --detectOpenHandles --coverage"
   },
   "author": "Team 10 Back End",
   "license": "ISC",
@@ -51,8 +47,11 @@
     "supertest": "^7.0.0"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.14",
     "dotenv": "^16.4.7",
-    "nodemon": "^3.1.7"
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.7",
+    "supertest": "^7.0.0"
   },
   "directories": {
     "test": "tests"
