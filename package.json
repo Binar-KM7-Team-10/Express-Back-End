@@ -58,5 +58,15 @@
   "directories": {
     "test": "tests"
   },
+  "jest": {
+    "collectCoverage": true,
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/coverage/",
+      "/path/to/ignored/files/",
+      "/utils/passportOauth.js",
+      "/utils/cronJob.js"
+    ]
+  },
   "keywords": []
 }
