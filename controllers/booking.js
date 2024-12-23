@@ -25,7 +25,6 @@ module.exports = {
     },
     getById: async (req, res, next) => {
         try {
-            await BookingValidation.validatePathParams(req.params);
             const data = await Booking.getDTO(req.params.id);
 
             return res.status(200).json({

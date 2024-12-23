@@ -1,6 +1,6 @@
 <p align="center"><img src="https://ik.imagekit.io/itsbibbb/TiketGo/logo.png?updatedAt=1734801819539" width="280" height="100" alt="TiketGo API ✈️"></p>
 <p align="center">✨ Flight ticket booking API built with Express.js and Prisma ORM ✨</p>
-<p align="center"><a href="https://documenter.getpostman.com/view/37947000/2sAYHwH4HA">Postman Documentation</a></p>
+<p align="center"><a href="https://documenter.getpostman.com/view/37947000/2sAYHwH4HA" target="_blank">Postman Documentation</a></p>
 
 <div align="center"><img src="https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" /> 
 <img src="https://img.shields.io/badge/Express%20js-000000?style=for-the-badge&logo=express&logoColor=white" />
@@ -18,6 +18,7 @@
 <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" />
 <img src="https://img.shields.io/badge/Github%20Actions-282a2e?style=for-the-badge&logo=githubactions&logoColor=367cfe" /></div>
 
+
 <h2>Getting Started 🛠️</h2>
 
 **1. Clone the project 📂**
@@ -25,7 +26,11 @@
 ```bash
 # Clone the repository
 git clone https://github.com/Binar-KM7-Team-10/Express-Back-End
+
+# Change directory to the project
+cd ./Express-Back-End
 ```
+
 
 **2. Create a `.env` file and assign their values 🔑**
 
@@ -41,7 +46,6 @@ touch .env
 New-Item -Path ".\.env" -ItemType File
 ```
 
-
 **3. Run the setup script ⚙️**
 
 ```bash
@@ -55,6 +59,13 @@ npm run setup:all
 # Run the program
 npm run start:dev
 ```
+
+## Developer Team 🧑‍💻
+
+- Muhammad Habib Al Farabi - [GitHub](https://github.com/Bibbeep)
+- Rafi Jauhari - [GitHub](https://github.com/Rafijoee)
+- Billy Thierry Maulana A. F. - [GitHub](https://github.com/billythierry)
+- Affu Dina Ilma Barkah - [GitHub](https://github.com/Affu321)
 
 
 ## Table of Contents 

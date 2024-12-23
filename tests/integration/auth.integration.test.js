@@ -1,13 +1,11 @@
 const request = require('supertest');
-const { app, server } = require('../../app');
-const jwt = require('jsonwebtoken');
-const {generateTOTP, generateSecret } = require ('../../utils/totp')
+const { server, job } = require('../../app');
+const { generateTOTP, generateSecret } = require('../../utils/totp')
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient()
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
-const {generateToken} = require('../../utils/jwtHelper');
-const user = require('../../validations/user');
+const { generateToken } = require('../../utils/jwtHelper');
 
 const resetDatabase = async () => {
   const tables = ["User"];
@@ -16,7 +14,7 @@ const resetDatabase = async () => {
   }
 };
 
-describe('User Registration Integration Tests', () => {
+describe('POST /register', () => {
   beforeEach(async () => {
     await resetDatabase()
     await prisma.user.deleteMany({});
@@ -26,6 +24,9 @@ describe('User Registration Integration Tests', () => {
     await resetDatabase()
     await prisma.$disconnect();
     server.close();
+    if (job) {
+      job.cancel();
+    }
   });
 
   it('should successfully register a new account', async () => {
@@ -36,10 +37,7 @@ describe('User Registration Integration Tests', () => {
       phoneNumber: '6281234567888',
     };
 
-    const response = await request(app).post('/register').send(data);
-
-    console.log('Response status:', response.status);
-    console.log('Response body:', response.body);
+    const response = await request(server).post('/register').send(data);
 
     expect(response.status).toBe(201);
     expect(response.body).toMatchObject({
@@ -55,7 +53,7 @@ describe('User Registration Integration Tests', () => {
         },
       },
     });
-  });
+  }, 15000);
 
   it('should fail to register a new account with a registered email', async () => {
     const email = 'jane.doe7@example.com';
@@ -70,7 +68,7 @@ describe('User Registration Integration Tests', () => {
       },
     });
 
-    const response = await request(app)
+    const response = await request(server)
       .post('/register')
       .send({
         email,
@@ -78,9 +76,6 @@ describe('User Registration Integration Tests', () => {
         fullName: 'Jane Doe',
         password: 'securePassword123',
       });
-
-    console.log('Response status:', response.status);
-    console.log('Response body:', response.body);
 
     expect(response.status).toBe(409);
     expect(response.body).toMatchObject({
@@ -103,7 +98,7 @@ describe('User Registration Integration Tests', () => {
       },
     });
 
-    const response = await request(app)
+    const response = await request(server)
       .post('/register')
       .send({
         email: 'jane.doe56@example.com',
@@ -111,9 +106,6 @@ describe('User Registration Integration Tests', () => {
         fullName: 'Jane Doe',
         password: 'securePassword123',
       });
-
-    console.log('Response status:', response.status);
-    console.log('Response body:', response.body);
 
     expect(response.status).toBe(409);
     expect(response.body).toMatchObject({
@@ -124,7 +116,7 @@ describe('User Registration Integration Tests', () => {
   });
 
   it('should fail to register a new account with an invalid email', async () => {
-    const response = await request(app)
+    const response = await request(server)
       .post('/register')
       .send({
         email: 'jane.doe7example.com', // Invalid format
@@ -132,9 +124,6 @@ describe('User Registration Integration Tests', () => {
         fullName: 'Jane Doe',
         password: 'securePassword123',
       });
-
-    console.log('Response status:', response.status);
-    console.log('Response body:', response.body);
 
     expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
@@ -145,7 +134,7 @@ describe('User Registration Integration Tests', () => {
   });
 
   it('should fail to register a new account with an invalid phone number', async () => {
-    const response = await request(app)
+    const response = await request(server)
       .post('/register')
       .send({
         email: 'jane.doe11@example.com',
@@ -153,9 +142,6 @@ describe('User Registration Integration Tests', () => {
         fullName: 'Jane Doe',
         password: 'securePassword123',
       });
-
-    console.log('Response status:', response.status);
-    console.log('Response body:', response.body);
 
     expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
@@ -166,16 +152,13 @@ describe('User Registration Integration Tests', () => {
   });
 
   it('should fail to register a new account with incomplete field', async () => {
-    const response = await request(app)
+    const response = await request(server)
       .post('/register')
       .send({
         phoneNumber: '6281234567871',
         fullName: 'Jane Doe',
         password: 'securePassword123',
       });
-
-    console.log('Response status:', response.status);
-    console.log('Response body:', response.body);
 
     expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
@@ -186,7 +169,7 @@ describe('User Registration Integration Tests', () => {
   });
 
   it('should fail to register a new account with an invalid password', async () => {
-    const response = await request(app)
+    const response = await request(server)
       .post('/register')
       .send({
         email: 'jane.doe777@example.com',
@@ -195,8 +178,6 @@ describe('User Registration Integration Tests', () => {
         password: 'pass', // Too short
       });
 
-    console.log('Response status:', response.status);
-    console.log('Response body:', response.body);
 
     expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
@@ -205,9 +186,9 @@ describe('User Registration Integration Tests', () => {
       message: 'Validasi gagal. password harus memiliki 8 hingga 70 digit.',
     });
   });
-  
+
   it('should fail to register a new account with an invalid phoneNumber', async () => {
-    const response = await request(app)
+    const response = await request(server)
       .post('/register')
       .send({
         email: 'jane.doe777@example.com',
@@ -215,9 +196,6 @@ describe('User Registration Integration Tests', () => {
         fullName: 'Jane Doe',
         password: 'pass', // Too short
       });
-
-    console.log('Response status:', response.status);
-    console.log('Response body:', response.body);
 
     expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
@@ -228,7 +206,7 @@ describe('User Registration Integration Tests', () => {
   });
 });
 
-describe('OTP Verification Integration Tests', () => {
+describe('POST /register/otp', () => {
   let testUser;
   let secret;
 
@@ -251,12 +229,15 @@ describe('OTP Verification Integration Tests', () => {
     await prisma.user.deleteMany({});
     await prisma.$disconnect();
     server.close();
+    if (job) {
+      job.cancel();
+    }
   });
 
   it('should successfully verify OTP for user registration', async () => {
     const otp = generateTOTP(secret); // Generate OTP dengan secret yang sama
 
-    const response = await request(app)
+    const response = await request(server)
       .post('/register/otp')
       .send({
         email: testUser.email, // Gunakan email dari testUser
@@ -287,16 +268,16 @@ describe('OTP Verification Integration Tests', () => {
         isVerified: false,
       },
     });
-  
+
     const wrongOtp = '111111'; // OTP yang salah
-  
-    const response = await request(app)
+
+    const response = await request(server)
       .post('/register/otp')
       .send({
         email: newUser.email, // Gunakan email baru
         otp: wrongOtp,
       });
-  
+
     expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
       status: 'Failed',
@@ -315,16 +296,16 @@ describe('OTP Verification Integration Tests', () => {
         isVerified: false,
       },
     });
-  
+
     const wrongOtp = '111111'; // OTP yang salah
-  
-    const response = await request(app)
+
+    const response = await request(server)
       .post('/register/otp')
       .send({
         email: newUser.email, // Gunakan email baru
         otp: wrongOtp,
       });
-  
+
     expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
       status: 'Failed',
@@ -334,42 +315,42 @@ describe('OTP Verification Integration Tests', () => {
   });
 
   it('should fail to verify OTP with expired OTP', async () => {
-  // Simulasikan pengguna dengan OTP yang valid
-  const expiredSecret = generateSecret();
+    // Simulasikan pengguna dengan OTP yang valid
+    const expiredSecret = generateSecret();
 
-  // Buat pengguna tanpa mengatur OTP untuk menghindari validasi backend yang salah
-  const expiredUser = await prisma.user.create({
-    data: {
-      email: 'expired.otp@example.com',
-      phoneNumber: '6289999999999',
-      fullName: 'Expired OTP User',
-      otpSecret: expiredSecret,
-      isVerified: false,
-    },
-  });
-
-  // Gunakan OTP yang tidak valid (bukan hasil generateTOTP dari secret)
-  const expiredOtp = '123456'; // OTP tidak valid
-
-  const response = await request(app)
-    .post('/register/otp')
-    .send({
-      email: expiredUser.email,
-      otp: expiredOtp,
+    // Buat pengguna tanpa mengatur OTP untuk menghindari validasi backend yang salah
+    const expiredUser = await prisma.user.create({
+      data: {
+        email: 'expired.otp@example.com',
+        phoneNumber: '6289999999999',
+        fullName: 'Expired OTP User',
+        otpSecret: expiredSecret,
+        isVerified: false,
+      },
     });
 
-  expect(response.status).toBe(400); // Harapkan respons gagal
-  expect(response.body).toMatchObject({
-    status: 'Failed',
-    statusCode: 400,
-    message: 'Verifikasi OTP gagal. Pastikan kode OTP yang dimasukkan benar dan belum kedaluwarsa.',
+    // Gunakan OTP yang tidak valid (bukan hasil generateTOTP dari secret)
+    const expiredOtp = '123456'; // OTP tidak valid
+
+    const response = await request(server)
+      .post('/register/otp')
+      .send({
+        email: expiredUser.email,
+        otp: expiredOtp,
+      });
+
+    expect(response.status).toBe(400); // Harapkan respons gagal
+    expect(response.body).toMatchObject({
+      status: 'Failed',
+      statusCode: 400,
+      message: 'Verifikasi OTP gagal. Pastikan kode OTP yang dimasukkan benar dan belum kedaluwarsa.',
+    });
   });
-});
 
   it('should fail to verify OTP with invalid email format', async () => {
     const invalidEmail = 'invalid-email';
 
-    const response = await request(app)
+    const response = await request(server)
       .post('/register/otp')
       .send({
         email: invalidEmail,
@@ -385,7 +366,7 @@ describe('OTP Verification Integration Tests', () => {
   });
 
   it('should fail to verify OTP with missing email field', async () => {
-    const response = await request(app)
+    const response = await request(server)
       .post('/register/otp')
       .send({ otp: '123456' });
 
@@ -400,16 +381,13 @@ describe('OTP Verification Integration Tests', () => {
   it('should fail to verify OTP with unregistered email', async () => {
     const unregisteredEmail = 'unregistered.user@example.com'; // Email yang tidak ada di database
     const otp = '123456'; // OTP acak untuk pengujian
-  
-    const response = await request(app)
+
+    const response = await request(server)
       .post('/register/otp')
       .send({
         email: unregisteredEmail,
         otp: otp,
       });
-
-      console.log('Response status:', response.status);
-      console.log('Response body:', response.body);
     expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
       status: 'Failed',
@@ -420,8 +398,8 @@ describe('OTP Verification Integration Tests', () => {
 
   it('should fail with registered and verified email', async () => {
     const otp = generateTOTP(secret); // Generate OTP dengan secret yang sama
-  
-    const response = await request(app)
+
+    const response = await request(server)
       .post('/register/otp')
       .send({
         email: testUser.email, // Gunakan email dari testUser
@@ -434,11 +412,11 @@ describe('OTP Verification Integration Tests', () => {
       message: "Email sudah terdaftar. Silahkan login menggunakan email ini atau registrasi akun baru menggunakan email lain.",
     });
   });
-  
+
   it('should fail with invalid otp type', async () => {
     const otp = 'abcdef'; // Generate OTP dengan secret yang sama
-  
-    const response = await request(app)
+
+    const response = await request(server)
       .post('/register/otp')
       .send({
         email: testUser.email, // Gunakan email dari testUser
@@ -451,11 +429,11 @@ describe('OTP Verification Integration Tests', () => {
       message: "Validasi gagal. OTP harus berisikan angka.",
     });
   });
-  
+
   it('should fail with invalid otp length', async () => {
     const otp = '12345678999'; // Generate OTP dengan secret yang sama
-  
-    const response = await request(app)
+
+    const response = await request(server)
       .post('/register/otp')
       .send({
         email: testUser.email, // Gunakan email dari testUser
@@ -469,9 +447,9 @@ describe('OTP Verification Integration Tests', () => {
     });
   });
 });
-  
 
-describe('Resend OTP Integration Tests', () => {
+
+describe('POST /register/otp/resend', () => {
   let user;
 
   beforeEach(async () => {
@@ -494,10 +472,13 @@ describe('Resend OTP Integration Tests', () => {
     await resetDatabase()
     await prisma.$disconnect();
     server.close();
+    if (job) {
+      job.cancel();
+    }
   });
 
   it('should successfully resend OTP for an unverified user', async () => {
-    const response = await request(app)
+    const response = await request(server)
       .post('/register/otp/resend')
       .send({ email: user.email });
 
@@ -516,7 +497,7 @@ describe('Resend OTP Integration Tests', () => {
       data: { isVerified: true },
     });
 
-    const response = await request(app)
+    const response = await request(server)
       .post('/register/otp/resend')
       .send({ email: user.email });
 
@@ -529,7 +510,7 @@ describe('Resend OTP Integration Tests', () => {
   });
 
   it('should fail to resend OTP with unregistered email', async () => {
-    const response = await request(app)
+    const response = await request(server)
       .post('/register/otp/resend')
       .send({ email: 'unregistered@example.com' });
 
@@ -542,7 +523,7 @@ describe('Resend OTP Integration Tests', () => {
   });
 
   it('should fail to resend OTP with invalid email format', async () => {
-    const response = await request(app)
+    const response = await request(server)
       .post('/register/otp/resend')
       .send({ email: 'invalid-email' });
 
@@ -555,7 +536,7 @@ describe('Resend OTP Integration Tests', () => {
   });
 
   it('should fail to resend OTP when email field is missing', async () => {
-    const response = await request(app)
+    const response = await request(server)
       .post('/register/otp/resend')
       .send({});
 
@@ -568,7 +549,7 @@ describe('Resend OTP Integration Tests', () => {
   });
 });
 
-describe('Login Integration Tests', () => {
+describe('POST /login', () => {
   let regularUser;
   let adminUser;
 
@@ -579,7 +560,7 @@ describe('Login Integration Tests', () => {
 
     // Hash password sebelum menyimpan ke database
     const hashedPassword = await bcrypt.hash('password', 10);
-    
+
     regularUser = await prisma.user.create({
       data: {
         email: 'user@example.com',
@@ -589,8 +570,8 @@ describe('Login Integration Tests', () => {
         role: 'Buyer',
       },
     });
-    
-    
+
+
     // Membuat pengguna admin untuk pengujian login sebagai admin
     adminUser = await prisma.user.create({
       data: {
@@ -607,6 +588,9 @@ describe('Login Integration Tests', () => {
     await resetDatabase()
     await prisma.$disconnect();
     server.close();
+    if (job) {
+      job.cancel();
+    }
   });
 
   it('should successfully login as a regular user', async () => {
@@ -615,11 +599,8 @@ describe('Login Integration Tests', () => {
       password: 'password', // Anggap password hashing dan validasi diterapkan dalam implementasi login
     };
 
-    const response = await request(app).post('/login').send(data);
+    const response = await request(server).post('/login').send(data);
 
-    
-    console.log('Response status:', response.status);
-    console.log('Response body:', response.body);
     expect(response.status).toBe(200);
     expect(response.body).toMatchObject({
       status: 'Success',
@@ -645,11 +626,8 @@ describe('Login Integration Tests', () => {
       password: 'password',
     };
 
-    const response = await request(app).post('/login').send(data);
+    const response = await request(server).post('/login').send(data);
 
-    
-    console.log('Response status:', response.status);
-    console.log('Response body:', response.body);
     expect(response.status).toBe(200);
     expect(response.body).toMatchObject({
       status: 'Success',
@@ -670,14 +648,14 @@ describe('Login Integration Tests', () => {
     expect(response.body.data.accessToken).toBeDefined();
   });
   it('should fail login with wrong password)', async () => {
-    const response = await request(app)
+    const response = await request(server)
       .post('/login')
       .send({
-        email:  'affudina663@gmail.com',
+        email: 'affudina663@gmail.com',
         password: 'wrongpass',
       });
 
-    expect(response.status).toBe(401);  
+    expect(response.status).toBe(401);
     expect(response.body).toMatchObject({
       status: 'Failed',
       statusCode: 401,
@@ -687,14 +665,14 @@ describe('Login Integration Tests', () => {
 
 
   it('should fail login with unregistered email)', async () => {
-    const response = await request(app)
+    const response = await request(server)
       .post('/login')
       .send({
-        email:  'affudina6633@gmail.com',
+        email: 'affudina6633@gmail.com',
         password: 'password',
       });
 
-    expect(response.status).toBe(401);  
+    expect(response.status).toBe(401);
     expect(response.body).toMatchObject({
       status: 'Failed',
       statusCode: 401,
@@ -702,16 +680,16 @@ describe('Login Integration Tests', () => {
     });
   });
 
-  
+
   it('should fail login with invalid email)', async () => {
-    const response = await request(app)
+    const response = await request(server)
       .post('/login')
       .send({
-        email:  'affudina663gmail.com',
+        email: 'affudina663gmail.com',
         password: 'password',
       });
 
-    expect(response.status).toBe(400);  
+    expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
       status: 'Failed',
       statusCode: 400,
@@ -721,14 +699,14 @@ describe('Login Integration Tests', () => {
 
 
   it('should fail login with invalid password)', async () => {
-    const response = await request(app)
+    const response = await request(server)
       .post('/login')
       .send({
-        email:  'affudina663@gmail.com',
+        email: 'affudina663@gmail.com',
         password: 'pass',
       });
 
-    expect(response.status).toBe(400);  
+    expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
       status: 'Failed',
       statusCode: 400,
@@ -736,13 +714,13 @@ describe('Login Integration Tests', () => {
     });
   });
   it('should fail login without required fields)', async () => {
-    const response = await request(app)
+    const response = await request(server)
       .post('/login')
       .send({
-        email:  'affudina663@gmail.com',
+        email: 'affudina663@gmail.com',
       });
 
-    expect(response.status).toBe(400);  
+    expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
       status: 'Failed',
       statusCode: 400,
@@ -752,37 +730,37 @@ describe('Login Integration Tests', () => {
 });
 
 
-describe('Forget Integration Tests', () => {
-let user;
+describe('POST /forgot-password', () => {
+  let user;
 
-beforeEach(async () => {
-  await resetDatabase()
-  await prisma.user.deleteMany({});
+  beforeEach(async () => {
+    await resetDatabase()
+    await prisma.user.deleteMany({});
 
-  // Tambahkan dummy user
-  user = await prisma.user.create({
-    data: {
-      email: 'affudina663@gmail.com',
-      password: 'securePassword123', // Bisa dihash jika perlu
-      fullName: 'Affu Dina',
-      phoneNumber: '6281234567890',
-      isVerified: true,
-    },
+    // Tambahkan dummy user
+    user = await prisma.user.create({
+      data: {
+        email: 'affudina663@gmail.com',
+        password: 'securePassword123', // Bisa dihash jika perlu
+        fullName: 'Affu Dina',
+        phoneNumber: '6281234567890',
+        isVerified: true,
+      },
+    });
   });
-});
 
   it('should successfully forget-password', async () => {
     const data = {
-      email:  'affudina663@gmail.com'
+      email: 'affudina663@gmail.com'
     };
 
-    const response = await request(app).post('/forgot-password').send(data);
+    const response = await request(server).post('/forgot-password').send(data);
 
     expect(response.status).toBe(200);
     expect(response.body).toMatchObject({
-        status: 'Success',
-        statusCode: 200,
-        message:"Tautan reset password berhasil dikirim. Silahkan cek email Anda."
+      status: 'Success',
+      statusCode: 200,
+      message: "Tautan reset password berhasil dikirim. Silahkan cek email Anda."
     });
   });
 
@@ -791,48 +769,48 @@ beforeEach(async () => {
       // email:  'affudina663@gmail.com'
     };
 
-    const response = await request(app).post('/forgot-password').send(data);
+    const response = await request(server).post('/forgot-password').send(data);
 
     expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
-        status: 'Failed',
-        statusCode: 400,
-        message:"Validasi gagal. Pastikan email telah diisi."
+      status: 'Failed',
+      statusCode: 400,
+      message: "Validasi gagal. Pastikan email telah diisi."
     });
   });
 
   it('should failed forget-password with invalid email', async () => {
     const data = {
-      email:  'affudina663gmail.com'
+      email: 'affudina663gmail.com'
     };
 
-    const response = await request(app).post('/forgot-password').send(data);
+    const response = await request(server).post('/forgot-password').send(data);
 
     expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
-        status: 'Failed',
-        statusCode: 400,
-        message:"Format email tidak valid. Pastikan Anda memasukkan email dengan format yang benar."
+      status: 'Failed',
+      statusCode: 400,
+      message: "Format email tidak valid. Pastikan Anda memasukkan email dengan format yang benar."
     });
   });
 
   it('should failed forget-password with unregistered email', async () => {
     const data = {
-      email:  'affudina6633@gmail.com'
+      email: 'affudina6633@gmail.com'
     };
 
-    const response = await request(app).post('/forgot-password').send(data);
+    const response = await request(server).post('/forgot-password').send(data);
 
     expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
-        status: 'Failed',
-        statusCode: 400,
-        message:"Email tidak terdaftar. Pastikan email yang Anda masukkan benar."
+      status: 'Failed',
+      statusCode: 400,
+      message: "Email tidak terdaftar. Pastikan email yang Anda masukkan benar."
     });
   });
 });
 
-describe('Reset Password Integration Tests', () => {
+describe('POST /reset-password', () => {
   let testUser;
   let passwordResetToken;
 
@@ -859,6 +837,9 @@ describe('Reset Password Integration Tests', () => {
     await prisma.user.deleteMany({});
     await prisma.$disconnect();
     server.close();
+    if (job) {
+      job.cancel();
+    }
   });
 
   it('should successfully reset the password', async () => {
@@ -868,7 +849,7 @@ describe('Reset Password Integration Tests', () => {
       confirmNewPassword: 'newSecurePassword123',
     };
 
-    const response = await request(app).post('/reset-password').send(data);
+    const response = await request(server).post('/reset-password').send(data);
 
     expect(response.status).toBe(200);
     expect(response.body).toMatchObject({
@@ -892,7 +873,7 @@ describe('Reset Password Integration Tests', () => {
       confirmNewPassword: 'newpasswordlah',
     };
 
-    const response = await request(app).post('/reset-password').send(data);
+    const response = await request(server).post('/reset-password').send(data);
 
     expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
@@ -909,7 +890,7 @@ describe('Reset Password Integration Tests', () => {
       confirmNewPassword: 'newpasswordlah',
     };
 
-    const response = await request(app).post('/reset-password').send(data);
+    const response = await request(server).post('/reset-password').send(data);
 
     expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
@@ -926,7 +907,7 @@ describe('Reset Password Integration Tests', () => {
       confirmNewPassword: 'satudua',
     };
 
-    const response = await request(app).post('/reset-password').send(data);
+    const response = await request(server).post('/reset-password').send(data);
 
     expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
@@ -943,7 +924,7 @@ describe('Reset Password Integration Tests', () => {
       confirmNewPassword: 'newpasswordlah',
     };
 
-    const response = await request(app).post('/reset-password').send(data);
+    const response = await request(server).post('/reset-password').send(data);
 
     expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
@@ -960,7 +941,7 @@ describe('Reset Password Integration Tests', () => {
       confirmNewPassword: 'newpasswordlah',
     };
 
-    const response = await request(app).post('/reset-password').send(data);
+    const response = await request(server).post('/reset-password').send(data);
 
     expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
@@ -972,7 +953,7 @@ describe('Reset Password Integration Tests', () => {
 });
 
 
-describe('Integration Test: User Logout', () => {
+describe('GET /logout', () => {
   let validToken, expiredToken;
 
   beforeAll(async () => {
@@ -982,17 +963,20 @@ describe('Integration Test: User Logout', () => {
     // Token kedaluwarsa dalam waktu singkat
     expiredToken = generateToken({ userId: 1 }, '1ms');
   });
-  
+
   afterAll(async () => {
     await resetDatabase()
     await prisma.user.deleteMany({});
     await prisma.$disconnect();
     server.close();
+    if (job) {
+      job.cancel();
+    }
   });
 
 
   test('[Success] User logout successfully', async () => {
-    const response = await request(app)
+    const response = await request(server)
       .get('/logout') // Endpoint logout
       .set('Authorization', `Bearer ${validToken}`);
 
@@ -1008,7 +992,7 @@ describe('Integration Test: User Logout', () => {
   });
 
   test('[Failed] User logout without token', async () => {
-    const response = await request(app).get('/logout');
+    const response = await request(server).get('/logout');
 
     expect(response.status).toBe(401);
     expect(response.body).toMatchObject({
@@ -1019,7 +1003,7 @@ describe('Integration Test: User Logout', () => {
   });
 
   test('[Failed] User logout with expired token', async () => {
-    const response = await request(app)
+    const response = await request(server)
       .get('/logout')
       .set('Authorization', `Bearer ${expiredToken}`);
 
@@ -1032,7 +1016,7 @@ describe('Integration Test: User Logout', () => {
   });
 
   test('[Failed] User logout with invalid token', async () => {
-    const response = await request(app)
+    const response = await request(server)
       .get('/logout')
       .set('Authorization', 'Bearer invalid.token.here');
 
@@ -1055,7 +1039,7 @@ describe('GET /auth', () => {
       data: {
         fullName: 'Test User',
         email: 'test@example.com',
-        password: 'hashedpassword', 
+        password: 'hashedpassword',
         phoneNumber: '1234567890',
         isVerified: true,
         otpSecret: 'dummysecret',
@@ -1074,45 +1058,45 @@ describe('GET /auth', () => {
     await prisma.user.deleteMany({ where: { email: 'test@example.com' } });
     await prisma.$disconnect();
     await resetDatabase()
+    if (job) {
+      job.cancel();
+    }
   });
 
   it('[Success] Retrieves authentication data', async () => {
-    const response = await request(app)
+    const response = await request(server)
       .get('/auth')
       .set('Authorization', validToken);
-  
-    console.log('Response status:', response.status);
-    console.log('Response body:', response.body);
-  
+
     expect(response.status).toBe(200);
     expect(response.body).toMatchObject({
       status: 'Success',
       statusCode: 200,
       message: 'Token valid. Pengguna terautentikasi.',
       data: {
-        id: expect.any(Number), 
+        id: expect.any(Number),
         fullName: 'Test User',
         email: 'test@example.com',
         phoneNumber: '1234567890',
-        role: 'Buyer', 
+        role: 'Buyer',
       },
     });
   });
-  
-  it('[Failed] Retrieves authentication data (without authorization header)', async () => {
-    const response = await request(app).get('/auth');
 
-    
+  it('[Failed] Retrieves authentication data (without authorization header)', async () => {
+    const response = await request(server).get('/auth');
+
+
     expect(response.status).toBe(401);
     expect(response.body).toMatchObject({
       status: 'Failed',
       statusCode: 401,
-      message:"Token tidak valid atau telah kedaluwarsa. Silakan login kembali untuk mendapatkan token baru.",
+      message: "Token tidak valid atau telah kedaluwarsa. Silakan login kembali untuk mendapatkan token baru.",
     });
   });
 
   it('[Failed] Retrieves authentication data (with invalid token)', async () => {
-    const response = await request(app)
+    const response = await request(server)
       .get('/auth')
       .set('Authorization', invalidToken);
 
@@ -1125,3 +1109,44 @@ describe('GET /auth', () => {
   });
 });
 
+describe('GET /login/google', () => {
+  let validToken;
+  let invalidToken = 'Bearer invalidtoken';
+
+  beforeAll(async () => {
+    await resetDatabase()
+    const user = await prisma.user.create({
+      data: {
+        fullName: 'Test User',
+        email: 'test@example.com',
+        password: 'hashedpassword',
+        phoneNumber: '1234567890',
+        isVerified: true,
+        otpSecret: 'dummysecret',
+      },
+    });
+    validToken = `Bearer ${generateToken({
+      id: user.id,
+      fullName: user.fullName,
+      email: user.email,
+      phoneNumber: user.phoneNumber,
+      role: user.role,
+    })}`;
+  });
+
+  afterAll(async () => {
+    await prisma.user.deleteMany({ where: { email: 'test@example.com' } });
+    await prisma.$disconnect();
+    await resetDatabase()
+    if (job) {
+      job.cancel();
+    }
+  });
+
+  it('should successfully login with Google OAuth 2.0 and redirect with 302 status code', async () => {
+    const response = await request(server)
+      .get('/login/google')
+
+    expect(response.status).toBe(302);
+  });
+});
