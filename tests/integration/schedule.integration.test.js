@@ -460,7 +460,7 @@ describe('PATCH /schedules/{scheduleId}', () => {
     it('should successfully edits a flight schedule with 200 status code', async () => {
         const response = await request(server)
             .patch('/schedules/1')
-            .send({ departureDateTime: '2024-12-22T00:00:00.000Z', arrivalDateTime: '2024-12-22T23:59:00.000Z' })
+            .send({ departureDateTime: new Date(Date.now()).toISOString(), arrivalDateTime: new Date(Date.now() + 3600000).toISOString() })
             .set('Authorization', `Bearer ${adminAccessToken}`);
 
         expect(response.status).toBe(200);

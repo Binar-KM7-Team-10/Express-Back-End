@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">98.8% </span>
+                <span class="strong">98.73% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>83/84</span>
+                <span class='fraction'>78/79</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.32% </span>
+                <span class="strong">91.66% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>56/62</span>
+                <span class='fraction'>55/60</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">98.78% </span>
+                <span class="strong">98.7% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>81/82</span>
+                <span class='fraction'>76/77</span>
             </div>
         
             
@@ -416,22 +416,15 @@
 <a name='L351'></a><a href='#L351'>351</a>
 <a name='L352'></a><a href='#L352'>352</a>
 <a name='L353'></a><a href='#L353'>353</a>
-<a name='L354'></a><a href='#L354'>354</a>
-<a name='L355'></a><a href='#L355'>355</a>
-<a name='L356'></a><a href='#L356'>356</a>
-<a name='L357'></a><a href='#L357'>357</a>
-<a name='L358'></a><a href='#L358'>358</a>
-<a name='L359'></a><a href='#L359'>359</a>
-<a name='L360'></a><a href='#L360'>360</a>
-<a name='L361'></a><a href='#L361'>361</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L354'></a><a href='#L354'>354</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -579,13 +572,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -783,7 +769,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">const { PrismaClient } = require('@prisma/client');
+<span class="cline-any cline-yes">2x</span></td><td class="text"><pre class="prettyprint lang-js">const { PrismaClient } = require('@prisma/client');
 const QueryParser = require('../utils/queryParser');
 const Schedule = require('./schedule');
 const Passenger = require('./passenger');
@@ -938,14 +924,7 @@ class Booking {
 &nbsp;
         let paymentDueDateTime;
         const dayDiff = Math.floor((new Date(outboundSchedule.departureDateTime.toISOString().split('T')[0]) - new Date(bookingData.date.toISOString().split('T')[0])) / (24 * 60 * 60 * 1000));
-        const isBeforeOneAM = outboundSchedule.departureDateTime.getUTCHours() &lt; 1 || (outboundSchedule.departureDateTime.getUTCHours() === 1 &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >outboundSchedule.departureDateTime.getUTCMinutes() === 0 </span>&amp;&amp; <span class="branch-3 cbranch-no" title="branch not covered" >outboundSchedule.departureDateTime.getUTCSeconds() === 0)</span>;
-&nbsp;
-        if (outboundSchedule.id === 4) {
-            console.log(outboundSchedule.departureDateTime);
-            console.log(new Date(Date.now()));
-            console.log(dayDiff);
-            console.log(isBeforeOneAM);
-        }
+        const isBeforeOneAM = outboundSchedule.departureDateTime.getUTCHours() &lt; 1 || (outboundSchedule.departureDateTime.getUTCHours() === 1 &amp;&amp; outboundSchedule.departureDateTime.getUTCMinutes() === 0 &amp;&amp; <span class="branch-3 cbranch-no" title="branch not covered" >outboundSchedule.departureDateTime.getUTCSeconds() === 0)</span>;
 &nbsp;
         if (dayDiff === 0) {
             // If user books flight the same date as the departure date, then payment due time is 1 hour before the departure time
@@ -1150,7 +1129,7 @@ module.exports = Booking;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-12-23T01:00:02.516Z
+                at 2024-12-23T01:14:57.099Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
