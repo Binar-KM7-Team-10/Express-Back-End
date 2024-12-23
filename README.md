@@ -62,28 +62,10 @@ npm run start:dev
 
 <h2 align="center">Developer Team 🧑‍💻</h2>
 
-<div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-  <div style="text-align: center;">
-    <img src="https://github.com/Bibbeep.png?size=100" alt="Muhammad Habib Al Farabi" style="border-radius: 50%; width: 100px; height: 100px;">
-    <br>
-    <b><a href="https://github.com/Bibbeep" target="_blank">Muhammad Habib A. F.</a></b>
-  </div>
-  <div style="text-align: center;">
-    <img src="https://github.com/Rafijoee.png?size=100" alt="Rafi Jauhari" style="border-radius: 50%; width: 100px; height: 100px;">
-    <br>
-    <b><a href="https://github.com/Rafijoee" target="_blank">Rafi Jauhari</a></b>
-  </div>
-  <div style="text-align: center;">
-    <img src="https://github.com/billythierry.png?size=100" alt="Billy Thierry Maulana A. F." style="border-radius: 50%; width: 100px; height: 100px;">
-    <br>
-    <b><a href="https://github.com/billythierry" target="_blank">Billy Thierry Maulana A. F.</a></b>
-  </div>
-  <div style="text-align: center;">
-    <img src="https://github.com/Affu321.png?size=100" alt="Affu Dina Ilma Barkah" style="border-radius: 50%; width: 100px; height: 100px;">
-    <br>
-    <b><a href="https://github.com/Affu321" target="_blank">Affu Dina Ilma Barkah</a></b>
-  </div>
-</div>
+- Muhammad Habib Al Farabi - [GitHub](https://github.com/Bibbeep)
+- Rafi Jauhari - [GitHub](https://github.com/Rafijoee)
+- Billy Thierry Maulana A. F. - [GitHub](https://github.com/billythierry)
+- Affu Dina Ilma Barkah - [GitHub](https://github.com/Affu321)
 
 
 ## Table of Contents 
