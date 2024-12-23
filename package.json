@@ -23,6 +23,7 @@
     "setup:all": "npm install --yes && npm run db:reset && npm run seed:all",
     "test:schedule": "npx jest ./tests/integration/schedule.integration.test.js --detectOpenHandles --coverage",
     "test:booking": "npx jest ./tests/integration/booking.integration.test.js --detectOpenHandles --coverage",
+    "test:homepage": "npx jest ./tests/integration/homepage.integration.test.js --detectOpenHandles --coverage",
     "test:all": "npx jest --detectOpenHandles --coverage"
   },
   "author": "Team 10 Back End",

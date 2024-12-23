@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">12.5% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/16</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">12.5% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/16</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -87,72 +87,51 @@
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a>
 <a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L25'></a><a href='#L25'>25</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const HttpRequestError = require("../utils/error")
 &nbsp;
 module.exports = {
-    queryParams: <span class="fstat-no" title="function not covered" >(d</span>ata) =&gt; {
-        const { page, continent } = <span class="cstat-no" title="statement not covered" >data;</span>
+    queryParams: (data) =&gt; {
+        const { page, continent } = data;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        if (page || page === '') {</span>
-<span class="cstat-no" title="statement not covered" >            if (typeof page !== 'string') {</span>
-<span class="cstat-no" title="statement not covered" >                throw new HttpRequestError('page tidak valid. Pastikan page yang Anda masukkan dalam format yang benar.', 400);</span>
-            }
-    
-<span class="cstat-no" title="statement not covered" >            if (isNaN(page)) {</span>
-<span class="cstat-no" title="statement not covered" >                throw new HttpRequestError('page tidak valid. Pastikan page berupa angka.', 400);</span>
+        if (page || page === '') {    
+            if (isNaN(page)) {
+                throw new HttpRequestError('page tidak valid. Pastikan page berupa angka.', 400);
             }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            if (page &lt;= 0) {</span>
-<span class="cstat-no" title="statement not covered" >                throw new HttpRequestError('page tidak valid. Pastikan page bernilai lebih dari satu (1).', 400);</span>
+            if (page &lt;= 0) {
+                throw new HttpRequestError('page tidak valid. Pastikan page bernilai lebih dari satu (1).', 400);
             }
         }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        if (continent || continent === '') {</span>
-            const continentOptions = <span class="cstat-no" title="statement not covered" >['All', 'Asia', 'Africa', 'America', 'Europe', 'Australia'];</span>
-<span class="cstat-no" title="statement not covered" >            if (typeof continent !== 'string') {</span>
-<span class="cstat-no" title="statement not covered" >                throw new HttpRequestError('continent tidak valid. Pastikan continent yang Anda masukkan dalam format yang benar', 400);</span>
-            }
+        if (continent || continent === '') {
+            const continentOptions = ['All', 'Asia', 'Africa', 'America', 'Europe', 'Australia'];
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            if (!continentOptions.includes(continent)) {</span>
-<span class="cstat-no" title="statement not covered" >                throw new HttpRequestError('Validasi gagal. Pastikan continent memiliki nilai \'All\', \'Asia\', \'Africa\', \'America\', \'Europe\', atau \'Australia\'.', 400);</span>
+            if (!continentOptions.includes(continent)) {
+                throw new HttpRequestError('Validasi gagal. Pastikan continent memiliki nilai \'All\', \'Asia\', \'Africa\', \'America\', \'Europe\', atau \'Australia\'.', 400);
             }
         }
     }
@@ -163,7 +142,7 @@ module.exports = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-12-23T01:14:57.099Z
+                at 2024-12-23T01:41:49.273Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
