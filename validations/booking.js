@@ -5,45 +5,12 @@ const prisma = new PrismaClient();
 
 module.exports = {
     validateQueryParams: (query) => {
-        const {
-            userId,
-            bookingCode,
-            date
-        } = query;
-
-        if (userId && (typeof userId !== 'string' || isNaN(userId))) {
-            throw HttpRequestError('userId tidak valid. Pastikan userId yang Anda masukkan dalam format yang benar.', 400);
-        }
-
-        if (bookingCode && typeof bookingCode !== 'string') {
-            throw HttpRequestError('Validasi gagal. Pastikan bookingCode yang Anda masukkan dalam format yang benar.', 400);
-        }
+        const { date } = query;
 
         const dateRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
 
         if (date && (typeof date !== 'string' || !date.match(dateRegex))) {
             throw new HttpRequestError('Validasi gagal. Pastikan date yang Anda masukkan dalam format yang benar (YYYY-MM-DD).', 400);
-        }
-    },
-    validatePathParams: async (params) => {
-        const { id } = params;
-
-        if (!id) {
-            throw new HttpRequestError('Validasi gagal. Pastikan Anda memasukkan bookingId.', 400);
-        }
-
-        if (isNaN(id)) {
-            throw new HttpRequestError('bookingId tidak valid. Pastikan bookingId yang Anda masukkan dalam format yang benar.', 400);
-        }
-
-        const bookingData = await prisma.booking.findUnique({
-            where: {
-                id: parseInt(id)
-            }
-        });
-
-        if (!bookingData) {
-            throw new HttpRequestError('Riwayat pemesanan tidak ditemukan.', 404);
         }
     },
     validatePostData: async (data) => {
@@ -112,11 +79,11 @@ module.exports = {
 
         if (itinerary.journeyType === 'Round-trip') {
             if (itinerary.inbound === null) {
-                throw new HttpRequestError('Validasi gagal. Pastikan Anda memasukkan jadwal penerbangan kepulangan (outbound) pada rencana penerbangan Round-trip.', 400);
+                throw new HttpRequestError('Validasi gagal. Pastikan Anda memasukkan jadwal penerbangan kepulangan (inbound) pada rencana penerbangan Round-trip.', 400);
             }
 
             if (!inboundSchedule) {
-                throw new HttpRequestError('Validasi gagal. Pastikan itinerary.outbound memiliki nilai scheduleId yang tersedia.', 400);
+                throw new HttpRequestError('Validasi gagal. Pastikan itinerary.inbound memiliki nilai scheduleId yang tersedia.', 400);
             }
 
             if (new Date(outboundSchedule.arrivalDateTime) >= new Date(inboundSchedule.departureDateTime)) {
@@ -223,7 +190,7 @@ module.exports = {
         });
 
         if (itinerary.journeyType === 'Round-trip' && seat.inbound.length === 0) {
-            throw new HttpRequestError('Validasi gagal. Pastikan Anda memasukkan data tempat duduk pada penerbangan kepulangan (outbound) untuk rencana penerbangan Round-trip.', 400);
+            throw new HttpRequestError('Validasi gagal. Pastikan Anda memasukkan data tempat duduk pada penerbangan kepulangan (inbound) untuk rencana penerbangan Round-trip.', 400);
         }
 
         if (!Array.isArray(seat.outbound)) {
@@ -262,14 +229,6 @@ module.exports = {
     validateBookingId: async (params) => {
         const { id } = params;
 
-        if (!id) {
-            throw new HttpRequestError('Validasi gagal. Pastikan Anda memasukkan bookingId.', 400);
-        }
-
-        if (isNaN(id)) {
-            throw new HttpRequestError('bookingId tidak valid. Pastikan bookingId yang Anda masukkan dalam format yang benar.', 400);
-        }
-
         const bookingData = await prisma.booking.findUnique({
             where: {
                 id: parseInt(id)
@@ -279,10 +238,6 @@ module.exports = {
                 Itinerary: true
             }
         });
-
-        if (!bookingData) {
-            throw new HttpRequestError('Pembayaran tiket penerbangan gagal dibuat. Pembayaran tiket penerbangan harus berdasarkan pesanan tiket penerbangan yang telah dibuat.', 404);
-        }
 
         if (bookingData.status === 'Issued') {
             throw new HttpRequestError('Pembayaran tiket penerbangan gagal dibuat. Tiket penerbangan telah diisukan.', 400);

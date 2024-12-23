@@ -153,7 +153,7 @@ class Booking {
 
         let paymentDueDateTime;
         const dayDiff = Math.floor((new Date(outboundSchedule.departureDateTime.toISOString().split('T')[0]) - new Date(bookingData.date.toISOString().split('T')[0])) / (24 * 60 * 60 * 1000));
-        const isBeforeOneAM = outboundSchedule.departureDateTime.getHours() < 1 || (outboundSchedule.departureDateTime.getHours() === 1 && outboundSchedule.departureDateTime.getMinutes() === 0 && outboundSchedule.departureDateTime.getSeconds() === 0);
+        const isBeforeOneAM = outboundSchedule.departureDateTime.getUTCHours() < 1 || (outboundSchedule.departureDateTime.getUTCHours() === 1 && outboundSchedule.departureDateTime.getUTCMinutes() === 0 && outboundSchedule.departureDateTime.getUTCSeconds() === 0);
 
         if (dayDiff === 0) {
             // If user books flight the same date as the departure date, then payment due time is 1 hour before the departure time
@@ -269,17 +269,16 @@ class Booking {
                 await prisma.passenger.create({
                     data: {
                         bookingId: bookingData.id,
-                        bookedSeatId: inboundSeatData.find((s) => s.label === p.label).bookedSeatId,
+                        bookedSeatId: p.ageGroup !== 'Baby' ? inboundSeatData.find((s) => s.label === p.label).bookedSeatId : null,
                         label: p.label,
                         ageGroup: p.ageGroup,
                         title: p.title,
                         fullName: p.fullName,
                         familyName: p.familyName,
-                        birthDate: new Date(p.birthDate),
-                        nationality: p.nationality,
+                        birthDate: p.ageGroup !== 'Baby' ? new Date(p.birthDate) : null,
                         identityNumber: p.identityNumber,
                         issuingCountry: p.issuingCountry,
-                        expiryDate: new Date(p.expiryDate),
+                        expiryDate: p.ageGroup !== 'Baby' ? new Date(p.expiryDate) : null
                     }
                 });
             });
