@@ -1,5 +1,5 @@
 const request = require('supertest');
-const { app, server } = require('../../app');
+const { server, job } = require('../../app');
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const bcrypt = require('bcrypt');
@@ -57,6 +57,10 @@ describe('GET User Testing', () => {
         await prisma.user.deleteMany();
         await resetDatabase();
         await prisma.$disconnect(); 
+        server.close();
+        if (job) {
+            job.cancel();
+        }
     });
 
     test("GET /users successed (200)", async () => {
@@ -234,7 +238,11 @@ describe('POST User Testing', () => {
     afterAll(async () => {
         await prisma.user.deleteMany();
         await resetDatabase();
-        await prisma.$disconnect(); 
+        await prisma.$disconnect();
+        server.close();
+        if (job) {
+            job.cancel();
+        }
     });
 
     test("POST /users successed (201)", async () => {
@@ -512,7 +520,11 @@ describe('PATCH User Testing', () => {
     afterAll(async () => {
         await prisma.user.deleteMany();
         await resetDatabase();
-        await prisma.$disconnect(); 
+        await prisma.$disconnect();
+        server.close();
+        if (job) {
+            job.cancel();
+        }
     });
 
     test("PATCH /users/:id failed due to input are empty (400)", async () => {
@@ -755,7 +767,11 @@ describe('DELETE User Testing', () => {
     afterAll(async () => {
         await prisma.user.deleteMany();
         await resetDatabase();
-        await prisma.$disconnect(); 
+        await prisma.$disconnect();
+        server.close();
+        if (job) {
+            job.cancel();
+        }
     });
 
     test("DELETE /users/:id failed due to User not found (404)", async () => {
@@ -823,11 +839,3 @@ describe('DELETE User Testing', () => {
         expect(response.body.message).toBe("Pengguna berhasil dihapus.");
     });
 });
-
-
-afterAll(() => {
-    resetDatabase();
-    server.close();
-});
-
-
