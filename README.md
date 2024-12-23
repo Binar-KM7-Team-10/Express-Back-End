@@ -60,7 +60,7 @@ npm run setup:all
 npm run start:dev
 ```
 
-<h2 align="center">Developer Team 🧑‍💻</h2>
+## Developer Team 🧑‍💻
 
 - Muhammad Habib Al Farabi - [GitHub](https://github.com/Bibbeep)
 - Rafi Jauhari - [GitHub](https://github.com/Rafijoee)
